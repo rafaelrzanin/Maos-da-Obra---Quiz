@@ -22,20 +22,26 @@ import {
   CreditCard,
   QrCode,
   Sparkles,
-  Bot
+  Bot,
+  Fingerprint,
+  HardHat
 } from 'lucide-react';
 
 export const ResultsScreen: React.FC = () => {
   return (
-    <div className="flex flex-col h-full bg-[#F8FAFC] overflow-y-auto no-scrollbar scroll-smooth pb-32">
+    <div className="flex flex-col h-full bg-[#F8FAFC] overflow-y-auto no-scrollbar scroll-smooth pb-32 w-full relative">
       
       {/* ==========================================
           1. O DIAGNÓSTICO (HEADER)
       ========================================== */}
-      <div className="bg-[#0F172A] text-white pt-10 pb-24 px-6 rounded-b-[2.5rem] shadow-2xl relative z-10">
-        {/* Background Effects */}
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-red-600/10 rounded-full blur-[60px] pointer-events-none translate-y-1/2 -translate-x-1/2"></div>
+      {/* REMOVIDO overflow-hidden DO CONTAINER PRINCIPAL PARA NÃO CORTAR O CONTEÚDO */}
+      <div className="bg-[#0F172A] text-white pt-10 pb-32 px-6 rounded-b-[2.5rem] shadow-2xl relative z-10 w-full">
+        
+        {/* Background Effects (Contained to avoid page overflow) */}
+        <div className="absolute inset-0 overflow-hidden rounded-b-[2.5rem] pointer-events-none">
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-red-600/10 rounded-full blur-[60px] translate-y-1/2 -translate-x-1/2"></div>
+        </div>
         
         <div className="relative z-10 flex flex-col items-center text-center">
             
@@ -44,14 +50,14 @@ export const ResultsScreen: React.FC = () => {
               <span className="text-xs font-bold uppercase tracking-widest text-red-100">Alerta Financeiro Grave</span>
             </div>
             
-            <h1 className="text-2xl md:text-3xl font-black leading-tight mb-6 animate-fade-in-up delay-100 tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-black leading-tight mb-8 animate-fade-in-up delay-100 tracking-tight">
               Risco de perder até <span className="text-red-500 bg-red-500/10 px-2 rounded">30% do valor</span> da obra.
             </h1>
 
-            {/* IMPACT CARD */}
-            <div className="w-full bg-[#1E293B] rounded-2xl p-6 border border-red-500/30 mb-2 animate-fade-in-up delay-300 shadow-xl relative overflow-hidden">
+            {/* IMPACT CARD - FIXED VISIBILITY */}
+            <div className="w-full bg-[#1E293B] rounded-2xl p-6 border border-red-500/30 mb-4 animate-fade-in-up delay-300 shadow-xl relative overflow-hidden ring-1 ring-white/5">
                 
-                <p className="text-[10px] text-red-300 uppercase tracking-widest font-bold mb-4 border-b border-white/5 pb-2">
+                <p className="text-[10px] text-red-300 uppercase tracking-widest font-bold mb-4 border-b border-white/5 pb-2 text-left">
                   Projeção de Prejuízo Real
                 </p>
 
@@ -66,7 +72,7 @@ export const ResultsScreen: React.FC = () => {
                       <p className="text-xs text-red-400 font-bold flex items-center justify-end gap-1">
                         <TrendingDown size={12}/> Perda de
                       </p>
-                      <p className="font-black text-red-500 text-lg">R$ 30.000</p>
+                      <p className="font-black text-red-500 text-lg">R$ 30.000 a 90k</p>
                     </div>
                   </div>
 
@@ -85,14 +91,13 @@ export const ResultsScreen: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-white/10">
+                <div className="mt-4 pt-3 border-t border-white/10 text-left">
                    <p className="text-xs text-slate-300 leading-relaxed">
-                     <strong className="text-white">Atenção:</strong> Sem gestão profissional, 10% a 30% do orçamento é consumido por retrabalho, desperdício e roubo.
+                     <strong className="text-white">Atenção:</strong> Sem gestão profissional, 10% a 30% do orçamento vira entulho, desperdício e retrabalho.
                    </p>
                 </div>
             </div>
             
-            <div className="h-4"></div>
         </div>
       </div>
 
@@ -147,53 +152,40 @@ export const ResultsScreen: React.FC = () => {
            <div className="divide-y divide-slate-100">
               <ComparisonRow bad="Caderninho Sujo" good="App Automático" />
               <ComparisonRow bad="Contas de Cabeça" good="Relatórios PDF" />
-              <ComparisonRow bad="Achismo" good="Assistente IA" />
+              <ComparisonRow bad="Achismo" good="Zé da Obra (IA)" />
               <ComparisonRow bad="Prejuízo Certo" good="Obra Valorizada" />
            </div>
         </div>
       </div>
 
       {/* ==========================================
-          4. PROVA SOCIAL (AUTO SCROLLING MARQUEE)
+          4. PROVA SOCIAL (ROBUST SCROLLER)
       ========================================== */}
-      <div className="py-12 bg-[#1A2A44] overflow-hidden relative group">
-         <div className="px-6 mb-6 text-center">
-            <h3 className="text-white font-bold uppercase tracking-widest text-sm mb-1">Quem usa não larga</h3>
+      <div className="py-14 bg-[#1A2A44] w-full overflow-hidden">
+         <div className="px-6 mb-8 text-center">
+            <h3 className="text-white font-bold uppercase tracking-widest text-sm mb-2">Quem usa não larga</h3>
             <div className="flex justify-center gap-1">
-               {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-[#FFC107] fill-[#FFC107]" />)}
+               {[...Array(5)].map((_, i) => <Star key={i} size={16} className="text-[#FFC107] fill-[#FFC107]" />)}
             </div>
          </div>
 
-         {/* Gradient Masks for smooth fade out */}
-         <div className="absolute top-0 bottom-0 left-0 w-8 bg-gradient-to-r from-[#1A2A44] to-transparent z-10"></div>
-         <div className="absolute top-0 bottom-0 right-0 w-8 bg-gradient-to-l from-[#1A2A44] to-transparent z-10"></div>
-
-         {/* Infinite Marquee Wrapper */}
-         <div className="relative w-full overflow-hidden">
-             <div className="flex animate-marquee whitespace-nowrap gap-4">
+         <div className="scroller-container">
+             <div className="scroller-inner gap-4 px-4">
                  {/* Set 1 */}
                  <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
                  <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
-                 <TestimonialCard name="Roberto A." role="Pequena Reforma" text="A IA calculou o concreto certinho. Sobrou dinheiro pro ar condicionado." />
+                 <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
                  <TestimonialCard name="Paulo S." role="Engenheiro Civil" text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
+                 <TestimonialCard name="Fernanda L." role="Casa Geminada" text="Achava que planilha resolvia. O Mãos da Obra é outro nível." />
                  
-                 {/* Set 2 (Duplicate for seamless loop) */}
+                 {/* Set 2 (Duplicate for Loop) */}
                  <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
                  <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
-                 <TestimonialCard name="Roberto A." role="Pequena Reforma" text="A IA calculou o concreto certinho. Sobrou dinheiro pro ar condicionado." />
+                 <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
                  <TestimonialCard name="Paulo S." role="Engenheiro Civil" text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
+                 <TestimonialCard name="Fernanda L." role="Casa Geminada" text="Achava que planilha resolvia. O Mãos da Obra é outro nível." />
              </div>
          </div>
-         
-         <style>{`
-            .animate-marquee {
-               animation: marquee 25s linear infinite;
-            }
-            @keyframes marquee {
-               0% { transform: translateX(0); }
-               100% { transform: translateX(-50%); }
-            }
-         `}</style>
       </div>
 
       {/* ==========================================
@@ -228,37 +220,37 @@ export const ResultsScreen: React.FC = () => {
       </div>
 
       {/* ==========================================
-          6. IA ASSISTENTE DE OBRA (SIMPLICIDADE)
+          6. "ZÉ DA OBRA" (IA)
       ========================================== */}
       <div className="py-12 px-6 bg-slate-50 border-t border-slate-200">
          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-[#10B981]/10 text-[#10B981] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-3 border border-[#10B981]/20">
-               <Bot size={14} /> Mãos da Obra AI
+            <div className="inline-flex items-center gap-2 bg-[#10B981]/10 text-[#10B981] px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest mb-4 border border-[#10B981]/20">
+               <Bot size={16} /> Inteligência Artificial Exclusiva
             </div>
-            <h2 className="text-2xl font-black text-[#1A2A44]">Seu Assistente de Obra 24h</h2>
-            <p className="text-sm text-slate-600 mt-2 max-w-xs mx-auto">
-               Não perca tempo digitando. A Inteligência Artificial faz o trabalho chato por você.
+            <h2 className="text-3xl font-black text-[#1A2A44]">Conheça o "Zé da Obra"</h2>
+            <p className="text-sm text-slate-600 mt-3 max-w-xs mx-auto leading-relaxed">
+               Seu novo assistente pessoal. Ele pensa, calcula e organiza tudo para você não ter trabalho.
             </p>
          </div>
 
          {/* AI Features Cards */}
-         <div className="grid gap-3 mb-6">
-             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
-                <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
-                    <Construction size={20}/>
+         <div className="grid gap-3 mb-8">
+             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 hover:border-blue-400 transition-colors">
+                <div className="bg-blue-100 p-2.5 rounded-lg text-blue-700 shrink-0">
+                    <Construction size={22}/>
                 </div>
                 <div className="text-left">
-                    <h4 className="font-bold text-[#1A2A44] text-sm">Gera Etapas Automaticamente</h4>
-                    <p className="text-xs text-slate-500">O app cria o cronograma ideal da sua obra.</p>
+                    <h4 className="font-bold text-[#1A2A44] text-sm">Cronogramas Mágicos</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">O "Zé" cria todas as etapas da sua obra em segundos.</p>
                 </div>
              </div>
-             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
-                <div className="bg-orange-100 p-2 rounded-lg text-orange-600">
-                    <FileSignature size={20}/>
+             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 hover:border-orange-400 transition-colors">
+                <div className="bg-orange-100 p-2.5 rounded-lg text-orange-700 shrink-0">
+                    <FileSignature size={22}/>
                 </div>
                 <div className="text-left">
-                    <h4 className="font-bold text-[#1A2A44] text-sm">Lista de Materiais Pronta</h4>
-                    <p className="text-xs text-slate-500">Sabe exatamente o que você precisa comprar.</p>
+                    <h4 className="font-bold text-[#1A2A44] text-sm">Listas de Compras</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Ele diz exatamente o material e a quantidade certa.</p>
                 </div>
              </div>
          </div>
@@ -266,32 +258,33 @@ export const ResultsScreen: React.FC = () => {
          {/* Chat Interface Mockup */}
          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden max-w-sm mx-auto">
             <div className="bg-[#1A2A44] p-3 flex items-center gap-3 border-b border-slate-700">
-               <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#FFC107]">
-                  <Sparkles size={16} />
+               <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white border-2 border-white/20 shadow-md overflow-hidden relative">
+                   <HardHat size={20} className="text-[#FFC107] relative z-10" />
                </div>
                <div>
-                  <p className="text-xs font-bold text-white">Assistente de Obra</p>
-                  <p className="text-[10px] text-green-400 flex items-center gap-1">Online agora</p>
+                  <p className="text-xs font-bold text-white">Zé da Obra</p>
+                  <p className="text-[10px] text-green-400 flex items-center gap-1">Online • Respondendo</p>
                </div>
             </div>
             
             <div className="p-4 bg-slate-50 space-y-4">
                <div className="flex justify-end">
                   <div className="bg-slate-200 text-slate-700 text-xs p-3 rounded-l-xl rounded-tr-xl max-w-[85%] shadow-sm">
-                     Vou construir um quarto de 4x4m. O que eu preciso?
+                     "Zé", vou rebocar uma parede de 20m². O que eu compro?
                   </div>
                </div>
                
                <div className="flex justify-start">
-                  <div className="bg-white border border-slate-200 text-slate-700 text-xs p-3 rounded-r-xl rounded-tl-xl max-w-[90%] shadow-sm">
-                     <p className="font-bold mb-1 text-[#1A2A44]">Gerando lista automática...</p>
-                     Para 16m², você precisará de:
-                     <ul className="list-disc pl-4 mt-1 space-y-1 text-slate-600">
-                        <li>Aprox. 800 tijolos</li>
-                        <li>1.5m³ de areia</li>
-                        <li>6 sacos de cimento</li>
+                  <div className="bg-white border border-slate-200 text-slate-700 text-xs p-3 rounded-r-xl rounded-tl-xl max-w-[95%] shadow-sm">
+                     <p className="font-bold mb-2 text-[#1A2A44]">Deixa comigo! Para 20m² de reboco (2cm):</p>
+                     <ul className="list-disc pl-4 space-y-1.5 text-slate-600 mb-2">
+                        <li>3,5 sacos de cimento (50kg)</li>
+                        <li>0,4 m³ de areia média</li>
+                        <li>1,5 sacos de cal hidratada</li>
                      </ul>
-                     <p className="mt-2 text-[#10B981] font-bold text-[10px] uppercase">Já adicionei à sua lista de compras!</p>
+                     <p className="text-[#10B981] font-bold text-[10px] uppercase border-t border-slate-100 pt-2 mt-2">
+                        ✅ Já salvei na sua lista de materiais!
+                     </p>
                   </div>
                </div>
             </div>
@@ -382,10 +375,10 @@ export const ResultsScreen: React.FC = () => {
           </div>
 
           {/* 3. PLANO VITALÍCIO (HERO) */}
-          <div className="relative transform scale-105 z-10 mt-6">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#FFC107] to-orange-500 rounded-2xl blur opacity-75 animate-pulse"></div>
+          <div className="relative transform scale-105 z-20 mt-6">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#FFC107] to-orange-500 rounded-2xl blur opacity-75 animate-pulse pointer-events-none"></div>
             
-            <div className="bg-[#1A2A44] rounded-xl p-1 relative">
+            <div className="bg-[#1A2A44] rounded-xl p-1 relative shadow-2xl">
                 <div className="bg-[#0F172A] rounded-lg p-6 text-white relative overflow-hidden">
                     
                     <div className="absolute top-0 right-0 bg-[#FFC107] text-[#1A2A44] text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider">
@@ -410,14 +403,14 @@ export const ResultsScreen: React.FC = () => {
                             <CheckCircle2 size={16} className="text-[#FFC107]"/> <span>Acesso Vitalício ao App</span>
                         </div>
                         <div className="flex items-center gap-3 text-sm font-medium">
-                            <Sparkles size={16} className="text-[#FFC107]"/> <span className="text-[#FFC107] font-bold">Assistente IA Incluso</span>
+                            <Bot size={16} className="text-[#FFC107]"/> <span className="text-[#FFC107] font-bold">Zé da Obra (IA) Incluso</span>
                         </div>
                         <div className="flex items-center gap-3 text-sm font-medium">
                             <Gift size={16} className="text-[#FFC107]"/> <span>Todos os Bônus (R$ 900+)</span>
                         </div>
                     </div>
 
-                    <button className="w-full py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-black text-lg shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] transform transition-transform active:scale-[0.98] flex items-center justify-center gap-2 group">
+                    <button className="w-full py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-black text-lg shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] transform transition-transform active:scale-[0.98] flex items-center justify-center gap-2 group relative z-30">
                         QUERO O VITALÍCIO
                         <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </button>
@@ -426,42 +419,74 @@ export const ResultsScreen: React.FC = () => {
             </div>
           </div>
 
-          {/* Payment Methods */}
-          <div className="flex flex-col items-center gap-3 mt-4 opacity-70 grayscale hover:grayscale-0 transition-all">
-             <div className="flex gap-4 items-center">
-                <div className="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded border border-slate-200">
-                    <QrCode size={16} className="text-slate-600"/> 
-                    <span className="text-[10px] font-bold text-slate-600">PIX</span>
+          {/* Payment Methods - MOVED DOWN FOR SPACING */}
+          <div className="flex flex-col items-center gap-4 mt-12 relative z-10">
+             
+             {/* Card Badges Row */}
+             <div className="flex gap-3 items-center opacity-90">
+                {/* Pix Badge */}
+                <div className="flex flex-col items-center justify-center bg-white border border-slate-200 rounded-lg px-4 py-2 h-12 shadow-sm">
+                   <QrCode size={20} className="text-[#10B981] mb-0.5" />
+                   <span className="text-[9px] font-bold text-[#10B981] leading-none">PIX</span>
                 </div>
-                <div className="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded border border-slate-200">
-                    <CreditCard size={16} className="text-slate-600"/> 
-                    <span className="text-[10px] font-bold text-slate-600">Cartão até 12x</span>
+                
+                {/* Credit Cards Visual Badges */}
+                <div className="flex items-center bg-slate-50 rounded-lg px-4 h-12 gap-3 border border-slate-200 shadow-sm">
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="flex -space-x-1.5">
+                            <div className="w-4 h-4 rounded-full bg-red-500"></div>
+                            <div className="w-4 h-4 rounded-full bg-yellow-500/90"></div>
+                        </div>
+                        <span className="text-[8px] font-bold text-slate-500 mt-1">Master</span>
+                    </div>
+                    <div className="w-[1px] h-6 bg-slate-300"></div>
+                    <div className="flex flex-col items-center justify-center">
+                         <span className="text-[12px] font-black text-blue-800 leading-none italic font-serif">Visa</span>
+                         <span className="text-[8px] font-bold text-slate-500 mt-0.5">Visa</span>
+                    </div>
+                    <div className="w-[1px] h-6 bg-slate-300"></div>
+                    <div className="flex flex-col items-center justify-center">
+                        <CreditCard size={18} className="text-slate-600"/>
+                        <span className="text-[8px] font-bold text-slate-500 mt-1">Outros</span>
+                    </div>
                 </div>
              </div>
-             <p className="text-[10px] text-slate-400">Ambiente 100% Seguro</p>
+
+             <div className="flex items-center gap-2 text-[#1A2A44] bg-white px-5 py-2 rounded-full border border-slate-200 shadow-sm mt-2">
+                 <Lock size={14} strokeWidth={2.5} className="text-green-600" />
+                 <span className="text-[10px] font-bold uppercase tracking-wide">Ambiente 100% Criptografado</span>
+             </div>
           </div>
 
         </div>
 
-        {/* PREMIUM GUARANTEE CARD */}
-        <div className="mt-16 relative p-1 rounded-2xl bg-gradient-to-b from-[#C59D5F] to-[#9E7C46] max-w-sm mx-auto shadow-2xl">
-            <div className="bg-[#FFFBF0] rounded-xl p-6 text-center relative overflow-hidden">
-                {/* Badge Icon */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-[#C59D5F] to-[#9E7C46] w-16 h-16 rounded-full flex items-center justify-center shadow-lg pt-2 border-4 border-[#FFFBF0]">
-                   <ShieldCheck size={32} className="text-white fill-white/20" />
+        {/* SATISFACTION GUARANTEE - REDESIGNED */}
+        <div className="mt-20 max-w-sm mx-auto relative group">
+            <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden relative">
+                {/* Header Banner */}
+                <div className="bg-[#1A2A44] p-4 text-center">
+                   <div className="w-12 h-12 bg-[#FFC107] rounded-full flex items-center justify-center mx-auto -mb-8 border-4 border-white shadow-md relative z-10">
+                      <ShieldCheck size={24} className="text-[#1A2A44]" />
+                   </div>
                 </div>
                 
-                <h3 className="font-black text-[#856434] mt-6 mb-2 uppercase tracking-wide text-lg font-serif">Garantia Blindada</h3>
-                <div className="w-12 h-1 bg-[#C59D5F] mx-auto mb-4 rounded-full"></div>
-                
-                <p className="text-sm text-[#5C4D38] mb-2 font-medium leading-relaxed">
-                  Teste o <span className="font-bold">Assistente IA</span> e o controle financeiro por <span className="font-bold text-[#856434]">30 dias</span>.
-                </p>
-                <p className="text-xs text-[#8C7A62] leading-relaxed">
-                  Se você não economizar pelo menos 10x o valor investido, nós devolvemos 100% do seu dinheiro. Sem perguntas.
-                </p>
+                <div className="pt-10 pb-6 px-6 text-center">
+                   <h3 className="font-black text-[#1A2A44] text-lg uppercase tracking-wide mb-1">Garantia Risco Zero</h3>
+                   <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-4">Teste por 30 Dias</p>
+                   
+                   <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                      "Se você não conseguir organizar sua obra, controlar os gastos ou não ficar satisfeito com o <span className="font-bold text-[#1A2A44]">Zé da Obra</span> em até 30 dias, nós devolvemos 100% do seu dinheiro."
+                   </p>
+                   
+                   <div className="mt-4 pt-4 border-t border-slate-100">
+                      <p className="text-[10px] text-green-600 font-bold uppercase flex items-center justify-center gap-1">
+                         <CheckCircle2 size={12} /> Satisfação Garantida
+                      </p>
+                   </div>
+                </div>
             </div>
         </div>
+
       </div>
 
       {/* STICKY CTA */}
@@ -532,12 +557,12 @@ const PremiumBonusCard = ({ icon, title, desc, price }: { icon: React.ReactNode,
 );
 
 const TestimonialCard = ({ name, role, text }: { name: string, role: string, text: string }) => (
-   <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10 min-w-[280px] max-w-[280px] inline-block whitespace-normal align-top mx-2">
-      <div className="flex gap-1 mb-2">
-         {[...Array(5)].map((_, i) => <Star key={i} size={12} className="text-[#FFC107] fill-[#FFC107]" />)}
+   <div className="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/10 min-w-[280px] w-[280px] flex-shrink-0">
+      <div className="flex gap-1 mb-3">
+         {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-[#FFC107] fill-[#FFC107]" />)}
       </div>
-      <p className="text-xs text-slate-200 italic mb-3 leading-relaxed min-h-[60px]">"{text}"</p>
-      <div className="border-t border-white/5 pt-2">
+      <p className="text-xs text-slate-200 italic mb-4 leading-relaxed line-clamp-3">"{text}"</p>
+      <div className="border-t border-white/10 pt-3">
           <p className="text-[11px] font-bold text-white uppercase">{name}</p>
           <p className="text-[10px] text-slate-400">{role}</p>
       </div>
