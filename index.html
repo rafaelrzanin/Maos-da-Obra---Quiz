@@ -56,18 +56,17 @@
         position: relative;
         width: 100%;
         overflow: hidden;
-        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        /* Mask to fade edges */
+        mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
       }
       
       .scroller-inner {
         display: flex;
-        width: fit-content;
+        width: max-content; /* Critical fix: ensures content doesn't collapse */
         gap: 1rem;
-        animation: scroll 30s linear infinite;
+        animation: scroll 40s linear infinite; /* Slower for better readability */
       }
-      
-      /* Stop animation on hover optional - removed for stability */
       
       .delay-100 { animation-delay: 100ms; }
       .delay-200 { animation-delay: 200ms; }

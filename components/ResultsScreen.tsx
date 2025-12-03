@@ -23,7 +23,8 @@ import {
   QrCode,
   MessageCircle,
   ThumbsUp,
-  HardHat
+  HardHat,
+  Check
 } from 'lucide-react';
 
 export const ResultsScreen: React.FC = () => {
@@ -154,10 +155,10 @@ export const ResultsScreen: React.FC = () => {
       </div>
 
       {/* ==========================================
-          4. PROVA SOCIAL (SCROLLER FIXED)
-      ========================================== */}
-      <div className="py-14 bg-[#1A2A44] w-full overflow-hidden border-t border-white/5">
-         <div className="px-6 mb-8 text-center">
+          4. PROVA SOCIAL (FIXED & VISIBLE)
+      ========================================= */}
+      <div className="py-14 bg-[#1A2A44] w-full border-t border-white/5 relative z-10 overflow-hidden">
+         <div className="px-6 mb-8 text-center relative z-10">
             <h3 className="text-white font-bold uppercase tracking-widest text-sm mb-2">Quem usa não larga</h3>
             <div className="flex justify-center gap-1">
                {[...Array(5)].map((_, i) => <Star key={i} size={16} className="text-[#FFC107] fill-[#FFC107]" />)}
@@ -165,20 +166,14 @@ export const ResultsScreen: React.FC = () => {
          </div>
 
          <div className="scroller-container">
-             <div className="scroller-inner gap-4 px-4">
+             <div className="scroller-inner px-4">
                  {/* Set 1 */}
                  <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
                  <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
                  <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
                  <TestimonialCard name="Paulo S." role="Engenheiro Civil" text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
                  
-                 {/* Set 2 */}
-                 <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
-                 <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
-                 <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
-                 <TestimonialCard name="Paulo S." role="Engenheiro Civil" text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
-                 
-                 {/* Set 3 */}
+                 {/* Set 2 (Duplicated for seamless loop) */}
                  <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
                  <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
                  <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
@@ -269,63 +264,79 @@ export const ResultsScreen: React.FC = () => {
       </div>
 
       {/* ==========================================
-          NOVO: SEÇÃO DE SIMPLICIDADE
+          NOVO: SEÇÃO DE SIMPLICIDADE (PREMIUM)
       ========================================== */}
-      <div className="bg-white py-14 px-6 relative border-t border-slate-100">
-          <div className="text-center mb-10">
-              <h2 className="text-2xl font-black text-[#1A2A44] mb-4">
+      <div className="bg-[#1A2A44] py-16 px-6 relative overflow-hidden">
+          {/* Ambient Light */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[80px]"></div>
+          
+          <div className="relative z-10 text-center mb-10">
+              <div className="inline-block bg-white/10 px-3 py-1 rounded-full text-xs font-bold text-white/80 mb-4 border border-white/10">
+                 Fácil de verdade
+              </div>
+              <h2 className="text-2xl md:text-3xl font-black text-white mb-4 leading-tight">
                   "Mas eu não entendo de tecnologia..."
               </h2>
-              <p className="text-sm text-slate-600 leading-relaxed max-w-xs mx-auto">
-                  Fique tranquilo. A ferramenta foi criada para quem constrói, não para quem programa.
+              <p className="text-sm text-slate-300 leading-relaxed max-w-xs mx-auto">
+                  Esqueça planilhas complicadas. Se você sabe usar o WhatsApp, você domina o Mãos da Obra.
               </p>
           </div>
 
-          <div className="bg-[#F0F9FF] rounded-2xl p-6 border border-blue-100 shadow-lg relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4 opacity-10">
-                  <MessageCircle size={100} className="text-blue-500" />
-              </div>
-              
-              <div className="relative z-10 flex flex-col items-center text-center gap-4">
-                  <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-lg text-white mb-2">
-                      <ThumbsUp size={32} />
-                  </div>
-                  
-                  <h3 className="font-bold text-lg text-blue-900">
-                     Simples como usar o WhatsApp
-                  </h3>
-                  
-                  <p className="text-sm text-blue-800/80 leading-relaxed">
-                      Se você sabe mandar mensagem no "Zap", você sabe usar o Mãos da Obra. Visual limpo, botões grandes e o <span className="font-bold">Zé (IA)</span> fazendo a parte chata.
-                  </p>
-              </div>
+          <div className="max-w-sm mx-auto">
+             {/* Glassmorphism Card */}
+             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 relative shadow-2xl">
+                 <div className="flex items-center justify-between mb-8">
+                     {/* Chat Icon */}
+                     <div className="flex flex-col items-center gap-2">
+                        <div className="w-14 h-14 bg-green-500/20 rounded-2xl flex items-center justify-center border border-green-500/30">
+                           <MessageCircle size={28} className="text-green-400" />
+                        </div>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase">WhatsApp</span>
+                     </div>
+                     
+                     <ArrowRight className="text-white/20" />
+
+                     {/* App Icon */}
+                     <div className="flex flex-col items-center gap-2">
+                        <div className="w-14 h-14 bg-[#FFC107]/20 rounded-2xl flex items-center justify-center border border-[#FFC107]/30">
+                           <Smartphone size={28} className="text-[#FFC107]" />
+                        </div>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase">Mãos da Obra</span>
+                     </div>
+                 </div>
+
+                 <div className="bg-black/20 rounded-xl p-4 border border-white/5 text-center">
+                    <p className="text-white font-bold text-sm mb-1">Mesma Simplicidade</p>
+                    <p className="text-xs text-slate-400">Sem menus confusos. Clique, fale com o Zé e pronto.</p>
+                 </div>
+             </div>
           </div>
       </div>
 
       {/* ==========================================
           7. BÔNUS DE ALTO VALOR
       ========================================== */}
-      <div className="py-12 px-6 bg-[#1A2A44] text-white">
+      <div className="py-12 px-6 bg-slate-50 text-[#1A2A44] border-t border-slate-200">
          <div className="text-center mb-10">
-            <Gift size={40} className="text-[#FFC107] mx-auto mb-4 animate-bounce" />
+            <Gift size={40} className="text-[#FFC107] mx-auto mb-4" />
             <h2 className="text-2xl font-black">Bônus Exclusivos</h2>
-            <p className="text-slate-400 text-sm mt-2">Disponível apenas no plano Vitalício.</p>
+            <p className="text-slate-500 text-sm mt-2">Disponível apenas no plano Vitalício.</p>
          </div>
 
          <div className="space-y-4">
-            <PremiumBonusCard 
+            <PremiumBonusCardLight 
                icon={<Calculator />}
                title="Calculadora de Materiais"
                desc="Cálculo exato de tijolos, pisos e tintas."
                price="197,00"
             />
-            <PremiumBonusCard 
+            <PremiumBonusCardLight 
                icon={<FileSignature />}
                title="Pack de Contratos & Recibos"
                desc="Modelos jurídicos blindados para fechar com pedreiros."
                price="297,00"
             />
-            <PremiumBonusCard 
+            <PremiumBonusCardLight 
                icon={<ShieldCheck />}
                title="Checklist Anti-Golpe"
                desc="O passo a passo para conferir a entrega da obra."
@@ -333,7 +344,7 @@ export const ResultsScreen: React.FC = () => {
             />
          </div>
          
-         <div className="mt-8 pt-8 border-t border-white/10 text-center">
+         <div className="mt-8 pt-8 border-t border-slate-200 text-center">
             <p className="text-xl font-bold text-[#10B981] mt-2">TOTAL GRÁTIS HOJE</p>
             <p className="text-xs text-slate-400">Na compra do plano vitalício</p>
          </div>
@@ -429,8 +440,8 @@ export const ResultsScreen: React.FC = () => {
             </div>
           </div>
 
-          {/* Payment Methods - SPACING INCREASED */}
-          <div className="flex flex-col items-center gap-4 mt-20 relative z-10">
+          {/* Payment Methods - SPACING FIXED (mt-32) */}
+          <div className="flex flex-col items-center gap-4 mt-32 relative z-10">
              
              {/* Card Badges Row */}
              <div className="flex gap-3 items-center opacity-90">
@@ -470,28 +481,38 @@ export const ResultsScreen: React.FC = () => {
 
         </div>
 
-        {/* SATISFACTION GUARANTEE - PREMIUM BLACK/GOLD */}
+        {/* SATISFACTION GUARANTEE - REDESIGNED 3D BADGE STYLE */}
         <div className="mt-12 max-w-sm mx-auto relative group px-2">
-            <div className="bg-[#1A2A44] rounded-xl border-2 border-[#C59D5F] shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-[#C59D5F] rounded-full blur-[40px] opacity-20 pointer-events-none"></div>
-                
-                <div className="p-6 text-center">
-                   {/* Icon */}
-                   <div className="w-14 h-14 bg-gradient-to-br from-[#C59D5F] to-[#8C7A62] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#1A2A44] shadow-lg shadow-[#C59D5F]/20">
-                      <ShieldCheck size={28} className="text-[#1A2A44]" />
+            
+            {/* Main Badge Container */}
+            <div className="flex flex-col items-center relative">
+               
+               {/* 3D Gold Shield Icon */}
+               <div className="w-24 h-24 bg-gradient-to-br from-[#FFC107] via-[#F59E0B] to-[#B45309] rounded-full flex items-center justify-center shadow-[0_10px_40px_rgba(245,158,11,0.5)] border-4 border-white relative z-20 mb-[-30px]">
+                  <ShieldCheck size={48} className="text-white drop-shadow-md" strokeWidth={2.5} />
+               </div>
+               
+               {/* Content Box */}
+               <div className="bg-white w-full rounded-3xl pt-12 pb-8 px-6 shadow-2xl border border-slate-100 relative z-10">
+                   <h3 className="text-center font-black text-2xl text-[#1A2A44] uppercase tracking-tighter mb-2">
+                     Garantia Total
+                   </h3>
+                   <div className="flex justify-center items-center gap-2 mb-4">
+                      <div className="h-px w-8 bg-slate-200"></div>
+                      <span className="text-xs font-bold text-[#F59E0B] uppercase tracking-widest">30 Dias • Risco Zero</span>
+                      <div className="h-px w-8 bg-slate-200"></div>
                    </div>
-
-                   <h3 className="font-serif text-xl text-[#C59D5F] font-bold mb-2 tracking-wide">Garantia Risco Zero</h3>
-                   <div className="w-12 h-0.5 bg-[#C59D5F]/30 mx-auto mb-4"></div>
                    
-                   <p className="text-sm text-slate-300 leading-relaxed font-light mb-4">
-                      Se você não conseguir organizar sua obra em até <span className="text-white font-bold">30 dias</span>, nós devolvemos <span className="text-[#C59D5F]">100% do seu dinheiro</span>.
+                   <p className="text-center text-slate-600 text-sm leading-relaxed mb-6">
+                      Você tem 30 dias para testar. Se não economizar na obra ou não gostar do Zé, nós devolvemos <span className="font-bold text-[#1A2A44] border-b-2 border-[#FFC107]">100% do seu dinheiro</span>.
                    </p>
 
-                   <div className="inline-flex items-center gap-2 bg-[#C59D5F]/10 border border-[#C59D5F]/30 px-3 py-1 rounded text-[10px] text-[#C59D5F] uppercase tracking-widest font-bold">
-                       Sem perguntas
+                   <div className="flex justify-center">
+                      <div className="inline-flex items-center gap-2 bg-[#F0FDF4] text-green-700 px-4 py-2 rounded-xl font-bold text-xs border border-green-200">
+                         <Check size={14} strokeWidth={4} /> Reembolso Automático
+                      </div>
                    </div>
-                </div>
+               </div>
             </div>
         </div>
 
@@ -548,16 +569,16 @@ const FeatureItemLight = ({ icon, title, desc }: { icon: React.ReactNode, title:
     </div>
 );
 
-const PremiumBonusCard = ({ icon, title, desc, price }: { icon: React.ReactNode, title: string, desc: string, price: string }) => (
-  <div className="flex gap-4 bg-white/5 p-4 rounded-xl border border-white/10 items-center relative overflow-hidden group">
-     <div className="bg-[#1A2A44] p-3 rounded-lg border border-white/20 text-[#FFC107] shadow-lg shrink-0 z-10">
+const PremiumBonusCardLight = ({ icon, title, desc, price }: { icon: React.ReactNode, title: string, desc: string, price: string }) => (
+  <div className="flex gap-4 bg-white p-4 rounded-xl border border-slate-200 items-center relative overflow-hidden group shadow-sm">
+     <div className="bg-[#1A2A44] p-3 rounded-lg border border-slate-100 text-[#FFC107] shadow-md shrink-0 z-10">
         {React.cloneElement(icon as React.ReactElement, { size: 22 })}
      </div>
      <div className="z-10 flex-1">
-        <h3 className="font-bold text-white text-sm mb-1">{title}</h3>
-        <p className="text-[11px] text-slate-400 leading-tight mb-2">{desc}</p>
+        <h3 className="font-bold text-[#1A2A44] text-sm mb-1">{title}</h3>
+        <p className="text-[11px] text-slate-500 leading-tight mb-2">{desc}</p>
         <div className="flex items-center gap-2">
-            <span className="text-[10px] bg-red-500/20 text-red-300 px-2 py-0.5 rounded line-through">R$ {price}</span>
+            <span className="text-[10px] bg-red-100 text-red-500 px-2 py-0.5 rounded line-through">R$ {price}</span>
             <span className="text-[10px] text-[#10B981] font-bold">GRÁTIS HOJE</span>
         </div>
      </div>
