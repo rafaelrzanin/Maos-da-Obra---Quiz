@@ -155,7 +155,7 @@ export const ResultsScreen: React.FC = () => {
       </div>
 
       {/* ==========================================
-          4. PROVA SOCIAL (FIXED & VISIBLE)
+          4. PROVA SOCIAL (SCROLL INFINITO)
       ========================================= */}
       <div className="py-14 bg-[#1A2A44] w-full border-t border-white/5 relative z-10 overflow-hidden">
          <div className="px-6 mb-8 text-center relative z-10">
@@ -173,7 +173,7 @@ export const ResultsScreen: React.FC = () => {
                  <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
                  <TestimonialCard name="Paulo S." role="Engenheiro Civil" text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
                  
-                 {/* Set 2 (Duplicated for seamless loop) */}
+                 {/* Set 2 (DUPLICADO PARA O LOOP) */}
                  <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
                  <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
                  <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
@@ -264,50 +264,60 @@ export const ResultsScreen: React.FC = () => {
       </div>
 
       {/* ==========================================
-          NOVO: SEÇÃO DE SIMPLICIDADE (PREMIUM)
+          NOVO: SEÇÃO PREMIUM "SIMPLES COMO WHATSAPP"
       ========================================== */}
-      <div className="bg-[#1A2A44] py-16 px-6 relative overflow-hidden">
-          {/* Ambient Light */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[80px]"></div>
+      <div className="bg-[#1A2A44] py-16 px-6 relative overflow-hidden border-t border-white/10">
+          {/* Ambient Light Effects */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[80px] pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#FFC107]/10 rounded-full blur-[60px] pointer-events-none"></div>
           
-          <div className="relative z-10 text-center mb-10">
-              <div className="inline-block bg-white/10 px-3 py-1 rounded-full text-xs font-bold text-white/80 mb-4 border border-white/10">
-                 Fácil de verdade
+          <div className="relative z-10 text-center mb-12">
+              <div className="inline-block bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-[10px] font-bold text-white/90 mb-6 border border-white/10 uppercase tracking-widest">
+                 Tecnologia Invisível
               </div>
-              <h2 className="text-2xl md:text-3xl font-black text-white mb-4 leading-tight">
-                  "Mas eu não entendo de tecnologia..."
+              <h2 className="text-2xl md:text-3xl font-black text-white mb-6 leading-tight">
+                  "Eu não entendo de tecnologia..."
               </h2>
-              <p className="text-sm text-slate-300 leading-relaxed max-w-xs mx-auto">
-                  Esqueça planilhas complicadas. Se você sabe usar o WhatsApp, você domina o Mãos da Obra.
+              <p className="text-sm text-slate-300 leading-relaxed max-w-xs mx-auto font-light">
+                  Fique tranquilo. O Mãos da Obra foi desenhado para ser tão simples quanto enviar um "Bom dia" no grupo da família.
               </p>
           </div>
 
           <div className="max-w-sm mx-auto">
-             {/* Glassmorphism Card */}
-             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 relative shadow-2xl">
-                 <div className="flex items-center justify-between mb-8">
-                     {/* Chat Icon */}
-                     <div className="flex flex-col items-center gap-2">
-                        <div className="w-14 h-14 bg-green-500/20 rounded-2xl flex items-center justify-center border border-green-500/30">
-                           <MessageCircle size={28} className="text-green-400" />
+             {/* Premium Glassmorphism Card */}
+             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative shadow-2xl overflow-hidden group">
+                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                 
+                 <div className="relative z-10 flex items-center justify-between mb-10">
+                     {/* WhatsApp Side */}
+                     <div className="flex flex-col items-center gap-3">
+                        <div className="w-16 h-16 bg-[#25D366]/20 rounded-2xl flex items-center justify-center border border-[#25D366]/30 shadow-[0_0_15px_rgba(37,211,102,0.2)]">
+                           <MessageCircle size={32} className="text-[#25D366]" />
                         </div>
-                        <span className="text-[10px] text-slate-400 font-bold uppercase">WhatsApp</span>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">WhatsApp</span>
                      </div>
                      
-                     <ArrowRight className="text-white/20" />
+                     <div className="flex flex-col items-center gap-1">
+                        <div className="h-[1px] w-12 bg-white/20"></div>
+                        <ArrowRight size={14} className="text-white/40" />
+                     </div>
 
-                     {/* App Icon */}
-                     <div className="flex flex-col items-center gap-2">
-                        <div className="w-14 h-14 bg-[#FFC107]/20 rounded-2xl flex items-center justify-center border border-[#FFC107]/30">
-                           <Smartphone size={28} className="text-[#FFC107]" />
+                     {/* Mãos da Obra Side */}
+                     <div className="flex flex-col items-center gap-3">
+                        <div className="w-16 h-16 bg-[#FFC107]/20 rounded-2xl flex items-center justify-center border border-[#FFC107]/30 shadow-[0_0_15px_rgba(255,193,7,0.2)]">
+                           <Smartphone size={32} className="text-[#FFC107]" />
                         </div>
-                        <span className="text-[10px] text-slate-400 font-bold uppercase">Mãos da Obra</span>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Mãos da Obra</span>
                      </div>
                  </div>
 
-                 <div className="bg-black/20 rounded-xl p-4 border border-white/5 text-center">
-                    <p className="text-white font-bold text-sm mb-1">Mesma Simplicidade</p>
-                    <p className="text-xs text-slate-400">Sem menus confusos. Clique, fale com o Zé e pronto.</p>
+                 <div className="bg-black/30 rounded-xl p-5 border border-white/5 text-center">
+                    <p className="text-white font-bold text-sm mb-2 flex items-center justify-center gap-2">
+                       <ThumbsUp size={16} className="text-[#FFC107]" /> Mesma Simplicidade
+                    </p>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                       Sem menus confusos ou configurações chatas. É clicar, falar com o Zé e resolver.
+                    </p>
                  </div>
              </div>
           </div>
@@ -440,7 +450,7 @@ export const ResultsScreen: React.FC = () => {
             </div>
           </div>
 
-          {/* Payment Methods - SPACING FIXED (mt-32) */}
+          {/* Payment Methods - SPACING FIXED (mt-32 to clear shadows) */}
           <div className="flex flex-col items-center gap-4 mt-32 relative z-10">
              
              {/* Card Badges Row */}
@@ -481,35 +491,35 @@ export const ResultsScreen: React.FC = () => {
 
         </div>
 
-        {/* SATISFACTION GUARANTEE - REDESIGNED 3D BADGE STYLE */}
-        <div className="mt-12 max-w-sm mx-auto relative group px-2">
+        {/* SATISFACTION GUARANTEE - 3D BADGE STYLE (FIXED) */}
+        <div className="mt-20 max-w-sm mx-auto relative group px-2">
             
             {/* Main Badge Container */}
             <div className="flex flex-col items-center relative">
                
-               {/* 3D Gold Shield Icon */}
-               <div className="w-24 h-24 bg-gradient-to-br from-[#FFC107] via-[#F59E0B] to-[#B45309] rounded-full flex items-center justify-center shadow-[0_10px_40px_rgba(245,158,11,0.5)] border-4 border-white relative z-20 mb-[-30px]">
-                  <ShieldCheck size={48} className="text-white drop-shadow-md" strokeWidth={2.5} />
+               {/* 3D Gold Shield Icon - Floating Above */}
+               <div className="w-24 h-24 bg-gradient-to-br from-[#FFC107] via-[#F59E0B] to-[#B45309] rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(245,158,11,0.4)] border-4 border-white relative z-20 mb-[-40px]">
+                  <ShieldCheck size={44} className="text-white drop-shadow-md" strokeWidth={2.5} />
                </div>
                
                {/* Content Box */}
-               <div className="bg-white w-full rounded-3xl pt-12 pb-8 px-6 shadow-2xl border border-slate-100 relative z-10">
-                   <h3 className="text-center font-black text-2xl text-[#1A2A44] uppercase tracking-tighter mb-2">
+               <div className="bg-white w-full rounded-3xl pt-14 pb-8 px-6 shadow-2xl border border-slate-100 relative z-10">
+                   <h3 className="text-center font-black text-2xl text-[#1A2A44] uppercase tracking-tighter mb-3">
                      Garantia Total
                    </h3>
-                   <div className="flex justify-center items-center gap-2 mb-4">
+                   <div className="flex justify-center items-center gap-3 mb-5">
                       <div className="h-px w-8 bg-slate-200"></div>
-                      <span className="text-xs font-bold text-[#F59E0B] uppercase tracking-widest">30 Dias • Risco Zero</span>
+                      <span className="text-[10px] font-bold text-[#F59E0B] uppercase tracking-widest bg-[#FFFBEB] px-2 py-1 rounded">30 Dias • Risco Zero</span>
                       <div className="h-px w-8 bg-slate-200"></div>
                    </div>
                    
-                   <p className="text-center text-slate-600 text-sm leading-relaxed mb-6">
+                   <p className="text-center text-slate-600 text-sm leading-relaxed mb-6 font-medium">
                       Você tem 30 dias para testar. Se não economizar na obra ou não gostar do Zé, nós devolvemos <span className="font-bold text-[#1A2A44] border-b-2 border-[#FFC107]">100% do seu dinheiro</span>.
                    </p>
 
                    <div className="flex justify-center">
-                      <div className="inline-flex items-center gap-2 bg-[#F0FDF4] text-green-700 px-4 py-2 rounded-xl font-bold text-xs border border-green-200">
-                         <Check size={14} strokeWidth={4} /> Reembolso Automático
+                      <div className="inline-flex items-center gap-2 bg-[#F0FDF4] text-green-700 px-4 py-2.5 rounded-xl font-bold text-xs border border-green-200 shadow-sm">
+                         <Check size={16} strokeWidth={3} className="text-green-600" /> Reembolso Automático
                       </div>
                    </div>
                </div>
