@@ -8,6 +8,7 @@ export interface Option {
 export interface Question {
   id: number;
   question: string;
+  context?: string;
   options: Option[];
 }
 

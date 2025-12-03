@@ -1,6 +1,6 @@
 import React from 'react';
 import { QUESTIONS } from '../constants';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Info } from 'lucide-react';
 
 interface QuizScreenProps {
   currentQuestionIndex: number;
@@ -10,13 +10,12 @@ interface QuizScreenProps {
 
 export const QuizScreen: React.FC<QuizScreenProps> = ({ currentQuestionIndex, onAnswer, onBack }) => {
   const question = QUESTIONS[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / QUESTIONS.length) * 100;
-
+  
   return (
     <div className="flex flex-col h-full bg-slate-50 relative">
       
       {/* Top Image Section with Gradient Overlay */}
-      <div className="relative h-[35%] w-full bg-[#1A2A44] transition-all duration-500">
+      <div className="relative h-[30%] min-h-[220px] w-full bg-[#1A2A44] transition-all duration-500">
          <div 
            key={question.id} // Forces re-render for fade effect
            className="absolute inset-0 bg-cover bg-center animate-fade-in-up opacity-0"
@@ -27,7 +26,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ currentQuestionIndex, on
            }}
          >
            {/* Heavy gradient for text readability and premium feel */}
-           <div className="absolute inset-0 bg-gradient-to-b from-[#1A2A44]/80 via-[#1A2A44]/40 to-slate-50"></div>
+           <div className="absolute inset-0 bg-gradient-to-b from-[#1A2A44]/80 via-[#1A2A44]/50 to-slate-50"></div>
          </div>
          
          {/* Navigation & Progress */}
@@ -64,31 +63,43 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ currentQuestionIndex, on
       </div>
 
       {/* Bottom Content Card */}
-      <div className="flex-1 -mt-12 rounded-t-[2.5rem] bg-slate-50 relative z-10 flex flex-col px-8 pt-10 pb-6 overflow-y-auto no-scrollbar shadow-[0_-10px_40px_rgba(0,0,0,0.15)]">
+      <div className="flex-1 -mt-12 rounded-t-[2.5rem] bg-slate-50 relative z-10 flex flex-col px-6 pt-10 pb-6 overflow-y-auto no-scrollbar shadow-[0_-10px_40px_rgba(0,0,0,0.15)]">
         
         <div key={`text-${question.id}`} className="animate-fade-in-up">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A2A44] mb-8 leading-snug tracking-tight">
-            {question.question}
+            <h2 className="text-2xl font-extrabold text-[#1A2A44] mb-4 leading-snug tracking-tight">
+                {question.question}
             </h2>
 
-            <div className="flex flex-col gap-4">
-            {question.options.map((option, idx) => (
-                <button
-                key={idx}
-                onClick={() => onAnswer(option.value)}
-                className="group relative w-full p-5 text-left bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-[#FFC107] hover:shadow-[0_8px_30px_rgba(255,193,7,0.15)] transition-all duration-200 active:scale-[0.98] flex items-center justify-between"
-                style={{ animationDelay: `${idx * 100}ms` }}
-                >
-                <span className="text-lg font-semibold text-slate-700 group-hover:text-[#1A2A44] transition-colors">
-                    {option.label}
-                </span>
-                
-                {/* Custom Radio Button UI */}
-                <div className="w-6 h-6 rounded-full border-2 border-slate-200 group-hover:border-[#FFC107] flex items-center justify-center transition-colors bg-slate-50 group-hover:bg-white">
-                    <div className="w-3 h-3 rounded-full bg-[#FFC107] transform scale-0 group-hover:scale-100 transition-transform duration-200"></div>
+            {/* Context/Insight Block */}
+            {question.context && (
+                <div className="bg-white border-l-4 border-[#FFC107] p-4 rounded-r-xl shadow-sm mb-6 flex gap-3">
+                   <div className="shrink-0 mt-0.5">
+                      <Info size={16} className="text-[#FFC107] fill-[#FFC107]/20" />
+                   </div>
+                   <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                      {question.context}
+                   </p>
                 </div>
-                </button>
-            ))}
+            )}
+
+            <div className="flex flex-col gap-3 pb-8">
+                {question.options.map((option, idx) => (
+                    <button
+                    key={idx}
+                    onClick={() => onAnswer(option.value)}
+                    className="group relative w-full p-4 text-left bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-[#FFC107] hover:shadow-[0_8px_30px_rgba(255,193,7,0.15)] transition-all duration-200 active:scale-[0.98] flex items-center justify-between"
+                    style={{ animationDelay: `${idx * 100}ms` }}
+                    >
+                    <span className="text-base font-semibold text-slate-700 group-hover:text-[#1A2A44] transition-colors pr-2">
+                        {option.label}
+                    </span>
+                    
+                    {/* Custom Radio Button UI */}
+                    <div className="w-5 h-5 shrink-0 rounded-full border-2 border-slate-200 group-hover:border-[#FFC107] flex items-center justify-center transition-colors bg-slate-50 group-hover:bg-white">
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#FFC107] transform scale-0 group-hover:scale-100 transition-transform duration-200"></div>
+                    </div>
+                    </button>
+                ))}
             </div>
         </div>
       </div>
