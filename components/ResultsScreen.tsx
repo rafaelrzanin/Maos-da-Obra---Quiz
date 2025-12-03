@@ -196,17 +196,17 @@ export const ResultsScreen: React.FC = () => {
 
            <div className="grid gap-3">
               <FeatureItemLight 
-                icon={<BarChart3 className="text-blue-600"/>} 
+                icon={<BarChart3 size={20} className="text-blue-600"/>} 
                 title="Raio-X Financeiro" 
                 desc="Saiba para onde vai cada centavo em tempo real." 
               />
               <FeatureItemLight 
-                icon={<Construction className="text-orange-600"/>} 
+                icon={<Construction size={20} className="text-orange-600"/>} 
                 title="Gestão de Etapas" 
                 desc="Cronograma automático: Saiba o que comprar e quando." 
               />
               <FeatureItemLight 
-                icon={<ShieldCheck className="text-green-600"/>} 
+                icon={<ShieldCheck size={20} className="text-green-600"/>} 
                 title="Blindagem de Caixa" 
                 desc="Alertas de estouro de orçamento antes que aconteça." 
               />
@@ -334,19 +334,19 @@ export const ResultsScreen: React.FC = () => {
 
          <div className="space-y-4">
             <PremiumBonusCardLight 
-               icon={<Calculator />}
+               icon={<Calculator size={22} />}
                title="Calculadora de Materiais"
                desc="Cálculo exato de tijolos, pisos e tintas."
                price="197,00"
             />
             <PremiumBonusCardLight 
-               icon={<FileSignature />}
+               icon={<FileSignature size={22} />}
                title="Pack de Contratos & Recibos"
                desc="Modelos jurídicos blindados para fechar com pedreiros."
                price="297,00"
             />
             <PremiumBonusCardLight 
-               icon={<ShieldCheck />}
+               icon={<ShieldCheck size={22} />}
                title="Checklist Anti-Golpe"
                desc="O passo a passo para conferir a entrega da obra."
                price="147,00"
@@ -573,10 +573,11 @@ const ComparisonRow = ({ bad, good }: { bad: string, good: string }) => (
     </div>
 );
 
+// REFACTORED: Now accepts icon element directly instead of cloneElement
 const FeatureItemLight = ({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) => (
     <div className="flex items-start gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-[#FFC107] transition-colors">
         <div className="shrink-0 mt-1">
-            {React.cloneElement(icon as React.ReactElement, { size: 20 })}
+            {icon}
         </div>
         <div>
             <h4 className="font-bold text-[#1A2A44] text-sm mb-1">{title}</h4>
@@ -585,10 +586,11 @@ const FeatureItemLight = ({ icon, title, desc }: { icon: React.ReactNode, title:
     </div>
 );
 
+// REFACTORED: Now accepts icon element directly instead of cloneElement
 const PremiumBonusCardLight = ({ icon, title, desc, price }: { icon: React.ReactNode, title: string, desc: string, price: string }) => (
   <div className="flex gap-4 bg-white p-4 rounded-xl border border-slate-200 items-center relative overflow-hidden group shadow-sm">
      <div className="bg-[#1A2A44] p-3 rounded-lg border border-slate-100 text-[#FFC107] shadow-md shrink-0 z-10">
-        {React.cloneElement(icon as React.ReactElement, { size: 22 })}
+        {icon}
      </div>
      <div className="z-10 flex-1">
         <h3 className="font-bold text-[#1A2A44] text-sm mb-1">{title}</h3>

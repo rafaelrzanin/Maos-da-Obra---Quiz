@@ -11,6 +11,15 @@ interface QuizScreenProps {
 export const QuizScreen: React.FC<QuizScreenProps> = ({ currentQuestionIndex, onAnswer, onBack }) => {
   const question = QUESTIONS[currentQuestionIndex];
   
+  // Safety guard to prevent white screen if index is out of bounds
+  if (!question) {
+      return (
+        <div className="flex items-center justify-center h-full bg-slate-50 text-slate-500">
+          Carregando pergunta...
+        </div>
+      );
+  }
+
   return (
     <div className="flex flex-col h-full bg-slate-50 relative">
       
