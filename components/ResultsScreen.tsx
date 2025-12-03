@@ -8,7 +8,7 @@ import {
   Star, 
   BarChart3, 
   Smartphone, 
-  BrainCircuit, 
+  Bot, 
   Clock, 
   Ban, 
   TrendingDown,
@@ -21,9 +21,8 @@ import {
   Construction,
   CreditCard,
   QrCode,
-  Sparkles,
-  Bot,
-  Fingerprint,
+  MessageCircle,
+  ThumbsUp,
   HardHat
 } from 'lucide-react';
 
@@ -34,10 +33,9 @@ export const ResultsScreen: React.FC = () => {
       {/* ==========================================
           1. O DIAGNÓSTICO (HEADER)
       ========================================== */}
-      {/* REMOVIDO overflow-hidden DO CONTAINER PRINCIPAL PARA NÃO CORTAR O CONTEÚDO */}
-      <div className="bg-[#0F172A] text-white pt-10 pb-32 px-6 rounded-b-[2.5rem] shadow-2xl relative z-10 w-full">
+      <div className="bg-[#0F172A] text-white pt-10 pb-28 px-6 rounded-b-[2.5rem] shadow-2xl relative z-10 w-full">
         
-        {/* Background Effects (Contained to avoid page overflow) */}
+        {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden rounded-b-[2.5rem] pointer-events-none">
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-red-600/10 rounded-full blur-[60px] translate-y-1/2 -translate-x-1/2"></div>
@@ -54,7 +52,7 @@ export const ResultsScreen: React.FC = () => {
               Risco de perder até <span className="text-red-500 bg-red-500/10 px-2 rounded">30% do valor</span> da obra.
             </h1>
 
-            {/* IMPACT CARD - FIXED VISIBILITY */}
+            {/* IMPACT CARD */}
             <div className="w-full bg-[#1E293B] rounded-2xl p-6 border border-red-500/30 mb-4 animate-fade-in-up delay-300 shadow-xl relative overflow-hidden ring-1 ring-white/5">
                 
                 <p className="text-[10px] text-red-300 uppercase tracking-widest font-bold mb-4 border-b border-white/5 pb-2 text-left">
@@ -62,7 +60,6 @@ export const ResultsScreen: React.FC = () => {
                 </p>
 
                 <div className="grid grid-cols-1 gap-4">
-                  {/* Case 1 */}
                   <div className="flex justify-between items-center bg-white/5 p-3 rounded-lg border border-white/5">
                     <div className="text-left">
                       <p className="text-xs text-slate-400">Obra de</p>
@@ -72,11 +69,10 @@ export const ResultsScreen: React.FC = () => {
                       <p className="text-xs text-red-400 font-bold flex items-center justify-end gap-1">
                         <TrendingDown size={12}/> Perda de
                       </p>
-                      <p className="font-black text-red-500 text-lg">R$ 30.000 a 90k</p>
+                      <p className="font-black text-red-500 text-lg">R$ 90.000</p>
                     </div>
                   </div>
 
-                  {/* Case 2 */}
                   <div className="flex justify-between items-center bg-white/5 p-3 rounded-lg border border-white/5">
                     <div className="text-left">
                       <p className="text-xs text-slate-400">Obra de</p>
@@ -97,12 +93,11 @@ export const ResultsScreen: React.FC = () => {
                    </p>
                 </div>
             </div>
-            
         </div>
       </div>
 
       {/* ==========================================
-          2. A FERIDA (O QUE VAI ACONTECER)
+          2. A FERIDA
       ========================================== */}
       <div className="px-6 py-12 bg-white relative z-20 -mt-12 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
         <div className="text-center mb-10 mt-2">
@@ -159,9 +154,9 @@ export const ResultsScreen: React.FC = () => {
       </div>
 
       {/* ==========================================
-          4. PROVA SOCIAL (ROBUST SCROLLER)
+          4. PROVA SOCIAL (SCROLLER FIXED)
       ========================================== */}
-      <div className="py-14 bg-[#1A2A44] w-full overflow-hidden">
+      <div className="py-14 bg-[#1A2A44] w-full overflow-hidden border-t border-white/5">
          <div className="px-6 mb-8 text-center">
             <h3 className="text-white font-bold uppercase tracking-widest text-sm mb-2">Quem usa não larga</h3>
             <div className="flex justify-center gap-1">
@@ -176,27 +171,31 @@ export const ResultsScreen: React.FC = () => {
                  <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
                  <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
                  <TestimonialCard name="Paulo S." role="Engenheiro Civil" text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
-                 <TestimonialCard name="Fernanda L." role="Casa Geminada" text="Achava que planilha resolvia. O Mãos da Obra é outro nível." />
                  
-                 {/* Set 2 (Duplicate for Loop) */}
+                 {/* Set 2 */}
                  <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
                  <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
                  <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
                  <TestimonialCard name="Paulo S." role="Engenheiro Civil" text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
-                 <TestimonialCard name="Fernanda L." role="Casa Geminada" text="Achava que planilha resolvia. O Mãos da Obra é outro nível." />
+                 
+                 {/* Set 3 */}
+                 <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
+                 <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
+                 <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
+                 <TestimonialCard name="Paulo S." role="Engenheiro Civil" text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
              </div>
          </div>
       </div>
 
       {/* ==========================================
-          5. A REVELAÇÃO (MÃOS DA OBRA PRO)
+          5. A REVELAÇÃO (MÃOS DA OBRA)
       ========================================== */}
       <div className="bg-white py-14 px-6 relative">
            <div className="flex flex-col items-center mb-8">
              <div className="w-16 h-16 bg-[#1A2A44] rounded-2xl flex items-center justify-center mb-4 shadow-xl">
                 <Smartphone className="text-[#FFC107]" size={32} />
              </div>
-             <h2 className="text-3xl font-black text-center mb-2 text-[#1A2A44]">MÃOS DA OBRA <span className="text-[#10B981]">PRO</span></h2>
+             <h2 className="text-3xl font-black text-center mb-2 text-[#1A2A44]">MÃOS DA OBRA</h2>
              <p className="text-center text-slate-500 text-sm">O gerente de bolso da sua construção.</p>
            </div>
 
@@ -233,30 +232,8 @@ export const ResultsScreen: React.FC = () => {
             </p>
          </div>
 
-         {/* AI Features Cards */}
-         <div className="grid gap-3 mb-8">
-             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 hover:border-blue-400 transition-colors">
-                <div className="bg-blue-100 p-2.5 rounded-lg text-blue-700 shrink-0">
-                    <Construction size={22}/>
-                </div>
-                <div className="text-left">
-                    <h4 className="font-bold text-[#1A2A44] text-sm">Cronogramas Mágicos</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">O "Zé" cria todas as etapas da sua obra em segundos.</p>
-                </div>
-             </div>
-             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 hover:border-orange-400 transition-colors">
-                <div className="bg-orange-100 p-2.5 rounded-lg text-orange-700 shrink-0">
-                    <FileSignature size={22}/>
-                </div>
-                <div className="text-left">
-                    <h4 className="font-bold text-[#1A2A44] text-sm">Listas de Compras</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">Ele diz exatamente o material e a quantidade certa.</p>
-                </div>
-             </div>
-         </div>
-
          {/* Chat Interface Mockup */}
-         <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden max-w-sm mx-auto">
+         <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden max-w-sm mx-auto mb-8">
             <div className="bg-[#1A2A44] p-3 flex items-center gap-3 border-b border-slate-700">
                <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white border-2 border-white/20 shadow-md overflow-hidden relative">
                    <HardHat size={20} className="text-[#FFC107] relative z-10" />
@@ -289,6 +266,40 @@ export const ResultsScreen: React.FC = () => {
                </div>
             </div>
          </div>
+      </div>
+
+      {/* ==========================================
+          NOVO: SEÇÃO DE SIMPLICIDADE
+      ========================================== */}
+      <div className="bg-white py-14 px-6 relative border-t border-slate-100">
+          <div className="text-center mb-10">
+              <h2 className="text-2xl font-black text-[#1A2A44] mb-4">
+                  "Mas eu não entendo de tecnologia..."
+              </h2>
+              <p className="text-sm text-slate-600 leading-relaxed max-w-xs mx-auto">
+                  Fique tranquilo. A ferramenta foi criada para quem constrói, não para quem programa.
+              </p>
+          </div>
+
+          <div className="bg-[#F0F9FF] rounded-2xl p-6 border border-blue-100 shadow-lg relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-10">
+                  <MessageCircle size={100} className="text-blue-500" />
+              </div>
+              
+              <div className="relative z-10 flex flex-col items-center text-center gap-4">
+                  <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-lg text-white mb-2">
+                      <ThumbsUp size={32} />
+                  </div>
+                  
+                  <h3 className="font-bold text-lg text-blue-900">
+                     Simples como usar o WhatsApp
+                  </h3>
+                  
+                  <p className="text-sm text-blue-800/80 leading-relaxed">
+                      Se você sabe mandar mensagem no "Zap", você sabe usar o Mãos da Obra. Visual limpo, botões grandes e o <span className="font-bold">Zé (IA)</span> fazendo a parte chata.
+                  </p>
+              </div>
+          </div>
       </div>
 
       {/* ==========================================
@@ -414,13 +425,12 @@ export const ResultsScreen: React.FC = () => {
                         QUERO O VITALÍCIO
                         <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </button>
-                    
                 </div>
             </div>
           </div>
 
-          {/* Payment Methods - MOVED DOWN FOR SPACING */}
-          <div className="flex flex-col items-center gap-4 mt-12 relative z-10">
+          {/* Payment Methods - SPACING INCREASED */}
+          <div className="flex flex-col items-center gap-4 mt-20 relative z-10">
              
              {/* Card Badges Row */}
              <div className="flex gap-3 items-center opacity-90">
@@ -460,28 +470,26 @@ export const ResultsScreen: React.FC = () => {
 
         </div>
 
-        {/* SATISFACTION GUARANTEE - REDESIGNED */}
-        <div className="mt-20 max-w-sm mx-auto relative group">
-            <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden relative">
-                {/* Header Banner */}
-                <div className="bg-[#1A2A44] p-4 text-center">
-                   <div className="w-12 h-12 bg-[#FFC107] rounded-full flex items-center justify-center mx-auto -mb-8 border-4 border-white shadow-md relative z-10">
-                      <ShieldCheck size={24} className="text-[#1A2A44]" />
-                   </div>
-                </div>
+        {/* SATISFACTION GUARANTEE - PREMIUM BLACK/GOLD */}
+        <div className="mt-12 max-w-sm mx-auto relative group px-2">
+            <div className="bg-[#1A2A44] rounded-xl border-2 border-[#C59D5F] shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-[#C59D5F] rounded-full blur-[40px] opacity-20 pointer-events-none"></div>
                 
-                <div className="pt-10 pb-6 px-6 text-center">
-                   <h3 className="font-black text-[#1A2A44] text-lg uppercase tracking-wide mb-1">Garantia Risco Zero</h3>
-                   <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-4">Teste por 30 Dias</p>
+                <div className="p-6 text-center">
+                   {/* Icon */}
+                   <div className="w-14 h-14 bg-gradient-to-br from-[#C59D5F] to-[#8C7A62] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#1A2A44] shadow-lg shadow-[#C59D5F]/20">
+                      <ShieldCheck size={28} className="text-[#1A2A44]" />
+                   </div>
+
+                   <h3 className="font-serif text-xl text-[#C59D5F] font-bold mb-2 tracking-wide">Garantia Risco Zero</h3>
+                   <div className="w-12 h-0.5 bg-[#C59D5F]/30 mx-auto mb-4"></div>
                    
-                   <p className="text-sm text-slate-600 leading-relaxed font-medium">
-                      "Se você não conseguir organizar sua obra, controlar os gastos ou não ficar satisfeito com o <span className="font-bold text-[#1A2A44]">Zé da Obra</span> em até 30 dias, nós devolvemos 100% do seu dinheiro."
+                   <p className="text-sm text-slate-300 leading-relaxed font-light mb-4">
+                      Se você não conseguir organizar sua obra em até <span className="text-white font-bold">30 dias</span>, nós devolvemos <span className="text-[#C59D5F]">100% do seu dinheiro</span>.
                    </p>
-                   
-                   <div className="mt-4 pt-4 border-t border-slate-100">
-                      <p className="text-[10px] text-green-600 font-bold uppercase flex items-center justify-center gap-1">
-                         <CheckCircle2 size={12} /> Satisfação Garantida
-                      </p>
+
+                   <div className="inline-flex items-center gap-2 bg-[#C59D5F]/10 border border-[#C59D5F]/30 px-3 py-1 rounded text-[10px] text-[#C59D5F] uppercase tracking-widest font-bold">
+                       Sem perguntas
                    </div>
                 </div>
             </div>

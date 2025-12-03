@@ -47,12 +47,13 @@
       }
       
       /* Robust Infinite Scroll Animation */
-      @keyframes scroll-infinite {
+      @keyframes scroll {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
       }
       
       .scroller-container {
+        position: relative;
         width: 100%;
         overflow: hidden;
         mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
@@ -61,14 +62,13 @@
       
       .scroller-inner {
         display: flex;
-        width: max-content;
-        animation: scroll-infinite 30s linear infinite;
+        width: fit-content;
+        gap: 1rem;
+        animation: scroll 30s linear infinite;
       }
       
-      .scroller-container:hover .scroller-inner {
-        animation-play-state: paused;
-      }
-
+      /* Stop animation on hover optional - removed for stability */
+      
       .delay-100 { animation-delay: 100ms; }
       .delay-200 { animation-delay: 200ms; }
       .delay-300 { animation-delay: 300ms; }
