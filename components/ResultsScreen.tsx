@@ -29,7 +29,7 @@ import {
 
 export const ResultsScreen: React.FC = () => {
   return (
-    <div className="flex flex-col h-full bg-[#F8FAFC] overflow-y-auto no-scrollbar scroll-smooth pb-32 w-full relative">
+    <div className="flex flex-col h-full bg-[#F8FAFC] overflow-y-auto no-scrollbar scroll-smooth w-full relative">
       
       {/* ==========================================
           1. O DIAGNÓSTICO (HEADER)
@@ -266,7 +266,8 @@ export const ResultsScreen: React.FC = () => {
       {/* ==========================================
           NOVO: SEÇÃO PREMIUM "SIMPLES COMO WHATSAPP"
       ========================================== */}
-      <div className="bg-[#1A2A44] py-16 px-6 relative overflow-hidden border-t border-white/10 min-h-[400px]">
+      {/* Aumentado padding-bottom para pb-28 para evitar que o card invada a seção seguinte */}
+      <div className="bg-[#1A2A44] pt-16 pb-28 px-6 relative border-t border-white/10 h-auto">
           {/* Ambient Light Effects */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[80px] pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#FFC107]/10 rounded-full blur-[60px] pointer-events-none"></div>
@@ -283,12 +284,11 @@ export const ResultsScreen: React.FC = () => {
               </p>
           </div>
 
-          <div className="max-w-sm mx-auto">
+          <div className="max-w-sm mx-auto relative z-20">
              {/* Premium Glassmorphism Card */}
-             <div className="bg-[#1E293B]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative shadow-2xl overflow-hidden group">
-                 {/* Explicit background color to prevent transparency issues */}
+             <div className="bg-[#1E293B] border border-white/10 rounded-3xl p-8 relative shadow-2xl group">
                  
-                 <div className="relative z-10 flex items-center justify-between mb-10">
+                 <div className="relative z-10 flex flex-wrap items-center justify-center gap-6 mb-10">
                      {/* WhatsApp Side */}
                      <div className="flex flex-col items-center gap-3">
                         <div className="w-16 h-16 bg-[#25D366]/20 rounded-2xl flex items-center justify-center border border-[#25D366]/30 shadow-[0_0_15px_rgba(37,211,102,0.2)]">
@@ -297,17 +297,16 @@ export const ResultsScreen: React.FC = () => {
                         <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">WhatsApp</span>
                      </div>
                      
-                     <div className="flex flex-col items-center gap-1">
-                        <div className="h-[1px] w-12 bg-white/20"></div>
-                        <ArrowRight size={14} className="text-white/40" />
+                     <div className="flex flex-col items-center gap-1 opacity-50">
+                        <ArrowRight size={20} className="text-white" />
                      </div>
 
-                     {/* Mãos da Obra Side */}
+                     {/* Mãos da Obra Side - Fixed Alignment */}
                      <div className="flex flex-col items-center gap-3">
                         <div className="w-16 h-16 bg-[#FFC107]/20 rounded-2xl flex items-center justify-center border border-[#FFC107]/30 shadow-[0_0_15px_rgba(255,193,7,0.2)]">
                            <Smartphone size={32} className="text-[#FFC107]" />
                         </div>
-                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Mãos da Obra</span>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider text-center">Mãos da Obra</span>
                      </div>
                  </div>
 
@@ -363,7 +362,7 @@ export const ResultsScreen: React.FC = () => {
       {/* ==========================================
           8. A OFERTA IRRESISTÍVEL (PRICING)
       ========================================== */}
-      <div className="py-12 px-6 bg-white pb-40" id="pricing">
+      <div className="py-12 px-6 bg-white pb-20" id="pricing">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-black text-[#1A2A44] mb-2 tracking-tight">Faça sua Escolha</h2>
           <p className="text-slate-600 text-sm">Assuma o controle da sua obra hoje.</p>
@@ -450,45 +449,6 @@ export const ResultsScreen: React.FC = () => {
             </div>
           </div>
 
-          {/* Payment Methods - SPACING FIXED (mt-32) */}
-          <div className="flex flex-col items-center gap-4 mt-32 relative z-10">
-             
-             {/* Card Badges Row */}
-             <div className="flex gap-3 items-center opacity-90">
-                {/* Pix Badge */}
-                <div className="flex flex-col items-center justify-center bg-white border border-slate-200 rounded-lg px-4 py-2 h-12 shadow-sm">
-                   <QrCode size={20} className="text-[#10B981] mb-0.5" />
-                   <span className="text-[9px] font-bold text-[#10B981] leading-none">PIX</span>
-                </div>
-                
-                {/* Credit Cards Visual Badges */}
-                <div className="flex items-center bg-slate-50 rounded-lg px-4 h-12 gap-3 border border-slate-200 shadow-sm">
-                    <div className="flex flex-col items-center justify-center">
-                        <div className="flex -space-x-1.5">
-                            <div className="w-4 h-4 rounded-full bg-red-500"></div>
-                            <div className="w-4 h-4 rounded-full bg-yellow-500/90"></div>
-                        </div>
-                        <span className="text-[8px] font-bold text-slate-500 mt-1">Master</span>
-                    </div>
-                    <div className="w-[1px] h-6 bg-slate-300"></div>
-                    <div className="flex flex-col items-center justify-center">
-                         <span className="text-[12px] font-black text-blue-800 leading-none italic font-serif">Visa</span>
-                         <span className="text-[8px] font-bold text-slate-500 mt-0.5">Visa</span>
-                    </div>
-                    <div className="w-[1px] h-6 bg-slate-300"></div>
-                    <div className="flex flex-col items-center justify-center">
-                        <CreditCard size={18} className="text-slate-600"/>
-                        <span className="text-[8px] font-bold text-slate-500 mt-1">Outros</span>
-                    </div>
-                </div>
-             </div>
-
-             <div className="flex items-center gap-2 text-[#1A2A44] bg-white px-5 py-2 rounded-full border border-slate-200 shadow-sm mt-2">
-                 <Lock size={14} strokeWidth={2.5} className="text-green-600" />
-                 <span className="text-[10px] font-bold uppercase tracking-wide">Ambiente 100% Criptografado</span>
-             </div>
-          </div>
-
         </div>
 
         {/* SATISFACTION GUARANTEE - 3D BADGE STYLE (FIXED) */}
@@ -526,7 +486,53 @@ export const ResultsScreen: React.FC = () => {
             </div>
         </div>
 
+        {/* Payment Methods - TRANSPARENT/LIGHT STYLE */}
+        <div className="mt-16 flex flex-col items-center gap-4 relative z-40">
+            <div className="flex gap-3 items-center opacity-90">
+                {/* PIX */}
+                <div className="flex flex-col items-center justify-center bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 h-12 shadow-sm">
+                    <QrCode size={20} className="text-[#10B981] mb-0.5" />
+                    <span className="text-[9px] font-bold text-[#10B981] leading-none">PIX</span>
+                </div>
+                {/* Cards */}
+                <div className="flex items-center bg-slate-50 rounded-lg px-4 h-12 gap-3 border border-slate-200 shadow-sm">
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="flex -space-x-1.5">
+                            <div className="w-4 h-4 rounded-full bg-red-500"></div>
+                            <div className="w-4 h-4 rounded-full bg-yellow-500/90"></div>
+                        </div>
+                        <span className="text-[8px] font-bold text-slate-500 mt-1">Master</span>
+                    </div>
+                    <div className="w-[1px] h-6 bg-slate-300"></div>
+                    <div className="flex flex-col items-center justify-center">
+                            <span className="text-[12px] font-black text-blue-800 leading-none italic font-serif">Visa</span>
+                            <span className="text-[8px] font-bold text-slate-500 mt-0.5">Visa</span>
+                    </div>
+                    <div className="w-[1px] h-6 bg-slate-300"></div>
+                    <div className="flex flex-col items-center justify-center">
+                        <CreditCard size={18} className="text-slate-600"/>
+                        <span className="text-[8px] font-bold text-slate-500 mt-1">Outros</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-slate-400">
+                <Lock size={12} />
+                <span className="text-[10px] uppercase font-bold tracking-widest">Ambiente 100% Criptografado</span>
+            </div>
+        </div>
+
       </div>
+
+      {/* FOOTER */}
+      <footer className="py-10 text-center relative z-10 bg-[#F8FAFC] pb-40 border-t border-slate-200">
+          <p className="text-[#1A2A44] font-bold text-xs mb-2">© 2025 Mãos da Obra</p>
+          <p className="text-slate-400 text-[10px]">Todos os direitos reservados.</p>
+          <div className="flex justify-center gap-4 mt-4 text-[10px] text-slate-500 font-medium">
+              <span className="cursor-pointer hover:text-[#1A2A44]">Termos de Uso</span>
+              <span className="cursor-pointer hover:text-[#1A2A44]">Política de Privacidade</span>
+          </div>
+      </footer>
 
       {/* STICKY CTA */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-lg border-t border-slate-200 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-50">
