@@ -56,22 +56,22 @@
         position: relative;
         width: 100%;
         overflow: hidden;
-        /* Mask to fade edges */
-        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        /* Removed complex masking to prevent rendering issues on some deploys */
       }
       
       .scroller-inner {
         display: flex;
-        flex-wrap: nowrap; /* Essential for marquee */
-        width: max-content; /* Ensure container grows to fit all items */
-        gap: 1rem;
+        width: max-content;
+        flex-wrap: nowrap;
+        gap: 1.5rem; /* Increased gap */
         animation: scroll 40s linear infinite;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
-      
-      /* Stop animation on hover for better UX */
-      .scroller-container:hover .scroller-inner {
-        animation-play-state: paused;
+
+      /* CRITICAL FIX: Prevent items from collapsing */
+      .scroller-inner > * {
+        flex-shrink: 0;
       }
       
       .delay-100 { animation-delay: 100ms; }

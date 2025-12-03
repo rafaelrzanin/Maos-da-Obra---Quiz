@@ -157,7 +157,7 @@ export const ResultsScreen: React.FC = () => {
       {/* ==========================================
           4. PROVA SOCIAL (SCROLL INFINITO)
       ========================================= */}
-      <div className="py-14 bg-[#1A2A44] w-full border-t border-white/5 relative z-10 overflow-hidden">
+      <div className="py-14 bg-[#1A2A44] w-full border-t border-white/5 relative z-10 overflow-hidden min-h-[300px]">
          <div className="px-6 mb-8 text-center relative z-10">
             <h3 className="text-white font-bold uppercase tracking-widest text-sm mb-2">Quem usa não larga</h3>
             <div className="flex justify-center gap-1">
@@ -166,7 +166,7 @@ export const ResultsScreen: React.FC = () => {
          </div>
 
          <div className="scroller-container">
-             <div className="scroller-inner px-4">
+             <div className="scroller-inner">
                  {/* Set 1 */}
                  <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
                  <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
@@ -266,7 +266,7 @@ export const ResultsScreen: React.FC = () => {
       {/* ==========================================
           NOVO: SEÇÃO PREMIUM "SIMPLES COMO WHATSAPP"
       ========================================== */}
-      <div className="bg-[#1A2A44] py-16 px-6 relative overflow-hidden border-t border-white/10">
+      <div className="bg-[#1A2A44] py-16 px-6 relative overflow-hidden border-t border-white/10 min-h-[400px]">
           {/* Ambient Light Effects */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[80px] pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#FFC107]/10 rounded-full blur-[60px] pointer-events-none"></div>
@@ -285,8 +285,8 @@ export const ResultsScreen: React.FC = () => {
 
           <div className="max-w-sm mx-auto">
              {/* Premium Glassmorphism Card */}
-             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative shadow-2xl overflow-hidden group">
-                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+             <div className="bg-[#1E293B]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 relative shadow-2xl overflow-hidden group">
+                 {/* Explicit background color to prevent transparency issues */}
                  
                  <div className="relative z-10 flex items-center justify-between mb-10">
                      {/* WhatsApp Side */}
@@ -450,7 +450,7 @@ export const ResultsScreen: React.FC = () => {
             </div>
           </div>
 
-          {/* Payment Methods - SPACING FIXED (mt-32 to clear shadows) */}
+          {/* Payment Methods - SPACING FIXED (mt-32) */}
           <div className="flex flex-col items-center gap-4 mt-32 relative z-10">
              
              {/* Card Badges Row */}
