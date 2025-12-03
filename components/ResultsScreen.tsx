@@ -18,7 +18,9 @@ import {
   ShieldAlert,
   Coins,
   XCircle,
-  Construction
+  Construction,
+  CreditCard,
+  QrCode
 } from 'lucide-react';
 
 export const ResultsScreen: React.FC = () => {
@@ -40,61 +42,33 @@ export const ResultsScreen: React.FC = () => {
               <span className="text-xs font-bold uppercase tracking-widest text-red-100">Alerta Financeiro Grave</span>
             </div>
             
-            <h1 className="text-3xl md:text-4xl font-black leading-tight mb-4 animate-fade-in-up delay-100 tracking-tight">
-              Sua obra tem <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">30% de risco</span> de prejuízo irrecuperável.
+            <h1 className="text-2xl md:text-3xl font-black leading-tight mb-4 animate-fade-in-up delay-100 tracking-tight">
+              Risco de perder até <span className="text-red-500">30% do valor</span> da obra.
             </h1>
 
-            <p className="text-slate-400 text-sm mb-8 max-w-xs mx-auto animate-fade-in-up delay-200 leading-relaxed font-medium">
-              Nosso algoritmo detectou falhas de gestão que historicamente levam ao colapso financeiro da construção.
-            </p>
-
-            {/* IMPACT GRAPH - VISCERAL */}
-            <div className="w-full bg-gradient-to-b from-[#1E293B] to-[#0F172A] rounded-2xl p-6 border border-white/10 mt-2 mb-6 animate-fade-in-up delay-300 shadow-2xl relative overflow-hidden group">
+            {/* IMPACT GRAPH - VISCERAL & MONETARY */}
+            <div className="w-full bg-gradient-to-b from-[#1E293B] to-[#0F172A] rounded-2xl p-6 border border-red-500/30 mt-2 mb-6 animate-fade-in-up delay-300 shadow-[0_0_30px_rgba(239,68,68,0.15)] relative overflow-hidden group">
                 <div className="absolute inset-0 bg-red-500/5 group-hover:bg-red-500/10 transition-colors"></div>
                 
-                <div className="flex justify-between items-end mb-2 relative z-10">
-                   <div className="text-left">
-                      <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Prejuízo Estimado</p>
-                      <div className="text-3xl font-black text-white flex items-baseline gap-1">
-                        <span className="text-sm text-red-500">R$</span>
-                        30k <span className="text-sm text-slate-500 font-normal">a</span> 100k+
-                      </div>
-                   </div>
-                   <div className="p-2 bg-red-500/20 rounded-lg">
-                      <TrendingDown className="text-red-500" size={24} />
+                <div className="flex flex-col items-center mb-6 relative z-10">
+                   <p className="text-[10px] text-red-300 uppercase tracking-widest font-bold mb-1">Prejuízo Real Estimado</p>
+                   <div className="text-3xl font-black text-white flex flex-col items-center leading-none gap-1">
+                      <span className="text-red-500 text-4xl drop-shadow-md">R$ 30.000</span>
+                      <span className="text-sm text-slate-400 font-medium">até</span>
+                      <span className="text-red-500 text-4xl drop-shadow-md">R$ 300.000+</span>
                    </div>
                 </div>
 
-                {/* The Bar Chart */}
-                <div className="space-y-4 mt-6 relative z-10">
-                   {/* Scenario A */}
-                   <div>
-                     <div className="flex justify-between text-xs mb-1 font-medium">
-                        <span className="text-slate-300">Orçamento Previsto</span>
-                        <span className="text-slate-400">100%</span>
-                     </div>
-                     <div className="h-3 bg-slate-700 rounded-full overflow-hidden">
-                        <div className="w-full bg-blue-500 h-full"></div>
-                     </div>
-                   </div>
-                   
-                   {/* Scenario B (Loss) */}
-                   <div>
-                     <div className="flex justify-between text-xs mb-1 font-bold">
-                        <span className="text-white">Custo Real (Sem Gestão)</span>
-                        <span className="text-red-500">+30% EXCEDENTE</span>
-                     </div>
-                     <div className="h-3 bg-slate-700 rounded-full overflow-hidden flex relative">
-                        <div className="w-[75%] bg-blue-500 h-full opacity-50"></div>
-                        <div className="w-[25%] bg-red-600 h-full relative animate-pulse">
-                            {/* Striped pattern via CSS/SVG would go here, simulated with color */}
-                        </div>
-                     </div>
-                     <p className="text-[10px] text-red-400 mt-2 text-left font-medium flex items-center gap-1">
-                       <AlertTriangle size={10} />
-                       Você vai pagar por 1 casa e meia.
-                     </p>
-                   </div>
+                <div className="text-xs text-slate-300 text-center leading-relaxed border-t border-white/10 pt-4">
+                  <p>
+                    Em uma obra de <strong>R$ 300 mil</strong>, 10% de erro custa <strong>R$ 30 mil</strong>.
+                    <br/>
+                    Em uma obra de <strong>R$ 3 milhões</strong>, o prejuízo passa de <strong>R$ 300 mil</strong>.
+                  </p>
+                  <p className="mt-3 text-red-400 font-bold flex items-center justify-center gap-1">
+                     <AlertTriangle size={12} />
+                     Você está caminhando para essa estatística.
+                  </p>
                 </div>
             </div>
 
@@ -167,52 +141,87 @@ export const ResultsScreen: React.FC = () => {
       </div>
 
       {/* ==========================================
-          4. A REVELAÇÃO (MÃOS DA OBRA PRO)
+          4. PROVA SOCIAL (CARROSSEL AUTOMÁTICO)
       ========================================== */}
-      <div className="bg-[#1A2A44] text-white py-14 px-6 relative overflow-hidden">
-        {/* Background Texture */}
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/5 to-transparent"></div>
+      <div className="py-10 bg-[#1A2A44] overflow-hidden relative">
+         <div className="text-center mb-8 px-6">
+            <h3 className="text-white font-bold uppercase tracking-widest text-sm">Quem usa não larga</h3>
+            <div className="flex justify-center gap-1 mt-2">
+               {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-[#FFC107] fill-[#FFC107]" />)}
+            </div>
+         </div>
 
-        <div className="relative z-10">
+         {/* Infinite Marquee Container */}
+         <div className="relative w-full">
+            <div className="flex gap-4 animate-scroll w-[200%] pl-6">
+               {/* Set 1 */}
+               <TestimonialCard name="Carlos F." text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
+               <TestimonialCard name="Mariana C." text="Meu pedreiro tentou me enrolar nas diárias. O app me salvou." />
+               <TestimonialCard name="Roberto A." text="A IA calculou o concreto certinho. Sobrou pro ar condicionado." />
+               <TestimonialCard name="Paulo S." text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
+               <TestimonialCard name="Fernanda L." text="Achava que planilha resolvia. O app é outro nível." />
+               
+               {/* Set 2 (Duplicate for infinite loop) */}
+               <TestimonialCard name="Carlos F." text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
+               <TestimonialCard name="Mariana C." text="Meu pedreiro tentou me enrolar nas diárias. O app me salvou." />
+               <TestimonialCard name="Roberto A." text="A IA calculou o concreto certinho. Sobrou pro ar condicionado." />
+               <TestimonialCard name="Paulo S." text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
+               <TestimonialCard name="Fernanda L." text="Achava que planilha resolvia. O app é outro nível." />
+            </div>
+         </div>
+         
+         <style>{`
+            @keyframes scroll {
+               0% { transform: translateX(0); }
+               100% { transform: translateX(-50%); }
+            }
+            .animate-scroll {
+               animation: scroll 25s linear infinite;
+            }
+         `}</style>
+      </div>
+
+      {/* ==========================================
+          5. A REVELAÇÃO (MÃOS DA OBRA PRO)
+      ========================================== */}
+      <div className="bg-white py-14 px-6 relative">
            <div className="flex flex-col items-center mb-8">
-             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/20 mb-4 shadow-xl">
+             <div className="w-16 h-16 bg-[#1A2A44] rounded-2xl flex items-center justify-center mb-4 shadow-xl">
                 <Smartphone className="text-[#FFC107]" size={32} />
              </div>
-             <h2 className="text-3xl font-black text-center mb-2">MÃOS DA OBRA <span className="text-[#FFC107]">PRO</span></h2>
-             <p className="text-center text-slate-300 text-sm">O sistema operacional da sua construção.</p>
+             <h2 className="text-3xl font-black text-center mb-2 text-[#1A2A44]">MÃOS DA OBRA <span className="text-[#10B981]">PRO</span></h2>
+             <p className="text-center text-slate-500 text-sm">O sistema operacional da sua construção.</p>
            </div>
 
            <div className="grid gap-3">
-              <FeatureItem 
-                icon={<BarChart3 />} 
+              <FeatureItemLight 
+                icon={<BarChart3 className="text-blue-600"/>} 
                 title="Raio-X Financeiro" 
                 desc="Saiba para onde vai cada centavo em tempo real." 
               />
-              <FeatureItem 
-                icon={<Construction />} 
+              <FeatureItemLight 
+                icon={<Construction className="text-orange-600"/>} 
                 title="Gestão de Etapas" 
                 desc="Cronograma automático: Saiba o que comprar e quando." 
               />
-              <FeatureItem 
-                icon={<ShieldCheck />} 
+              <FeatureItemLight 
+                icon={<ShieldCheck className="text-green-600"/>} 
                 title="Blindagem de Caixa" 
                 desc="Alertas de estouro de orçamento antes que aconteça." 
               />
            </div>
-        </div>
       </div>
 
       {/* ==========================================
-          5. A IA (ENGENHEIRO DE BOLSO) - PREMIUM UI
+          6. A IA (ENGENHEIRO DE BOLSO)
       ========================================== */}
-      <div className="py-12 px-6 bg-gradient-to-b from-slate-100 to-white">
+      <div className="py-12 px-6 bg-gradient-to-b from-slate-50 to-white border-t border-slate-100">
          <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-3">
                <BrainCircuit size={14} /> Tecnologia Exclusiva
             </div>
             <h2 className="text-2xl font-black text-[#1A2A44]">Seu Engenheiro 24h</h2>
-            <p className="text-sm text-slate-600 mt-2">Tire dúvidas técnicas a qualquer momento.</p>
+            <p className="text-sm text-slate-600 mt-2">Tire dúvidas técnicas a qualquer momento com nossa IA.</p>
          </div>
 
          {/* Chat Interface Mockup */}
@@ -223,36 +232,29 @@ export const ResultsScreen: React.FC = () => {
                </div>
                <div>
                   <p className="text-xs font-bold text-[#1A2A44]">Assistente IA</p>
-                  <p className="text-[10px] text-green-600 flex items-center gap-1">
-                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Online
-                  </p>
+                  <p className="text-[10px] text-green-600 flex items-center gap-1">Online</p>
                </div>
             </div>
             
             <div className="p-4 bg-[url('https://www.transparenttextures.com/patterns/subtle-dots.png')] space-y-4">
-               {/* User Msg */}
                <div className="flex justify-end">
                   <div className="bg-blue-600 text-white text-xs p-3 rounded-l-xl rounded-tr-xl max-w-[85%] shadow-sm">
                      Quantos sacos de cimento para um contrapiso de 30m²?
                   </div>
                </div>
                
-               {/* AI Msg */}
                <div className="flex justify-start">
                   <div className="bg-white border border-slate-200 text-slate-700 text-xs p-3 rounded-r-xl rounded-tl-xl max-w-[90%] shadow-sm">
                      <p className="font-bold mb-1 text-[#1A2A44]">Resposta:</p>
-                     Para 30m² com 5cm de espessura (traço 1:3), você precisará de aprox. <strong className="text-blue-600">9 sacos de 50kg</strong>.
-                     <br/><br/>
-                     <span className="text-[10px] text-slate-500 italic">💡 Dica: Compre 10 para margem de segurança.</span>
+                     Para 30m² com 5cm de espessura, você precisará de aprox. <strong className="text-blue-600">9 sacos de 50kg</strong>.
                   </div>
                </div>
             </div>
          </div>
-         <p className="text-center text-[10px] text-slate-400 mt-4">*Disponível no plano Vitalício</p>
       </div>
 
       {/* ==========================================
-          6. BÔNUS DE ALTO VALOR (CARD DESIGN)
+          7. BÔNUS DE ALTO VALOR
       ========================================== */}
       <div className="py-12 px-6 bg-[#1A2A44] text-white">
          <div className="text-center mb-10">
@@ -265,47 +267,26 @@ export const ResultsScreen: React.FC = () => {
             <PremiumBonusCard 
                icon={<Calculator />}
                title="Calculadora de Materiais"
-               desc="Nunca mais compre sobrando nem faltando. Cálculo exato de tijolos, pisos e tintas."
+               desc="Cálculo exato de tijolos, pisos e tintas."
                price="197,00"
             />
             <PremiumBonusCard 
                icon={<FileSignature />}
                title="Pack de Contratos & Recibos"
-               desc="Modelos jurídicos blindados para fechar com pedreiros e evitar processos trabalhistas."
+               desc="Modelos jurídicos blindados para fechar com pedreiros."
                price="297,00"
             />
             <PremiumBonusCard 
                icon={<ShieldCheck />}
                title="Checklist Anti-Golpe"
-               desc="O passo a passo para conferir a entrega da obra e não aceitar serviço porco."
+               desc="O passo a passo para conferir a entrega da obra."
                price="147,00"
             />
          </div>
          
          <div className="mt-8 pt-8 border-t border-white/10 text-center">
-            <p className="text-sm text-slate-400 uppercase tracking-widest mb-1">Valor Total dos Bônus</p>
-            <p className="text-3xl font-black text-slate-500 line-through decoration-red-500 decoration-2">R$ 900,00+</p>
-            <p className="text-xl font-bold text-[#10B981] mt-2">HOJE: GRÁTIS</p>
-         </div>
-      </div>
-
-      {/* ==========================================
-          7. PROVA SOCIAL (REFORÇO)
-      ========================================== */}
-      <div className="py-10 px-6 bg-slate-50">
-         <div className="flex items-center justify-center gap-2 mb-6 opacity-70">
-            <Star className="fill-[#FFC107] text-[#FFC107]" size={16} />
-            <Star className="fill-[#FFC107] text-[#FFC107]" size={16} />
-            <Star className="fill-[#FFC107] text-[#FFC107]" size={16} />
-            <Star className="fill-[#FFC107] text-[#FFC107]" size={16} />
-            <Star className="fill-[#FFC107] text-[#FFC107]" size={16} />
-         </div>
-         <p className="text-center text-lg font-medium text-[#1A2A44] italic leading-relaxed">
-            "Eu já tinha perdido 5 mil reais em material estragado. O app pagou esse prejuízo na primeira semana de uso."
-         </p>
-         <div className="text-center mt-4">
-            <p className="font-bold text-[#1A2A44]">Roberto Almeida</p>
-            <p className="text-xs text-slate-500">Construiu Casa em Condomínio</p>
+            <p className="text-xl font-bold text-[#10B981] mt-2">TOTAL GRÁTIS HOJE</p>
+            <p className="text-xs text-slate-400">Na compra do plano vitalício</p>
          </div>
       </div>
 
@@ -318,40 +299,52 @@ export const ResultsScreen: React.FC = () => {
           <p className="text-slate-600 text-sm">Continuar perdendo dinheiro ou assumir o controle?</p>
         </div>
 
-        <div className="space-y-8 max-w-sm mx-auto">
+        <div className="space-y-6 max-w-sm mx-auto">
           
-          {/* PLANO MENSAL (ANCORAGEM) */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 opacity-60 hover:opacity-100 transition-all grayscale-[0.8] hover:grayscale-0">
-            <div className="flex justify-between items-center mb-4">
-               <h3 className="font-bold text-slate-600 text-lg">Plano Mensal</h3>
+          {/* 1. PLANO MENSAL */}
+          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200">
+            <div className="flex justify-between items-center mb-2">
+               <h3 className="font-bold text-slate-600">Mensal</h3>
+               <span className="text-xs bg-slate-200 px-2 py-1 rounded text-slate-500">Básico</span>
             </div>
             <div className="flex items-baseline gap-1 mb-4">
                <span className="text-sm">R$</span>
-               <span className="text-4xl font-bold text-slate-700">29,90</span>
+               <span className="text-3xl font-bold text-slate-700">29,90</span>
                <span className="text-sm text-slate-400">/mês</span>
             </div>
-            
-            <ul className="space-y-3 mb-6">
-               <li className="flex gap-2 text-sm text-slate-600"><CheckCircle2 size={16}/> Acesso Básico ao App</li>
-               <li className="flex gap-2 text-sm text-red-400"><XCircle size={16}/> Sem IA Engenheiro</li>
-               <li className="flex gap-2 text-sm text-red-400"><XCircle size={16}/> Sem Bônus</li>
-            </ul>
-
-            <button className="w-full py-3 rounded-xl border-2 border-slate-200 text-slate-500 font-bold hover:border-slate-400 hover:text-slate-700 transition-colors">
-              Assinar Mensal
+            <button className="w-full py-3 rounded-xl border border-slate-300 text-slate-600 font-bold hover:bg-slate-100 transition-colors text-sm">
+              Escolher Mensal
             </button>
           </div>
 
-          {/* PLANO VITALÍCIO (HERO) */}
-          <div className="relative transform scale-105 z-10">
-            {/* Glow Effect */}
+          {/* 2. PLANO SEMESTRAL */}
+          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-blue-100 text-blue-800 text-[10px] font-bold px-3 py-1 rounded-bl-lg">
+                POPULAR
+            </div>
+            <div className="flex justify-between items-center mb-2">
+               <h3 className="font-bold text-[#1A2A44]">Semestral</h3>
+            </div>
+            <div className="flex items-baseline gap-1 mb-1">
+               <span className="text-sm">R$</span>
+               <span className="text-3xl font-bold text-[#1A2A44]">97,00</span>
+               <span className="text-sm text-slate-400">/6 meses</span>
+            </div>
+            <p className="text-xs text-green-600 mb-4 font-bold">Equivale a R$ 16,16/mês</p>
+            <button className="w-full py-3 rounded-xl border-2 border-[#1A2A44] text-[#1A2A44] font-bold hover:bg-blue-50 transition-colors text-sm">
+              Escolher Semestral
+            </button>
+          </div>
+
+          {/* 3. PLANO VITALÍCIO (HERO) */}
+          <div className="relative transform scale-105 z-10 mt-4">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-[#FFC107] to-orange-500 rounded-2xl blur opacity-75 animate-pulse"></div>
             
             <div className="bg-[#1A2A44] rounded-xl p-1 relative">
                 <div className="bg-[#0F172A] rounded-lg p-6 text-white relative overflow-hidden">
                     
                     <div className="absolute top-0 right-0 bg-[#FFC107] text-[#1A2A44] text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider">
-                        Oportunidade Única
+                        MELHOR CUSTO-BENEFÍCIO
                     </div>
 
                     <h3 className="font-bold text-xl text-[#FFC107] mb-1 flex items-center gap-2">
@@ -363,26 +356,19 @@ export const ResultsScreen: React.FC = () => {
                         <span className="text-sm text-slate-500 line-through">R$ 997</span>
                         <div className="flex items-baseline">
                             <span className="text-lg font-bold text-[#FFC107]">R$</span>
-                            <span className="text-6xl font-black text-white tracking-tighter">247</span>
+                            <span className="text-5xl font-black text-white tracking-tighter">247</span>
                         </div>
                     </div>
                     
                     <div className="space-y-3 mb-8 border-t border-white/10 pt-4">
                         <div className="flex items-center gap-3 text-sm font-medium">
-                            <div className="bg-green-500/20 p-1 rounded-full"><CheckCircle2 size={14} className="text-green-500"/></div>
-                            <span>Acesso Vitalício ao App</span>
+                            <CheckCircle2 size={16} className="text-[#FFC107]"/> <span>Acesso Vitalício ao App</span>
                         </div>
                         <div className="flex items-center gap-3 text-sm font-medium">
-                            <div className="bg-[#FFC107]/20 p-1 rounded-full"><BrainCircuit size={14} className="text-[#FFC107]"/></div>
-                            <span className="text-[#FFC107] font-bold">IA Engenheiro Inclusa</span>
+                            <BrainCircuit size={16} className="text-[#FFC107]"/> <span className="text-[#FFC107] font-bold">IA Engenheiro Inclusa</span>
                         </div>
                         <div className="flex items-center gap-3 text-sm font-medium">
-                            <div className="bg-green-500/20 p-1 rounded-full"><CheckCircle2 size={14} className="text-green-500"/></div>
-                            <span>Todos os Bônus (R$ 900+)</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-sm font-medium">
-                            <div className="bg-green-500/20 p-1 rounded-full"><CheckCircle2 size={14} className="text-green-500"/></div>
-                            <span>Atualizações Gratuitas</span>
+                            <Gift size={16} className="text-[#FFC107]"/> <span>Todos os Bônus (R$ 900+)</span>
                         </div>
                     </div>
 
@@ -390,11 +376,24 @@ export const ResultsScreen: React.FC = () => {
                         QUERO O VITALÍCIO
                         <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </button>
-                    <p className="text-center text-[10px] text-slate-400 mt-3 font-medium">
-                        Em até 12x no cartão
-                    </p>
+                    
                 </div>
             </div>
+          </div>
+
+          {/* Payment Methods */}
+          <div className="flex flex-col items-center gap-3 mt-4 opacity-70 grayscale hover:grayscale-0 transition-all">
+             <div className="flex gap-4 items-center">
+                <div className="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded border border-slate-200">
+                    <QrCode size={16} className="text-slate-600"/> 
+                    <span className="text-[10px] font-bold text-slate-600">PIX</span>
+                </div>
+                <div className="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded border border-slate-200">
+                    <CreditCard size={16} className="text-slate-600"/> 
+                    <span className="text-[10px] font-bold text-slate-600">Cartão até 12x</span>
+                </div>
+             </div>
+             <p className="text-[10px] text-slate-400">Ambiente 100% Seguro</p>
           </div>
 
         </div>
@@ -406,7 +405,7 @@ export const ResultsScreen: React.FC = () => {
             </div>
             <h3 className="font-bold text-[#1A2A44] mb-2 uppercase tracking-wide text-sm">Garantia Blindada de 30 Dias</h3>
             <p className="text-xs text-slate-600 mb-0 leading-relaxed">
-              Use o app, a IA e os bônus. Se você não economizar pelo menos 10x o valor investido, nós devolvemos 100% do seu dinheiro. Sem letras miúdas.
+              Use o app e a IA. Se você não economizar pelo menos 10x o valor investido, nós devolvemos 100% do seu dinheiro.
             </p>
         </div>
       </div>
@@ -450,23 +449,20 @@ const ComparisonRow = ({ bad, good }: { bad: string, good: string }) => (
     </div>
 );
 
-const FeatureItem = ({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) => (
-    <div className="flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-colors">
-        <div className="text-[#FFC107] shrink-0 mt-1">
+const FeatureItemLight = ({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) => (
+    <div className="flex items-start gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-[#FFC107] transition-colors">
+        <div className="shrink-0 mt-1">
             {React.cloneElement(icon as React.ReactElement, { size: 20 })}
         </div>
         <div>
-            <h4 className="font-bold text-white text-sm mb-1">{title}</h4>
-            <p className="text-xs text-slate-300 leading-relaxed">{desc}</p>
+            <h4 className="font-bold text-[#1A2A44] text-sm mb-1">{title}</h4>
+            <p className="text-xs text-slate-600 leading-relaxed">{desc}</p>
         </div>
     </div>
 );
 
 const PremiumBonusCard = ({ icon, title, desc, price }: { icon: React.ReactNode, title: string, desc: string, price: string }) => (
   <div className="flex gap-4 bg-white/5 p-4 rounded-xl border border-white/10 items-center relative overflow-hidden group">
-     {/* Hover glow */}
-     <div className="absolute inset-0 bg-gradient-to-r from-[#FFC107]/0 via-[#FFC107]/5 to-[#FFC107]/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-     
      <div className="bg-[#1A2A44] p-3 rounded-lg border border-white/20 text-[#FFC107] shadow-lg shrink-0 z-10">
         {React.cloneElement(icon as React.ReactElement, { size: 22 })}
      </div>
@@ -479,4 +475,14 @@ const PremiumBonusCard = ({ icon, title, desc, price }: { icon: React.ReactNode,
         </div>
      </div>
   </div>
+);
+
+const TestimonialCard = ({ name, text }: { name: string, text: string }) => (
+   <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10 min-w-[260px] max-w-[260px] text-left">
+      <div className="flex gap-1 mb-2">
+         {[...Array(5)].map((_, i) => <Star key={i} size={12} className="text-[#FFC107] fill-[#FFC107]" />)}
+      </div>
+      <p className="text-xs text-slate-200 italic mb-2 leading-relaxed">"{text}"</p>
+      <p className="text-[10px] font-bold text-white uppercase">{name}</p>
+   </div>
 );
