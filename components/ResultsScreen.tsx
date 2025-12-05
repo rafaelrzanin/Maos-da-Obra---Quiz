@@ -25,7 +25,8 @@ import {
   ThumbsUp,
   HardHat,
   Check,
-  MousePointerClick
+  MousePointerClick,
+  X
 } from 'lucide-react';
 
 export const ResultsScreen: React.FC = () => {
@@ -182,7 +183,8 @@ export const ResultsScreen: React.FC = () => {
       {/* ==========================================
           4. PROVA SOCIAL (SCROLL INFINITO)
       ========================================= */}
-      <div className="py-14 bg-[#1A2A44] w-full border-t border-white/5 relative z-10 overflow-hidden min-h-[300px]">
+      {/* Aumentado pb-24 para dar mais respiro e evitar que o conteúdo invada o próximo card */}
+      <div className="pt-14 pb-24 bg-[#1A2A44] w-full border-t border-white/5 relative z-10 overflow-hidden min-h-[400px]">
          <div className="px-6 mb-8 text-center relative z-10">
             <h3 className="text-white font-bold uppercase tracking-widest text-sm mb-2">Quem usa não larga</h3>
             <div className="flex justify-center gap-1">
@@ -190,7 +192,7 @@ export const ResultsScreen: React.FC = () => {
             </div>
          </div>
 
-         <div className="scroller-container mb-8">
+         <div className="scroller-container mb-12">
              <div className="scroller-inner">
                  {/* Set 1 */}
                  <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
@@ -207,7 +209,7 @@ export const ResultsScreen: React.FC = () => {
          </div>
 
          {/* CTA 3: PROVA SOCIAL */}
-         <div className="px-6">
+         <div className="px-6 relative z-20">
             <button 
                 onClick={scrollToPricing}
                 className="w-full bg-white text-[#1A2A44] font-black py-4 rounded-xl shadow-lg transform transition-all active:scale-[0.98] flex items-center justify-center gap-2"
@@ -221,7 +223,7 @@ export const ResultsScreen: React.FC = () => {
       {/* ==========================================
           5. A REVELAÇÃO (MÃOS DA OBRA)
       ========================================== */}
-      <div className="bg-white py-14 px-6 relative">
+      <div className="bg-white py-14 px-6 relative z-20">
            <div className="flex flex-col items-center mb-8">
              <div className="w-16 h-16 bg-[#1A2A44] rounded-2xl flex items-center justify-center mb-4 shadow-xl">
                 <Smartphone className="text-[#FFC107]" size={32} />
@@ -415,7 +417,7 @@ export const ResultsScreen: React.FC = () => {
         <div className="space-y-6 max-w-sm mx-auto">
           
           {/* 1. PLANO MENSAL */}
-          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 hover:border-[#FFC107] transition-all duration-300">
+          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 hover:border-[#FFC107] transition-all duration-300 group">
             <div className="flex justify-between items-center mb-2">
                <h3 className="font-bold text-slate-600">Mensal</h3>
                <span className="text-xs bg-slate-200 px-2 py-1 rounded text-slate-500">Básico</span>
@@ -425,6 +427,23 @@ export const ResultsScreen: React.FC = () => {
                <span className="text-3xl font-bold text-slate-700">29,90</span>
                <span className="text-sm text-slate-400">/mês</span>
             </div>
+            
+            {/* Features List */}
+            <div className="space-y-3 mb-6 border-t border-slate-200 pt-4">
+               <div className="flex items-center gap-2 text-xs text-slate-600">
+                  <Check size={14} className="text-slate-400" /> <span>Controle de Gastos</span>
+               </div>
+               <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <XCircle size={14} className="text-red-400" /> <span className="line-through decoration-red-400/50">Sem Bônus Exclusivos</span>
+               </div>
+               <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <XCircle size={14} className="text-red-400" /> <span className="line-through decoration-red-400/50">Sem Zé da Obra (IA)</span>
+               </div>
+               <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <XCircle size={14} className="text-red-400" /> <span className="line-through decoration-red-400/50">Sem Suporte Prioritário</span>
+               </div>
+            </div>
+
             <a 
               href="#checkout-mensal"
               className="w-full block text-center py-3 rounded-xl border border-slate-300 text-slate-600 font-bold hover:bg-slate-100 transition-colors text-sm"
@@ -434,7 +453,7 @@ export const ResultsScreen: React.FC = () => {
           </div>
 
           {/* 2. PLANO SEMESTRAL */}
-          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 relative overflow-hidden hover:border-[#FFC107] transition-all duration-300">
+          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 relative overflow-hidden hover:border-[#FFC107] transition-all duration-300 group">
             <div className="absolute top-0 right-0 bg-blue-100 text-blue-800 text-[10px] font-bold px-3 py-1 rounded-bl-lg">
                 POPULAR
             </div>
@@ -447,6 +466,23 @@ export const ResultsScreen: React.FC = () => {
                <span className="text-sm text-slate-400">/6 meses</span>
             </div>
             <p className="text-xs text-green-600 mb-4 font-bold">Equivale a R$ 16,16/mês</p>
+            
+            {/* Features List */}
+            <div className="space-y-3 mb-6 border-t border-slate-200 pt-4">
+               <div className="flex items-center gap-2 text-xs text-slate-600">
+                  <Check size={14} className="text-slate-400" /> <span>Controle de Gastos</span>
+               </div>
+               <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <XCircle size={14} className="text-red-400" /> <span className="line-through decoration-red-400/50">Sem Bônus Exclusivos</span>
+               </div>
+               <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <XCircle size={14} className="text-red-400" /> <span className="line-through decoration-red-400/50">Sem Zé da Obra (IA)</span>
+               </div>
+               <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <XCircle size={14} className="text-red-400" /> <span className="line-through decoration-red-400/50">Sem Suporte Prioritário</span>
+               </div>
+            </div>
+
             <a 
               href="#checkout-semestral"
               className="w-full block text-center py-3 rounded-xl border-2 border-[#1A2A44] text-[#1A2A44] font-bold hover:bg-blue-50 transition-colors text-sm"
