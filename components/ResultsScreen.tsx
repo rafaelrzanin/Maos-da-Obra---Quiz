@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // Se você tiver lucide-react instalado, seria ideal importar os ícones.
 // Mas para manter compatível com seu código original, vamos carregar o script via CDN no useEffect.
 
-export default function ResultsScreen() {
+export function ResultsScreen() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([
     { text: "Olá! 👷‍♂️ Sou o Zé. Posso analisar seu orçamento agora?", sender: 'bot' }
