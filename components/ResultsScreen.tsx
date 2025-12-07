@@ -99,7 +99,7 @@ export function ResultsScreen() {
   };
 
   return (
-    <div className="antialiased selection:bg-brand-gold selection:text-white bg-[#020617] text-[#F8FAFC] font-sans overflow-x-hidden w-full min-h-screen">
+    <div className="antialiased selection:bg-brand-gold selection:text-white bg-[#020617] text-[#F8FAFC] font-sans overflow-x-hidden w-full h-screen overflow-y-auto">
       
       {/* Estilos Globais Injetados */}
       <style>{`
