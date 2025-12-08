@@ -98,9 +98,9 @@ export const ResultsScreen: React.FC = () => {
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-white/10 text-left">
-                   <p className="text-xs text-slate-300 leading-relaxed">
-                     <strong className="text-white">Atenção:</strong> Sem gestão profissional, 10% a 30% do orçamento vira entulho, desperdício e retrabalho.
-                   </p>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      <strong className="text-white">Atenção:</strong> Sem gestão profissional, 10% a 30% do orçamento vira entulho, desperdício e retrabalho.
+                    </p>
                 </div>
             </div>
         </div>
@@ -182,7 +182,6 @@ export const ResultsScreen: React.FC = () => {
       {/* ==========================================
           4. PROVA SOCIAL (SCROLL INFINITO)
       ========================================= */}
-      {/* Aumentado pb-32 para garantir absolutamente o espaçamento */}
       <div className="pt-14 pb-32 bg-[#1A2A44] w-full border-t border-white/5 relative z-10 overflow-hidden min-h-[400px]">
          <div className="px-6 mb-8 text-center relative z-10">
             <h3 className="text-white font-bold uppercase tracking-widest text-sm mb-2">Quem usa não larga</h3>
@@ -311,7 +310,6 @@ export const ResultsScreen: React.FC = () => {
       {/* ==========================================
           SEÇÃO PREMIUM "SIMPLES COMO WHATSAPP" (TECNOLOGIA)
       ========================================== */}
-      {/* Aumentado padding-bottom para pb-28 para evitar que o card invada a seção seguinte */}
       <div className="bg-[#1A2A44] pt-16 pb-28 px-6 relative border-t border-white/10 h-auto">
           {/* Ambient Light Effects */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[80px] pointer-events-none"></div>
@@ -443,8 +441,9 @@ export const ResultsScreen: React.FC = () => {
                </div>
             </div>
 
+            {/* CORREÇÃO AQUI: MENSAL EM MAIÚSCULO */}
             <a 
-              href="https://maos-da-obra-2-0.vercel.app/login?plan=mensal"
+              href="https://maos-da-obra-2-0.vercel.app/login?plan=MENSAL"
               className="w-full block text-center py-3 rounded-xl border border-slate-300 text-slate-600 font-bold hover:bg-slate-100 transition-colors text-sm"
             >
               Escolher Mensal
@@ -454,7 +453,7 @@ export const ResultsScreen: React.FC = () => {
           {/* 2. PLANO SEMESTRAL */}
           <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 relative overflow-hidden hover:border-[#FFC107] transition-all duration-300 group">
             <div className="absolute top-0 right-0 bg-blue-100 text-blue-800 text-[10px] font-bold px-3 py-1 rounded-bl-lg">
-                POPULAR
+               POPULAR
             </div>
             <div className="flex justify-between items-center mb-2">
                <h3 className="font-bold text-[#1A2A44]">Semestral</h3>
@@ -482,8 +481,9 @@ export const ResultsScreen: React.FC = () => {
                </div>
             </div>
 
+            {/* CORREÇÃO AQUI: SEMESTRAL EM MAIÚSCULO */}
             <a 
-              href="https://maos-da-obra-2-0.vercel.app/login?plan=semestral"
+              href="https://maos-da-obra-2-0.vercel.app/login?plan=SEMESTRAL"
               className="w-full block text-center py-3 rounded-xl border-2 border-[#1A2A44] text-[#1A2A44] font-bold hover:bg-blue-50 transition-colors text-sm"
             >
               Escolher Semestral
@@ -526,8 +526,9 @@ export const ResultsScreen: React.FC = () => {
                         </div>
                     </div>
 
+                    {/* CORREÇÃO AQUI: VITALICIO EM MAIÚSCULO */}
                     <a 
-                      href="https://maos-da-obra-2-0.vercel.app/login?plan=vitalicio"
+                      href="https://maos-da-obra-2-0.vercel.app/login?plan=VITALICIO"
                       className="w-full block text-center py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-black text-lg shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] transform transition-transform active:scale-[0.98] flex items-center justify-center gap-2 group relative z-30"
                     >
                         QUERO O VITALÍCIO
@@ -544,7 +545,7 @@ export const ResultsScreen: React.FC = () => {
             
             {/* Main Badge Container */}
             <div className="flex flex-col items-center relative">
-               
+                
                {/* 3D Gold Shield Icon - Floating Above */}
                <div className="w-24 h-24 bg-gradient-to-br from-[#FFC107] via-[#F59E0B] to-[#B45309] rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(245,158,11,0.4)] border-4 border-white relative z-20 mb-[-40px]">
                   <ShieldCheck size={44} className="text-white drop-shadow-md" strokeWidth={2.5} />
