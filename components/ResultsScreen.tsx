@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // <--- IMPORTANTE
+import { useNavigate } from 'react-router-dom';
 import { 
   AlertTriangle, 
   CheckCircle2, 
@@ -25,12 +25,11 @@ import {
   MessageCircle,
   ThumbsUp,
   HardHat,
-  Check,
-  MousePointerClick
+  Check
 } from 'lucide-react';
 
-export const ResultsScreen: React.FC = () => {
-  const navigate = useNavigate(); // <--- HOOK DE NAVEGAÇÃO
+export const ResultsScreen = () => {
+  const navigate = useNavigate();
 
   const scrollToPricing = () => {
     const element = document.getElementById('pricing');
@@ -40,10 +39,14 @@ export const ResultsScreen: React.FC = () => {
   };
 
   // Função auxiliar para navegar garantindo o parâmetro
-  const handleSelectPlan = (planType: string) => {
-      console.log("Selecionando plano:", planType);
-      // Navega direto para o checkout com o parâmetro na URL
-      navigate(`/checkout?plan=${planType}`);
+  const handleSelectPlan = (planType) => {
+      // Tenta usar a navegação do React Router
+      try {
+        navigate(`/checkout?plan=${planType}`);
+      } catch (error) {
+        // Fallback: se o navigate falhar (ex: fora de Router), força via window
+        window.location.href = `/checkout?plan=${planType}`;
+      }
   };
 
   return (
@@ -450,7 +453,7 @@ export const ResultsScreen: React.FC = () => {
                </div>
             </div>
 
-            {/* BOTÃO CORRIGIDO: MENSAL (MAIÚSCULO) + USENAVIGATE */}
+            {/* BOTÃO MENSAL */}
             <button 
               onClick={() => handleSelectPlan('MENSAL')}
               className="w-full block text-center py-3 rounded-xl border border-slate-300 text-slate-600 font-bold hover:bg-slate-100 transition-colors text-sm"
@@ -477,3 +480,267 @@ export const ResultsScreen: React.FC = () => {
             {/* Features List */}
             <div className="space-y-3 mb-6 border-t border-slate-200 pt-4">
                <div className="flex items-center gap-2 text-xs text-slate-600">
+                  <Check size={14} className="text-slate-400" /> <span>Controle de Gastos</span>
+               </div>
+               <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <XCircle size={14} className="text-red-400" /> <span className="line-through decoration-red-400/50">Sem Bônus Exclusivos</span>
+               </div>
+               <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <XCircle size={14} className="text-red-400" /> <span className="line-through decoration-red-400/50">Sem Zé da Obra (IA)</span>
+               </div>
+               <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <XCircle size={14} className="text-red-400" /> <span className="line-through decoration-red-400/50">Sem Suporte Prioritário</span>
+               </div>
+            </div>
+
+            {/* BOTÃO SEMESTRAL */}
+            <button 
+              onClick={() => handleSelectPlan('SEMESTRAL')}
+              className="w-full block text-center py-3 rounded-xl border-2 border-[#1A2A44] text-[#1A2A44] font-bold hover:bg-blue-50 transition-colors text-sm"
+            >
+              Escolher Semestral
+            </button>
+          </div>
+
+          {/* 3. PLANO VITALÍCIO (HERO) */}
+          <div className="relative transform scale-105 z-20 mt-6">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#FFC107] to-orange-500 rounded-2xl blur opacity-75 animate-pulse pointer-events-none"></div>
+            
+            <div className="bg-[#1A2A44] rounded-xl p-1 relative shadow-2xl">
+                <div className="bg-[#0F172A] rounded-lg p-6 text-white relative overflow-hidden">
+                    
+                    <div className="absolute top-0 right-0 bg-[#FFC107] text-[#1A2A44] text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider">
+                        MELHOR CUSTO-BENEFÍCIO
+                    </div>
+
+                    <h3 className="font-bold text-xl text-[#FFC107] mb-1 flex items-center gap-2">
+                        <Lock size={18} /> Acesso Vitalício
+                    </h3>
+                    <p className="text-[11px] text-slate-400 mb-6">Pagamento Único • Nunca mais pague nada</p>
+                    
+                    <div className="flex items-baseline gap-2 mb-6">
+                        <span className="text-sm text-slate-500 line-through">R$ 997</span>
+                        <div className="flex items-baseline">
+                            <span className="text-lg font-bold text-[#FFC107]">R$</span>
+                            <span className="text-5xl font-black text-white tracking-tighter">247</span>
+                        </div>
+                    </div>
+                    
+                    <div className="space-y-3 mb-8 border-t border-white/10 pt-4">
+                        <div className="flex items-center gap-3 text-sm font-medium">
+                            <CheckCircle2 size={16} className="text-[#FFC107]"/> <span>Acesso Vitalício ao App</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-sm font-medium">
+                            <Bot size={16} className="text-[#FFC107]"/> <span className="text-[#FFC107] font-bold">Zé da Obra (IA) Incluso</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-sm font-medium">
+                            <Gift size={16} className="text-[#FFC107]"/> <span>Todos os Bônus (R$ 900+)</span>
+                        </div>
+                    </div>
+
+                    {/* BOTÃO VITALÍCIO */}
+                    <button 
+                      onClick={() => handleSelectPlan('VITALICIO')}
+                      className="w-full block text-center py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-black text-lg shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] transform transition-transform active:scale-[0.98] flex items-center justify-center gap-2 group relative z-30"
+                    >
+                        QUERO O VITALÍCIO
+                        <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* SATISFACTION GUARANTEE - 3D BADGE STYLE (FIXED) */}
+        <div className="mt-20 max-w-sm mx-auto relative group px-2">
+            
+            {/* Main Badge Container */}
+            <div className="flex flex-col items-center relative">
+                
+               {/* 3D Gold Shield Icon - Floating Above */}
+               <div className="w-24 h-24 bg-gradient-to-br from-[#FFC107] via-[#F59E0B] to-[#B45309] rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(245,158,11,0.4)] border-4 border-white relative z-20 mb-[-40px]">
+                  <ShieldCheck size={44} className="text-white drop-shadow-md" strokeWidth={2.5} />
+               </div>
+               
+               {/* Content Box */}
+               <div className="bg-white w-full rounded-3xl pt-14 pb-8 px-6 shadow-2xl border border-slate-100 relative z-10">
+                   <h3 className="text-center font-black text-2xl text-[#1A2A44] uppercase tracking-tighter mb-3">
+                     Garantia Total
+                   </h3>
+                   <div className="flex justify-center items-center gap-3 mb-5">
+                      <div className="h-px w-8 bg-slate-200"></div>
+                      <span className="text-[10px] font-bold text-[#F59E0B] uppercase tracking-widest bg-[#FFFBEB] px-2 py-1 rounded">30 Dias • Risco Zero</span>
+                      <div className="h-px w-8 bg-slate-200"></div>
+                   </div>
+                   
+                   <p className="text-center text-slate-600 text-sm leading-relaxed mb-6 font-medium">
+                      Você tem 30 dias para testar. Se não economizar na obra ou não gostar do Zé, nós devolvemos <span className="font-bold text-[#1A2A44] border-b-2 border-[#FFC107]">100% do seu dinheiro</span>.
+                   </p>
+
+                   <div className="flex justify-center">
+                      <div className="inline-flex items-center gap-2 bg-[#F0FDF4] text-green-700 px-4 py-2.5 rounded-xl font-bold text-xs border border-green-200 shadow-sm">
+                         <Check size={16} strokeWidth={3} className="text-green-600" /> Reembolso Automático
+                      </div>
+                   </div>
+               </div>
+            </div>
+        </div>
+
+        {/* Payment Methods - TRANSPARENT/LIGHT STYLE */}
+        <div className="mt-16 flex flex-col items-center gap-4 relative z-40">
+            <div className="flex gap-3 items-center opacity-90">
+                {/* PIX */}
+                <div className="flex flex-col items-center justify-center bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 h-12 shadow-sm">
+                    <QrCode size={20} className="text-[#10B981] mb-0.5" />
+                    <span className="text-[9px] font-bold text-[#10B981] leading-none">PIX</span>
+                </div>
+                {/* Cards */}
+                <div className="flex items-center bg-slate-50 rounded-lg px-4 h-12 gap-3 border border-slate-200 shadow-sm">
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="flex -space-x-1.5">
+                            <div className="w-4 h-4 rounded-full bg-red-500"></div>
+                            <div className="w-4 h-4 rounded-full bg-yellow-500/90"></div>
+                        </div>
+                        <span className="text-[8px] font-bold text-slate-500 mt-1">Master</span>
+                    </div>
+                    <div className="w-[1px] h-6 bg-slate-300"></div>
+                    <div className="flex flex-col items-center justify-center">
+                            <span className="text-[12px] font-black text-blue-800 leading-none italic font-serif">Visa</span>
+                            <span className="text-[8px] font-bold text-slate-500 mt-0.5">Visa</span>
+                    </div>
+                    <div className="w-[1px] h-6 bg-slate-300"></div>
+                    <div className="flex flex-col items-center justify-center">
+                        <CreditCard size={18} className="text-slate-600"/>
+                        <span className="text-[8px] font-bold text-slate-500 mt-1">Outros</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex items-center gap-2 text-slate-400">
+                <Lock size={12} />
+                <span className="text-[10px] uppercase font-bold tracking-widest">Ambiente 100% Criptografado</span>
+            </div>
+        </div>
+
+      </div>
+
+      {/* FOOTER */}
+      <footer className="py-10 text-center relative z-10 bg-[#F8FAFC] pb-40 border-t border-slate-200">
+          <p className="text-[#1A2A44] font-bold text-xs mb-2">© 2025 Mãos da Obra</p>
+          <p className="text-slate-400 text-[10px]">Todos os direitos reservados.</p>
+          <div className="flex justify-center gap-4 mt-4 text-[10px] text-slate-500 font-medium">
+              <span className="cursor-pointer hover:text-[#1A2A44]">Termos de Uso</span>
+              <span className="cursor-pointer hover:text-[#1A2A44]">Política de Privacidade</span>
+          </div>
+      </footer>
+
+      {/* STICKY CTA */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-lg border-t border-slate-200 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-50">
+         <div className="max-w-md mx-auto">
+            <button 
+                onClick={scrollToPricing}
+                className="w-full bg-[#10B981] hover:bg-[#059669] text-white text-lg font-black py-4 rounded-xl shadow-lg shadow-green-500/30 transform transition-all active:scale-[0.98] flex items-center justify-center gap-2 animate-pulse-slow"
+            >
+               ECONOMIZAR AGORA
+               <ArrowRight size={22} className="text-white" />
+            </button>
+         </div>
+      </div>
+
+    </div>
+  );
+};
+
+// --- HELPER COMPONENTS ---
+
+const PainCard = ({ icon, title, text }) => (
+  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+    <div className="bg-white p-3 rounded-xl shadow-sm shrink-0">
+      {icon}
+    </div>
+    <div>
+      <h3 className="font-bold text-[#1A2A44] leading-tight mb-1 text-sm uppercase tracking-wide">{title}</h3>
+      <p className="text-xs text-slate-600 leading-relaxed font-medium">{text}</p>
+    </div>
+  </div>
+);
+
+const ComparisonRow = ({ bad, good }) => (
+    <div className="grid grid-cols-2 text-xs">
+        <div className="py-4 px-2 text-center text-slate-500 border-r border-slate-100 flex items-center justify-center gap-1">
+            <XCircle size={14} className="text-red-400" /> {bad}
+        </div>
+        <div className="py-4 px-2 text-center font-bold text-[#1A2A44] bg-green-50/50 flex items-center justify-center gap-1">
+            <CheckCircle2 size={14} className="text-green-500" /> {good}
+        </div>
+    </div>
+);
+
+// New Component for Breaking the Blocks
+const InterimCTA = ({ text, subtext, onClick, color = "green" }) => {
+    
+    const bgColors = {
+        red: "bg-red-600 hover:bg-red-700 shadow-red-500/30",
+        green: "bg-[#10B981] hover:bg-[#059669] shadow-green-500/30",
+        blue: "bg-blue-600 hover:bg-blue-700 shadow-blue-500/30",
+    };
+
+    return (
+        <button 
+            onClick={onClick}
+            className={`w-full ${bgColors[color]} text-white py-4 rounded-xl shadow-lg transform transition-all active:scale-[0.98] group mt-6 relative overflow-hidden`}
+        >
+            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="flex flex-col items-center justify-center relative z-10">
+                <span className="text-lg font-black flex items-center gap-2 uppercase tracking-tight">
+                   {text} <ArrowRight size={20} />
+                </span>
+                <span className="text-xs font-medium text-white/90 opacity-90">
+                    {subtext}
+                </span>
+            </div>
+        </button>
+    )
+}
+
+const FeatureItemLight = ({ icon, title, desc }) => (
+    <div className="flex items-start gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-[#FFC107] transition-colors">
+        <div className="shrink-0 mt-1">
+            {icon}
+        </div>
+        <div>
+            <h4 className="font-bold text-[#1A2A44] text-sm mb-1">{title}</h4>
+            <p className="text-xs text-slate-600 leading-relaxed">{desc}</p>
+        </div>
+    </div>
+);
+
+const PremiumBonusCardLight = ({ icon, title, desc, price }) => (
+  <div className="flex gap-4 bg-white p-4 rounded-xl border border-slate-200 items-center relative overflow-hidden group shadow-sm">
+     <div className="bg-[#1A2A44] p-3 rounded-lg border border-slate-100 text-[#FFC107] shadow-md shrink-0 z-10">
+        {icon}
+     </div>
+     <div className="z-10 flex-1">
+        <h3 className="font-bold text-[#1A2A44] text-sm mb-1">{title}</h3>
+        <p className="text-[11px] text-slate-500 leading-tight mb-2">{desc}</p>
+        <div className="flex items-center gap-2">
+            <span className="text-[10px] bg-red-100 text-red-500 px-2 py-0.5 rounded line-through">R$ {price}</span>
+            <span className="text-[10px] text-[#10B981] font-bold">GRÁTIS HOJE</span>
+        </div>
+     </div>
+  </div>
+);
+
+const TestimonialCard = ({ name, role, text }) => (
+   <div className="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/10 min-w-[280px] w-[280px] flex-shrink-0">
+      <div className="flex gap-1 mb-3">
+         {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-[#FFC107] fill-[#FFC107]" />)}
+      </div>
+      <p className="text-xs text-slate-200 italic mb-4 leading-relaxed line-clamp-3">"{text}"</p>
+      <div className="border-t border-white/10 pt-3">
+          <p className="text-[11px] font-bold text-white uppercase">{name}</p>
+          <p className="text-[10px] text-slate-400">{role}</p>
+      </div>
+   </div>
+);
