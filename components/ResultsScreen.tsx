@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// REMOVI O IMPORT DO REACT-ROUTER-DOM PARA CORRIGIR O ERRO DE BUILD
 import { 
   AlertTriangle, 
   CheckCircle2, 
@@ -29,8 +29,7 @@ import {
 } from 'lucide-react';
 
 export const ResultsScreen = () => {
-  const navigate = useNavigate();
-
+  
   const scrollToPricing = () => {
     const element = document.getElementById('pricing');
     if (element) {
@@ -38,15 +37,14 @@ export const ResultsScreen = () => {
     }
   };
 
-  // Função auxiliar para navegar garantindo o parâmetro
+  // --- FUNÇÃO DE NAVEGAÇÃO NATIVA (CORRIGIDA) ---
   const handleSelectPlan = (planType) => {
-      // Tenta usar a navegação do React Router
-      try {
-        navigate(`/checkout?plan=${planType}`);
-      } catch (error) {
-        // Fallback: se o navigate falhar (ex: fora de Router), força via window
-        window.location.href = `/checkout?plan=${planType}`;
-      }
+      // Redirecionamento direto pelo navegador (Funciona sem instalar nada)
+      // Apontando para o seu APP principal onde está o Checkout
+      const baseUrl = "https://maos-da-obra-2-0.vercel.app";
+      
+      // Enviamos para o login passando o plano, para garantir que o usuário entre na conta e caia no checkout certo
+      window.location.href = `${baseUrl}/checkout?plan=${planType}`;
   };
 
   return (
@@ -453,7 +451,7 @@ export const ResultsScreen = () => {
                </div>
             </div>
 
-            {/* BOTÃO MENSAL */}
+            {/* BOTÃO MENSAL (NATIVO JS) */}
             <button 
               onClick={() => handleSelectPlan('MENSAL')}
               className="w-full block text-center py-3 rounded-xl border border-slate-300 text-slate-600 font-bold hover:bg-slate-100 transition-colors text-sm"
@@ -493,7 +491,7 @@ export const ResultsScreen = () => {
                </div>
             </div>
 
-            {/* BOTÃO SEMESTRAL */}
+            {/* BOTÃO SEMESTRAL (NATIVO JS) */}
             <button 
               onClick={() => handleSelectPlan('SEMESTRAL')}
               className="w-full block text-center py-3 rounded-xl border-2 border-[#1A2A44] text-[#1A2A44] font-bold hover:bg-blue-50 transition-colors text-sm"
@@ -538,7 +536,7 @@ export const ResultsScreen = () => {
                         </div>
                     </div>
 
-                    {/* BOTÃO VITALÍCIO */}
+                    {/* BOTÃO VITALÍCIO (NATIVO JS) */}
                     <button 
                       onClick={() => handleSelectPlan('VITALICIO')}
                       className="w-full block text-center py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-black text-lg shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] transform transition-transform active:scale-[0.98] flex items-center justify-center gap-2 group relative z-30"
@@ -677,9 +675,7 @@ const ComparisonRow = ({ bad, good }) => (
     </div>
 );
 
-// New Component for Breaking the Blocks
 const InterimCTA = ({ text, subtext, onClick, color = "green" }) => {
-    
     const bgColors = {
         red: "bg-red-600 hover:bg-red-700 shadow-red-500/30",
         green: "bg-[#10B981] hover:bg-[#059669] shadow-green-500/30",
