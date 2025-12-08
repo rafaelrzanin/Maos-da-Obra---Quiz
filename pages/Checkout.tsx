@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { 
-  CreditCard, QrCode, ShieldCheck, Loader2, CheckCircle, 
-  Copy, HardHat, ChevronDown, UserCheck, AlertTriangle
+import { 
+  CreditCard, QrCode, ShieldCheck, Loader2, 
+  Copy, HardHat, ChevronDown, UserCheck, AlertTriangle, CheckCircle
 } from 'lucide-react'; 
 
 // --- TIPAGEM ---
@@ -53,12 +53,12 @@ export default function Checkout() {
     }
   };
 
-  // --- FUNÇÃO DE REDIRECIONAMENTO FINAL (ÚNICA DECLARAÇÃO) ---
+  // --- FUNÇÃO DE REDIRECIONAMENTO FINAL ---
   const redirectToDashboard = () => {
-    localStorage.removeItem('tempUser'); 
-    window.location.href = "https://www.maosdaobra.online/dashboard"; 
+    localStorage.removeItem('tempUser'); 
+    window.location.href = "https://www.maosdaobra.online/dashboard"; 
   }
-  // --- FIM FUNÇÃO CORRIGIDA ---
+  // --- FIM FUNÇÃO CORRIGIDA ---
 
   useEffect(() => {
     const loadData = async () => {
@@ -168,7 +168,7 @@ export default function Checkout() {
         if (!response.ok) throw new Error(result.message || "Transação recusada.");
 
         // SUCESSO REAL (Cartão): Redireciona para o App
-        redirectToDashboard(); 
+        redirectToDashboard(); 
 
     } catch (err: any) {
         setErrorMsg(err.message || "Erro ao processar cartão.");
@@ -177,7 +177,8 @@ export default function Checkout() {
 
 
   const handleCopyPix = () => {
-    if (pixCode) { navigator.clipboard.writeText(pixCode); setPixCopied(true); setTimeout(() => setPixCopied(false), 3000); }
+    // Usa document.execCommand para melhor compatibilidade em iframes/navegadores antigos
+    if (pixCode) { document.execCommand('copy', false, pixCode); setPixCopied(true); setTimeout(() => setPixCopied(false), 3000); }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -300,7 +301,9 @@ export default function Checkout() {
                             <label className="block text-xs font-bold text-gray-400 mb-2 uppercase ml-1">Parcelamento</label>
                             <div className="relative"><select name="installments" value={cardData.installments} onChange={handleInputChange} className="w-full bg-[#0f1623] border border-gray-700 text-white px-4 py-4 rounded-xl focus:ring-1 focus:ring-[#bc5a08] outline-none appearance-none cursor-pointer"><option value={1}>1x de R$ {planDetails?.price.toFixed(2)} (Sem juros)</option><option value={2}>2x de R$ {(planDetails?.price! / 2).toFixed(2)}</option><option value={3}>3x de R$ {(planDetails?.price! / 3).toFixed(2)}</option></select><ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4 pointer-events-none" /></div>
                         </div>
-                        <button type="submit" disabled={processing} className="w-full mt-4 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-orange-900/20 flex items-center justify-center gap-2 disabled:opacity-50" style={{ backgroundColor: '#bc5a08' }}>{processing ? <><Loader2 className="animate-spin" /> Processando...</>}</button>
+                        
+                        {/* BOTÃO CORRIGIDO: Adiciona o fallback 'Finalizar Compra' */}
+                        <button type="submit" disabled={processing} className="w-full mt-4 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-orange-900/20 flex items-center justify-center gap-2 disabled:opacity-50" style={{ backgroundColor: '#bc5a08' }}>{processing ? <><Loader2 className="animate-spin" /> Processando...</> : 'Finalizar Compra'}</button>
                         
                         <div className="text-center pt-2">
                             <span className="text-xs text-gray-500 flex items-center justify-center gap-1"><ShieldCheck size={12} /> Ambiente seguro e criptografado</span>
