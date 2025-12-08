@@ -37,14 +37,11 @@ export const ResultsScreen = () => {
     }
   };
 
-  // --- FUNÇÃO DE NAVEGAÇÃO NATIVA (CORRIGIDA) ---
+  // --- FUNÇÃO DE NAVEGAÇÃO CORRIGIDA ---
   const handleSelectPlan = (planType) => {
-      // Redirecionamento direto pelo navegador (Funciona sem instalar nada)
-      // Apontando para o seu APP principal onde está o Checkout
-      const baseUrl = "https://maos-da-obra-2-0.vercel.app";
-      
-      // Enviamos para o login passando o plano, para garantir que o usuário entre na conta e caia no checkout certo
-      window.location.href = `${baseUrl}/checkout?plan=${planType}`;
+      // AJUSTE: Usar caminho relativo '/' funciona tanto no localhost quanto no Vercel
+      // Isso evita que você precise ficar mudando o link manualmente
+      window.location.href = `/checkout?plan=${planType}`;
   };
 
   return (
@@ -288,7 +285,7 @@ export const ResultsScreen = () => {
             <div className="p-4 bg-slate-50 space-y-4">
                <div className="flex justify-end">
                   <div className="bg-slate-200 text-slate-700 text-xs p-3 rounded-l-xl rounded-tr-xl max-w-[85%] shadow-sm">
-                     "Zé", vou rebocar uma parede de 20m². O que eu compro?
+                      "Zé", vou rebocar uma parede de 20m². O que eu compro?
                   </div>
                </div>
                
@@ -327,7 +324,7 @@ export const ResultsScreen = () => {
           
           <div className="relative z-10 text-center mb-12">
               <div className="inline-block bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-[10px] font-bold text-white/90 mb-6 border border-white/10 uppercase tracking-widest">
-                 Tecnologia Invisível
+                  Tecnologia Invisível
               </div>
               <h2 className="text-2xl md:text-3xl font-black text-white mb-6 leading-tight">
                   "Eu não entendo de tecnologia..."
