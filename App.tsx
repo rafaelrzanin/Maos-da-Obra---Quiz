@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// Importe suas telas
+// IMPORTAÇÃO DAS TELAS
 import { WelcomeScreen } from './components/WelcomeScreen';
 import { QuizScreen } from './components/QuizScreen';
 import { ProcessingScreen } from './components/ProcessingScreen';
 import { ResultsScreen } from './components/ResultsScreen';
-import Checkout from './pages/Checkout'; // Certifique-se que o Checkout.tsx está nesta pasta
+
+// IMPORTAÇÃO DAS NOVAS PÁGINAS (Verifique se as pastas estão certas)
+import Register from './pages/Register';
+import Checkout from './pages/Checkout';
 
 import { QuizStep, QuizState } from './types';
 import { QUESTIONS } from './constants';
 
-// 1. Isolamos a lógica do Quiz num componente separado
+// --- COMPONENTE QUE CONTÉM A LÓGICA DO QUIZ ---
 const QuizFlow: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<QuizStep>('welcome');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -72,15 +75,18 @@ const QuizFlow: React.FC = () => {
   );
 };
 
-// 2. O App agora gerencia as Rotas (Isso resolve o erro 404)
+// --- APP PRINCIPAL COM AS ROTAS ---
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Se o link for a raiz, mostra o Quiz */}
+        {/* ROTA RAIZ (O QUIZ EM SI) */}
         <Route path="/" element={<QuizFlow />} />
         
-        {/* Se o link for /checkout, mostra o Checkout */}
+        {/* ROTA DE REGISTRO (CRIAR CONTA) */}
+        <Route path="/register" element={<Register />} />
+        
+        {/* ROTA DE PAGAMENTO */}
         <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </BrowserRouter>
