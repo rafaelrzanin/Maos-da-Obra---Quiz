@@ -51,8 +51,8 @@ export const ResultsScreen = () => {
         
         {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden rounded-b-[2.5rem] pointer-events-none">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-red-600/10 rounded-full blur-[60px] translate-y-1/2 -translate-x-1/2"></div>
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/20 blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-red-600/10 blur-[60px] translate-y-1/2 -translate-x-1/2"></div>
         </div>
         
         <div className="relative z-10 flex flex-col items-center text-center">
@@ -258,7 +258,7 @@ export const ResultsScreen = () => {
   );
 };
 
-// Componentes Auxiliares
+// Componentes Auxiliares (Definidos no final para evitar conflitos)
 const PainCard = ({ icon, title, text }: any) => (
   <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
     <div className="bg-white p-3 rounded-xl shadow-sm shrink-0">{icon}</div>
