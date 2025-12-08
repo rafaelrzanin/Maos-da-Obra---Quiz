@@ -249,3 +249,69 @@ export default function Checkout() {
             {/* DIREITA: FORMULÁRIO */}
             <div className="lg:col-span-3">
             <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                
+                {/* Abas */}
+                <div className="flex bg-[#0f1623] p-1 rounded-xl mb-8 border border-white/5">
+                    <button onClick={() => setPaymentMethod('pix')} className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-semibold transition-all duration-300 ${paymentMethod === 'pix' ? 'bg-[#172134] text-white shadow-lg border border-gray-700' : 'text-gray-400 hover:text-white'}`}>
+                        <QrCode size={18} /> PIX
+                    </button>
+                    <button onClick={() => setPaymentMethod('card')} className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-semibold transition-all duration-300 ${paymentMethod === 'card' ? 'bg-[#172134] text-white shadow-lg border border-gray-700' : 'text-gray-400 hover:text-white'}`}>
+                        <CreditCard size={18} /> Cartão
+                    </button>
+                </div>
+
+                {errorMsg && <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-xl flex items-center gap-3"><AlertTriangle className="flex-shrink-0" />{errorMsg}</div>}
+
+                {/* PIX */}
+                {paymentMethod === 'pix' && (
+                    <div className="text-center py-4">
+                        {!pixCode ? (
+                            <div className="space-y-6">
+                                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#bc5a08]/10 text-[#bc5a08] mb-2"><QrCode size={40} /></div>
+                                <div><h3 className="text-white font-bold text-xl mb-2">Pague com PIX</h3><p className="text-gray-400 text-sm max-w-xs mx-auto">Liberação automática.</p></div>
+                                <button onClick={handlePixGenerate} disabled={processing} className="w-full text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-orange-900/20 flex justify-center items-center gap-2" style={{ backgroundColor: '#bc5a08' }}>
+                                    {processing ? <Loader2 className="animate-spin" /> : "Gerar QR Code PIX"}
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="space-y-6 animate-in fade-in">
+                                <div className="bg-white p-4 rounded-xl inline-block shadow-lg"><img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pixCode)}`} alt="QR Code" className="w-48 h-48" /></div>
+                                <div className="bg-[#0f1623] p-4 rounded-xl border border-white/5 text-left"><label className="text-xs text-gray-500 mb-2 block uppercase font-bold">Copia e Cola</label><div className="flex gap-2"><input readOnly value={pixCode} className="w-full bg-transparent border-none text-gray-300 text-xs font-mono p-0 truncate outline-none" /><button onClick={handleCopyPix} className="text-[#bc5a08] hover:text-white transition-colors">{pixCopied ? <CheckCircle size={20} /> : <Copy size={20} />}</button></div></div>
+                                
+                                {/* BOTÃO INJETADO PARA ACESSAR O APP */}
+                                <button onClick={redirectToDashboard} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-green-900/20 flex items-center justify-center gap-2">
+                                    JÁ PAGUEI! ACESSAR O APP
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {/* CARTÃO */}
+                {paymentMethod === 'card' && (
+                    <form onSubmit={handleCreditCardSubmit} className="space-y-5">
+                        <div><label className="block text-xs font-bold text-gray-400 mb-2 uppercase ml-1">Número do Cartão</label><div className="relative"><input type="text" name="number" placeholder="0000 0000 0000 0000" value={cardData.number} onChange={handleInputChange} className="w-full bg-[#0f1623] border border-gray-700 text-white px-4 py-4 rounded-xl focus:ring-1 focus:ring-[#bc5a08] outline-none pl-12" required /><CreditCard className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={20} /></div></div>
+                        <div><label className="block text-xs font-bold text-gray-400 mb-2 uppercase ml-1">Nome Completo</label><input type="text" name="name" placeholder="Como no cartão" value={cardData.name} onChange={(e) => setCardData({...cardData, name: e.target.value.toUpperCase()})} className="w-full bg-[#0f1623] border border-gray-700 text-white px-4 py-4 rounded-xl focus:ring-1 focus:ring-[#bc5a08] outline-none" required /></div>
+                        <div className="grid grid-cols-2 gap-5">
+                            <div><label className="block text-xs font-bold text-gray-400 mb-2 uppercase ml-1">Validade</label><input type="text" name="expiry" placeholder="MM/AA" value={cardData.expiry} onChange={handleInputChange} className="w-full bg-[#0f1623] border border-gray-700 text-white px-4 py-4 rounded-xl focus:ring-1 focus:ring-[#bc5a08] outline-none text-center" required /></div>
+                            <div><label className="block text-xs font-bold text-gray-400 mb-2 uppercase ml-1">CVV</label><div className="relative"><input type="text" name="cvv" placeholder="123" value={cardData.cvv} onChange={handleInputChange} className="w-full bg-[#0f1623] border border-gray-700 text-white px-4 py-4 rounded-xl focus:ring-1 focus:ring-[#bc5a08] outline-none text-center" required /><ShieldCheck className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" size={16} /></div></div>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-gray-400 mb-2 uppercase ml-1">Parcelamento</label>
+                            <div className="relative"><select name="installments" value={cardData.installments} onChange={handleInputChange} className="w-full bg-[#0f1623] border border-gray-700 text-white px-4 py-4 rounded-xl focus:ring-1 focus:ring-[#bc5a08] outline-none appearance-none cursor-pointer"><option value={1}>1x de R$ {planDetails?.price.toFixed(2)} (Sem juros)</option><option value={2}>2x de R$ {(planDetails?.price! / 2).toFixed(2)}</option><option value={3}>3x de R$ {(planDetails?.price! / 3).toFixed(2)}</option></select><ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4 pointer-events-none" /></div>
+                        </div>
+                        <button type="submit" disabled={processing} className="w-full mt-4 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-orange-900/20 flex items-center justify-center gap-2 disabled:opacity-50" style={{ backgroundColor: '#bc5a08' }}>{processing ? <><Loader2 className="animate-spin" /> Processando...</>}</button>
+                        
+                        <div className="text-center pt-2">
+                            <span className="text-xs text-gray-500 flex items-center justify-center gap-1"><ShieldCheck size={12} /> Ambiente seguro e criptografado</span>
+                        </div>
+                    </form>
+                )}
+
+               </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  );
+}
