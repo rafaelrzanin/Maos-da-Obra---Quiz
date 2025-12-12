@@ -1,33 +1,26 @@
 import React from 'react';
 import { 
+  AlertTriangle, 
   CheckCircle2, 
   ArrowRight, 
   ShieldCheck, 
   Lock, 
-  Star, 
-  BarChart3, 
   Smartphone, 
   Bot, 
-  Clock, 
   Ban, 
+  Gift,
+  XCircle,
+  CreditCard,
+  HardHat,
+  Check,
+  AlertOctagon,
+  SearchX,
   TrendingDown,
-  Gift, 
-  Calculator, 
-  FileSignature, 
-  ShieldAlert, 
-  Coins, 
-  XCircle, 
-  Construction, 
-  CreditCard, 
-  QrCode, 
-  MessageCircle, 
-  ThumbsUp, 
-  HardHat, 
-  Check 
+  BarChart3
 } from 'lucide-react';
 
-export const ResultsScreen = () => {
-  
+export const ResultsScreen: React.FC = () => {
+
   const scrollToPricing = () => {
     const element = document.getElementById('pricing');
     if (element) {
@@ -35,221 +28,336 @@ export const ResultsScreen = () => {
     }
   };
 
-  // --- FUNÇÃO CORRIGIDA: APONTA PARA O FLUXO DE CADASTRO ---
-  const handleSelectPlan = (planType: string) => {
-      // Manda para o registro, iniciando a jornada premium
-      window.location.href = `/register?plan=${planType.toLowerCase()}`;
-  };
-
   return (
     <div className="flex flex-col h-full bg-[#F8FAFC] overflow-y-auto no-scrollbar scroll-smooth w-full relative">
       
       {/* ==========================================
-          1. O DIAGNÓSTICO (HEADER)
+          1. HERO — O DIAGNÓSTICO (RISCO FINANCEIRO)
       ========================================== */}
-      <div className="bg-[#0F172A] text-white pt-10 pb-28 px-6 rounded-b-[2.5rem] shadow-2xl relative z-10 w-full">
+      <div className="bg-[#DC2626] text-white pt-10 pb-28 px-6 rounded-b-[2.5rem] shadow-2xl relative z-10 w-full overflow-hidden shrink-0">
+        {/* Ambient Effects */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-black/20 rounded-full blur-[60px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-[40px] pointer-events-none"></div>
         
-        {/* Background Effects */}
-        <div className="absolute inset-0 overflow-hidden rounded-b-[2.5rem] pointer-events-none">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-red-600/10 rounded-full blur-[60px] translate-y-1/2 -translate-x-1/2"></div>
-        </div>
-        
-        <div className="relative z-10 flex flex-col items-center text-center">
+        <div className="relative z-10 flex flex-col items-center text-center max-w-md mx-auto">
             
-            <div className="inline-flex items-center gap-2 mb-6 bg-red-500/10 border border-red-500/40 px-4 py-2 rounded-full backdrop-blur-md animate-fade-in-up shadow-[0_0_20px_rgba(239,68,68,0.2)]">
-              <ShieldAlert size={18} className="text-red-500 animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-widest text-red-100">Alerta Financeiro Grave</span>
+            <div className="inline-flex items-center gap-2 bg-black/30 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md mb-6 animate-pulse-slow shadow-lg">
+              <AlertOctagon size={18} className="text-white" />
+              <span className="text-xs font-black uppercase tracking-widest text-white">Risco Crítico Detectado</span>
             </div>
-            
-            <h1 className="text-2xl md:text-3xl font-black leading-tight mb-8 animate-fade-in-up delay-100 tracking-tight">
-              Risco de perder até <span className="text-red-500 bg-red-500/10 px-2 rounded">30% do valor</span> da obra.
+
+            <h1 className="text-3xl font-black leading-tight mb-4 tracking-tight text-white drop-shadow-md">
+              Você está correndo risco de perder <span className="bg-white text-[#DC2626] px-2 whitespace-nowrap">30% do valor</span> da sua obra.
             </h1>
 
-            {/* IMPACT CARD */}
-            <div className="w-full bg-[#1E293B] rounded-2xl p-6 border border-red-500/30 mb-4 animate-fade-in-up delay-300 shadow-xl relative overflow-hidden ring-1 ring-white/5">
-                
-                <p className="text-[10px] text-red-300 uppercase tracking-widest font-bold mb-4 border-b border-white/5 pb-2 text-left">
-                  Projeção de Prejuízo Real
-                </p>
+            <p className="text-red-100 text-sm leading-relaxed font-medium mb-2 drop-shadow-sm max-w-xs mx-auto">
+              O diagnóstico apontou falhas graves de gestão que levam ao desperdício invisível.
+            </p>
+        </div>
+      </div>
 
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="flex justify-between items-center bg-white/5 p-3 rounded-lg border border-white/5">
-                    <div className="text-left">
-                      <p className="text-xs text-slate-400">Obra de</p>
-                      <p className="font-bold text-white">R$ 300 mil</p>
+      {/* ==========================================
+          2. O GRÁFICO DO PREJUÍZO (A REALIDADE)
+      ========================================== */}
+      <div className="px-6 relative z-20 -mt-20 max-w-md mx-auto w-full shrink-0">
+        <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+            <div className="bg-[#1E293B] p-4 border-b border-slate-700 flex justify-between items-center">
+                <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">Simulação Real</span>
+                <BarChart3 size={16} className="text-red-500" />
+            </div>
+            
+            <div className="p-6">
+                <div className="flex justify-between items-end mb-2">
+                    <p className="text-xs text-slate-500 font-bold uppercase">Orçamento da Obra</p>
+                    <p className="text-lg font-black text-[#1E293B]">R$ 300.000</p>
+                </div>
+                
+                {/* Visual Graph Bar */}
+                <div className="w-full h-8 bg-slate-100 rounded-full overflow-hidden flex mb-6 relative border border-slate-200">
+                    <div className="h-full bg-slate-300 w-[70%] border-r border-white"></div>
+                    <div className="h-full bg-[#DC2626] w-[30%] relative pattern-diagonal-lines">
+                         <div className="absolute inset-0 flex items-center justify-center">
+                             <span className="text-[10px] font-black text-white drop-shadow-md tracking-tighter">-30%</span>
+                         </div>
+                    </div>
+                </div>
+
+                <div className="bg-red-50 border border-red-100 rounded-xl p-4 flex items-center justify-between">
+                    <div>
+                        <p className="text-xs text-red-600 font-bold uppercase mb-1 flex items-center gap-1">
+                           <TrendingDown size={14} /> Dinheiro no Lixo
+                        </p>
+                        <p className="text-[10px] text-red-400">Material estragado, roubo, retrabalho</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-red-400 font-bold flex items-center justify-end gap-1">
-                        <TrendingDown size={12}/> Perda de
-                      </p>
-                      <p className="font-black text-red-500 text-lg">R$ 90.000</p>
+                        <p className="text-2xl font-black text-[#DC2626]">-90k</p>
                     </div>
-                  </div>
                 </div>
-                <div className="mt-4 pt-3 border-t border-white/10 text-left">
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      <strong className="text-white">Atenção:</strong> Sem gestão profissional, 10% a 30% do orçamento vira entulho.
-                    </p>
-                </div>
+
+                <p className="text-[10px] text-slate-400 text-center mt-4 italic">
+                    *Média de perda em obras sem gestão profissional (Sebrae/CAU).
+                </p>
             </div>
         </div>
       </div>
 
       {/* ==========================================
-          2. A FERIDA
+          3. O QUE DEU ERRADO (DIAGNÓSTICO)
       ========================================== */}
-      <div className="px-6 py-12 bg-white relative z-20 -mt-12 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
-        <div className="text-center mb-10 mt-2">
-           <h2 className="text-2xl font-black text-[#1A2A44] leading-tight">
-             O Dinheiro Acaba <br/> <span className="text-red-600">Antes da Obra.</span>
-           </h2>
-           <p className="text-sm text-slate-500 mt-2 max-w-xs mx-auto">
-             Sem controle, você entra na estatística de quem para a obra no acabamento.
-           </p>
-        </div>
+      <div className="pt-12 pb-8 px-6 max-w-md mx-auto w-full shrink-0">
+         <div className="bg-white rounded-2xl shadow-sm border-l-4 border-red-500 p-6">
+            <h3 className="font-bold text-[#1A2A44] mb-4 text-sm uppercase tracking-wide flex items-center gap-2 border-b border-slate-100 pb-3">
+                <SearchX size={20} className="text-red-500" />
+                Pontos de Falha Identificados:
+            </h3>
 
-        <div className="space-y-4 mb-8">
-          <PainCard icon={<Coins size={22} className="text-red-600" />} title="Caixa Zerado no Final" text="O dinheiro acaba na fase mais cara (acabamento)." />
-          <PainCard icon={<Clock size={22} className="text-orange-600" />} title="Prazo Estourado" text="Sem material na hora certa, o pedreiro fica parado ganhando diária." />
-          <PainCard icon={<Ban size={22} className="text-slate-700" />} title="Desperdício Invisível" text="Sem conferência, 15% do cimento e pisos somem." />
+            <div className="space-y-4">
+                <DiagnosisItem text="Falta de registro de pequenos gastos" />
+                <DiagnosisItem text="Compras feitas sem cálculo exato" />
+                <DiagnosisItem text="Cronograma frouxo (data indefinida)" />
+                <DiagnosisItem text="Descontrole de estoque na obra" />
+            </div>
         </div>
-
-        <InterimCTA text="CHEGA DE JOGAR DINHEIRO FORA" subtext="Quero proteger meu orçamento agora" onClick={scrollToPricing} color="red" />
       </div>
 
       {/* ==========================================
-          3. AMADORISMO VS PROFISSIONALISMO
+          4. PRESSÃO (CUSTA CARO)
       ========================================== */}
-      <div className="bg-slate-50 py-12 px-6 border-t border-slate-200">
-        <h2 className="text-xl font-black text-[#1A2A44] mb-8 text-center uppercase tracking-wide">
-          Evite o Amadorismo
-        </h2>
-        
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden mb-8">
-           <div className="grid grid-cols-2 text-center text-xs font-bold text-white uppercase tracking-widest">
-              <div className="bg-slate-400 py-3">Jeito Atual</div>
-              <div className="bg-[#10B981] py-3 flex items-center justify-center gap-1">
-                 <CheckCircle2 size={12} /> Solução Ideal
+      <div className="py-8 px-6 max-w-md mx-auto w-full shrink-0 text-center">
+         <h2 className="text-2xl font-black text-[#1A2A44] leading-tight mb-4">
+             O dinheiro acaba <br/> <span className="bg-red-100 text-[#DC2626] px-1 rounded">antes da obra</span>.
+         </h2>
+         
+         <p className="text-slate-600 text-sm leading-relaxed mb-8">
+             É matemático. Se você perde 30% do orçamento no caminho, a casa fica sem piso, sem pintura ou você entra em dívida no final.
+         </p>
+
+         <div className="grid gap-3 text-left">
+             <PressureCard icon={<Ban size={20} className="text-slate-500"/>} text="O pedreiro para e vai embora." />
+             <PressureCard icon={<AlertTriangle size={20} className="text-orange-500"/>} text="Você compra material 2x (desperdício)." />
+             <PressureCard icon={<CreditCard size={20} className="text-[#DC2626]"/>} text="O sonho vira um pesadelo financeiro." />
+         </div>
+      </div>
+
+      {/* ==========================================
+          5. QUEBRA DE OBJEÇÃO DE TIMING
+      ========================================== */}
+      <div className="bg-[#1A2A44] py-14 px-6 text-white relative overflow-hidden shrink-0 mt-8">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-[40px] pointer-events-none"></div>
+
+          <div className="relative z-10 max-w-md mx-auto text-center">
+              <h2 className="text-2xl font-black mb-4 leading-tight">
+                  Não importa em que fase sua obra está.
+              </h2>
+              <p className="text-slate-300 text-sm leading-relaxed mb-8">
+                  Mesmo que já esteja no meio do caos ou no acabamento, <strong>estancar a sangria agora</strong> é a única forma de sobrar dinheiro.
+              </p>
+              
+              <div className="bg-[#FFC107] text-[#1A2A44] p-4 rounded-xl font-bold text-sm shadow-[0_10px_30px_rgba(255,193,7,0.3)] transform rotate-1 border border-yellow-400">
+                  "Organizar agora custa 10x menos do que remediar depois."
               </div>
-           </div>
-           
-           <div className="divide-y divide-slate-100">
-              <ComparisonRow bad="Caderninho Sujo" good="App Automático" />
-              <ComparisonRow bad="Contas de Cabeça" good="Relatórios PDF" />
-              <ComparisonRow bad="Achismo" good="Zé da Obra (IA)" />
-              <ComparisonRow bad="Prejuízo Certo" good="Obra Valorizada" />
-           </div>
-        </div>
-
-        <InterimCTA text="QUERO MINHA OBRA PROFISSIONAL" subtext="Chega de dor de cabeça e improviso" onClick={scrollToPricing} color="green" />
+          </div>
       </div>
 
       {/* ==========================================
-          4. PROVA SOCIAL 
-      ========================================= */}
-      <div className="pt-14 pb-32 bg-[#1A2A44] w-full border-t border-white/5 relative z-10 overflow-hidden min-h-[400px]">
-         <div className="px-6 mb-8 text-center relative z-10">
-            <h3 className="text-white font-bold uppercase tracking-widest text-sm mb-2">Quem usa não larga</h3>
-            <div className="flex justify-center gap-1">
-               {[...Array(5)].map((_, i) => <Star key={i} size={16} className="text-[#FFC107] fill-[#FFC107]" />)}
-            </div>
-         </div>
-
-         <div className="scroller-container mb-12">
-             <div className="scroller-inner">
-                 <TestimonialCard name="Carlos F." role="Reformou Apartamento" text="Economizei 12 mil só no piso. O app avisou que eu ia comprar a mais." />
-                 <TestimonialCard name="Mariana C." role="Construção do Zero" text="Meu pedreiro tentou me enrolar nas diárias. O app me mostrou o certo." />
-                 <TestimonialCard name="Roberto A." role="Pequena Reforma" text="O Zé da Obra calculou o concreto certinho. Sobrou dinheiro pro ar." />
-                 <TestimonialCard name="Paulo S." role="Engenheiro Civil" text="Sou engenheiro e indico pra todos. Acaba com a dor de cabeça." />
-             </div>
-         </div>
-
-         <div className="px-6 relative z-20">
-            <button 
-                onClick={scrollToPricing}
-                className="w-full bg-white text-[#1A2A44] font-black py-4 rounded-xl shadow-lg transform transition-all active:scale-[0.98] flex items-center justify-center gap-2"
-            >
-                QUERO TER ESSES RESULTADOS
-                <ArrowRight size={18} />
-            </button>
-         </div>
-      </div>
-
-      {/* ==========================================
-          5. A OFERTA IRRESISTÍVEL (PRICING)
+          6. A SOLUÇÃO AUTOMÁTICA (CARROSSEL)
       ========================================== */}
-      <div className="py-12 px-6 bg-white pb-40" id="pricing">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-black text-[#1A2A44] mb-2 tracking-tight">Faça sua Escolha</h2>
-          <p className="text-slate-600 text-sm">Assuma o controle da sua obra hoje.</p>
+      <div className="py-16 bg-slate-50 overflow-hidden shrink-0 relative border-t border-slate-200">
+          
+          <div className="max-w-md mx-auto text-center mb-10 px-6">
+              <div className="w-16 h-16 bg-[#1A2A44] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl text-[#FFC107]">
+                  <Smartphone size={32} strokeWidth={2.5} />
+              </div>
+              <h2 className="text-2xl font-black text-[#1A2A44] leading-none mb-2">
+                  Mãos da Obra
+              </h2>
+              <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">
+                  O Gerente de Bolso Automático
+              </p>
+          </div>
+
+          {/* INFINITE SCROLL CAROUSEL */}
+          <div className="scroller-container relative w-full">
+             <div className="absolute top-0 bottom-0 left-0 w-12 bg-gradient-to-r from-slate-50 to-transparent z-10"></div>
+             <div className="absolute top-0 bottom-0 right-0 w-12 bg-gradient-to-l from-slate-50 to-transparent z-10"></div>
+             
+             <div className="scroller-inner flex gap-6 py-4">
+                 {/* Set 1 */}
+                 <MockupCard title="Cronograma" color="green" />
+                 <MockupCard title="Financeiro" color="red" />
+                 <MockupCard title="Lista de Compras" color="blue" />
+                 <MockupCard title="Zé da Obra (IA)" color="yellow" />
+                 {/* Set 2 (Duplicate for loop) */}
+                 <MockupCard title="Cronograma" color="green" />
+                 <MockupCard title="Financeiro" color="red" />
+                 <MockupCard title="Lista de Compras" color="blue" />
+                 <MockupCard title="Zé da Obra (IA)" color="yellow" />
+             </div>
+          </div>
+          
+          <div className="px-6 max-w-md mx-auto mt-8">
+               <div className="flex flex-col gap-3">
+                  <SolutionCheck text="Você sabe o que comprar e quando" />
+                  <SolutionCheck text="O Zé (IA) calcula quantidades pra você" />
+                  <SolutionCheck text="Você vê o dinheiro antes dele sumir" />
+               </div>
+          </div>
+      </div>
+
+      {/* ==========================================
+          7. ZÉ DA OBRA (A SEGURANÇA)
+      ========================================== */}
+      <div className="bg-white py-14 px-6 border-t border-slate-200 shrink-0">
+          <div className="max-w-md mx-auto">
+              <h2 className="text-2xl font-black text-[#1A2A44] mb-4 text-center">
+                  Dúvida na hora de comprar?
+              </h2>
+              <p className="text-sm text-slate-600 text-center mb-8 leading-relaxed max-w-xs mx-auto">
+                  O <strong>Zé da Obra</strong> responde na hora. Ele calcula tijolo, cimento e piso para você não ser enganado por vendedor ou pedreiro.
+              </p>
+
+              {/* Chat Mockup */}
+              <div className="bg-slate-50 rounded-2xl shadow-inner border border-slate-200 p-5 mb-6 relative overflow-hidden">
+                  <div className="flex items-start gap-3 mb-5">
+                      <div className="w-8 h-8 rounded-full bg-[#1A2A44] flex items-center justify-center shrink-0 border border-slate-200 shadow-sm">
+                          <Bot size={16} className="text-[#FFC107]" />
+                      </div>
+                      <div className="bg-white p-3 rounded-r-xl rounded-bl-xl text-xs text-slate-700 shadow-sm border border-slate-100">
+                          <p>Zé, vou pintar um quarto de 4x4m. Quanta tinta eu compro?</p>
+                      </div>
+                  </div>
+                  <div className="flex items-start gap-3 flex-row-reverse">
+                      <div className="w-8 h-8 rounded-full bg-[#FFC107] flex items-center justify-center shrink-0 border border-orange-300 shadow-sm">
+                          <HardHat size={16} className="text-[#1A2A44]" />
+                      </div>
+                      <div className="bg-[#1A2A44] text-white p-3 rounded-l-xl rounded-br-xl text-xs shadow-md">
+                          <p>Para um quarto 4x4m (pé direito 2.8m), descontando porta/janela, você tem ~40m². Compre 1 galão de 3.6L. Rende bem! 🎨</p>
+                      </div>
+                  </div>
+              </div>
+
+              <div className="text-center">
+                  <p className="text-xs font-bold text-[#10B981] bg-[#10B981]/10 py-2 px-4 rounded-full inline-block">
+                     Economia média de R$ 2.000 só evitando sobras.
+                  </p>
+              </div>
+          </div>
+      </div>
+
+      {/* ==========================================
+          8. PREÇO COMO ALÍVIO (MATEMÁTICA)
+      ========================================== */}
+      <div className="py-16 px-6 bg-slate-50 pb-32 shrink-0 z-10 relative border-t border-slate-200" id="pricing">
+        <div className="text-center mb-10 max-w-md mx-auto">
+          <h2 className="text-2xl font-black text-[#1A2A44] mb-3 leading-tight">
+             Resolver isso custa menos do que um <span className="text-[#F59E0B] bg-[#FFFBEB] px-1 rounded border border-[#F59E0B]/20">saco de cimento</span>.
+          </h2>
+          <p className="text-slate-500 text-sm max-w-xs mx-auto">
+             Um único erro na obra custa 10x mais do que o acesso vitalício ao app.
+          </p>
         </div>
 
         <div className="space-y-6 max-w-sm mx-auto">
           
-          {/* MENSAL */}
-          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 hover:border-[#FFC107] transition-all duration-300 group">
+          {/* 1. PLANO MENSAL */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-[#FFC107] transition-all duration-300 group shadow-sm opacity-80 hover:opacity-100">
             <div className="flex justify-between items-center mb-2">
-               <h3 className="font-bold text-slate-600">Mensal</h3>
-               <span className="text-xs bg-slate-200 px-2 py-1 rounded text-slate-500">Básico</span>
+               <h3 className="font-bold text-slate-700 text-lg">Mensal</h3>
+               <span className="text-[10px] font-bold bg-slate-100 px-2 py-1 rounded text-slate-500 uppercase tracking-wide">Básico</span>
             </div>
-            <div className="flex items-baseline gap-1 mb-4">
-               <span className="text-sm">R$</span>
-               <span className="text-3xl font-bold text-slate-700">29,90</span>
-               <span className="text-sm text-slate-400">/mês</span>
+            <div className="flex items-baseline gap-1 mb-6">
+               <span className="text-sm font-medium text-slate-400">R$</span>
+               <span className="text-4xl font-black text-slate-800">29,90</span>
+               <span className="text-sm font-medium text-slate-400">/mês</span>
             </div>
-            <button onClick={() => handleSelectPlan('mensal')} className="w-full block text-center py-3 rounded-xl border border-slate-300 text-slate-600 font-bold hover:bg-slate-100 transition-colors text-sm">
+            
+            <a 
+              href="https://maos-da-obra-2-0.vercel.app/login?plan=mensal"
+              className="w-full block text-center py-3.5 rounded-xl border border-slate-300 text-slate-600 font-bold hover:bg-slate-50 transition-colors text-sm mb-4"
+            >
               Escolher Mensal
-            </button>
+            </a>
+            <p className="text-[10px] text-center text-slate-400">Sem IA • Sem Bônus</p>
           </div>
 
-          {/* SEMESTRAL */}
-          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 relative overflow-hidden hover:border-[#FFC107] transition-all duration-300 group">
-            <div className="absolute top-0 right-0 bg-blue-100 text-blue-800 text-[10px] font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
-            <div className="flex justify-between items-center mb-2">
-               <h3 className="font-bold text-[#1A2A44]">Semestral</h3>
-            </div>
-            <div className="flex items-baseline gap-1 mb-1">
-               <span className="text-sm">R$</span>
-               <span className="text-3xl font-bold text-[#1A2A44]">97,00</span>
-               <span className="text-sm text-slate-400">/6 meses</span>
-            </div>
-            <p className="text-xs text-green-600 mb-4 font-bold">Equivale a R$ 16,16/mês</p>
-            <button onClick={() => handleSelectPlan('semestral')} className="w-full block text-center py-3 rounded-xl border-2 border-[#1A2A44] text-[#1A2A44] font-bold hover:bg-blue-50 transition-colors text-sm">
-              Escolher Semestral
-            </button>
-          </div>
+          {/* 2. PLANO VITALÍCIO (AGRESSIVO) */}
+          <div className="relative transform z-20 mt-8 scale-105">
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#FFC107] to-orange-500 rounded-3xl blur opacity-40 animate-pulse pointer-events-none"></div>
+            
+            <div className="bg-[#1A2A44] rounded-2xl p-1 relative shadow-2xl">
+                <div className="bg-[#0F172A] rounded-xl p-6 text-white relative overflow-hidden">
+                    
+                    <div className="absolute top-0 right-0 bg-[#FFC107] text-[#1A2A44] text-[10px] font-black px-4 py-1.5 rounded-bl-xl uppercase tracking-wider">
+                        OFERTA ESPECIAL
+                    </div>
 
-          {/* VITALÍCIO */}
-          <div className="relative transform scale-105 z-20 mt-6">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#FFC107] to-orange-500 rounded-2xl blur opacity-75 animate-pulse pointer-events-none"></div>
-            <div className="bg-[#1A2A44] rounded-xl p-1 relative shadow-2xl">
-                <div className="bg-[#0F172A] rounded-lg p-6 text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 bg-[#FFC107] text-[#1A2A44] text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-wider">MELHOR CUSTO-BENEFÍCIO</div>
-                    <h3 className="font-bold text-xl text-[#FFC107] mb-1 flex items-center gap-2"><Lock size={18} /> Acesso Vitalício</h3>
-                    <p className="text-[11px] text-slate-400 mb-6">Pagamento Único • Nunca mais pague nada</p>
-                    <div className="flex items-baseline gap-2 mb-6">
-                        <span className="text-sm text-slate-500 line-through">R$ 997</span>
+                    <h3 className="font-bold text-2xl text-[#FFC107] mb-2 flex items-center gap-2">
+                        <Lock size={20} /> Vitalício
+                    </h3>
+                    <p className="text-xs text-slate-400 mb-6 font-medium">Pagamento único. Nunca expira.</p>
+                    
+                    <div className="flex items-baseline gap-3 mb-6">
+                        <span className="text-base text-slate-500 line-through decoration-slate-500">R$ 997</span>
                         <div className="flex items-baseline">
-                            <span className="text-lg font-bold text-[#FFC107]">R$</span>
+                            <span className="text-xl font-bold text-[#FFC107] mr-1">R$</span>
                             <span className="text-5xl font-black text-white tracking-tighter">247</span>
                         </div>
                     </div>
-                    <button onClick={() => handleSelectPlan('vitalicio')} className="w-full block text-center py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-black text-lg shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] transform transition-transform active:scale-[0.98] flex items-center justify-center gap-2 group relative z-30">
-                        QUERO O VITALÍCIO <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    
+                    <div className="space-y-4 mb-8 border-t border-white/10 pt-6">
+                        <div className="flex items-center gap-3 text-sm font-bold text-white">
+                            <CheckCircle2 size={18} className="text-[#FFC107]"/> <span>App Liberado Pra Sempre</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-sm font-bold text-white">
+                            <Bot size={18} className="text-[#FFC107]"/> <span className="text-[#FFC107]">Zé da Obra (IA) Incluso</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-sm font-bold text-white">
+                            <Gift size={18} className="text-[#FFC107]"/> <span>Kit Contratos & Checklists</span>
+                        </div>
+                    </div>
+
+                    <a 
+                      href="https://maos-da-obra-2-0.vercel.app/login?plan=vitalicio"
+                      className="w-full block text-center py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-black text-lg shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] transform transition-transform active:scale-[0.98] flex items-center justify-center gap-2 group relative z-30"
+                    >
+                        EVITAR PREJUÍZO AGORA
+                        <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </a>
                 </div>
             </div>
+             <p className="text-center text-[11px] text-slate-500 mt-4 flex items-center justify-center gap-1.5 font-medium">
+                 <ShieldCheck size={14} className="text-green-600"/> Garantia Incondicional de 30 dias
+             </p>
           </div>
-
         </div>
       </div>
 
+      {/* ==========================================
+          10. FECHAMENTO
+      ========================================== */}
+      <footer className="py-12 bg-white text-center border-t border-slate-100 pb-32 shrink-0">
+          <div className="max-w-xs mx-auto px-4">
+             <p className="text-[#1A2A44] font-black text-xl mb-3 leading-tight">
+                 O diagnóstico mostrou o problema. <br/> Agora a decisão é sua.
+             </p>
+             <p className="text-slate-500 text-sm font-medium">
+                 Continuar no escuro e perder dinheiro... ou controlar sua obra de verdade.
+             </p>
+          </div>
+          <div className="mt-8 opacity-50 text-[10px] text-slate-400 uppercase tracking-widest">
+              © 2025 Mãos da Obra
+          </div>
+      </footer>
+
       {/* STICKY CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-lg border-t border-slate-200 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] z-50">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-50">
          <div className="max-w-md mx-auto">
-            <button onClick={scrollToPricing} className="w-full bg-[#10B981] hover:bg-[#059669] text-white text-lg font-black py-4 rounded-xl shadow-lg shadow-green-500/30 transform transition-all active:scale-[0.98] flex items-center justify-center gap-2 animate-pulse-slow">
-               ECONOMIZAR AGORA <ArrowRight size={22} className="text-white" />
+            <button 
+                onClick={scrollToPricing}
+                className="w-full bg-[#10B981] hover:bg-[#059669] text-white text-lg font-black py-4 rounded-xl shadow-lg shadow-green-500/30 transform transition-all active:scale-[0.98] flex items-center justify-center gap-2 animate-pulse-slow"
+            >
+               QUERO ECONOMIZAR
+               <ArrowRight size={22} className="text-white" />
             </button>
          </div>
       </div>
@@ -258,42 +366,66 @@ export const ResultsScreen = () => {
   );
 };
 
-// Componentes Auxiliares (DEFINIDOS AQUI ABAIXO)
-const PainCard = ({ icon, title, text }: any) => (
-  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
-    <div className="bg-white p-3 rounded-xl shadow-sm shrink-0">{icon}</div>
-    <div><h3 className="font-bold text-[#1A2A44] leading-tight mb-1 text-sm uppercase tracking-wide">{title}</h3><p className="text-xs text-slate-600 leading-relaxed font-medium">{text}</p></div>
-  </div>
-);
+// --- HELPER COMPONENTS ---
 
-const ComparisonRow = ({ bad, good }: any) => (
-    <div className="grid grid-cols-2 text-xs">
-        <div className="py-4 px-2 text-center text-slate-500 border-r border-slate-100 flex items-center justify-center gap-1">
-            <XCircle size={14} className="text-red-400" /> {bad}
-        </div>
-        <div className="py-4 px-2 text-center font-bold text-[#1A2A44] bg-green-50/50 flex items-center justify-center gap-1">
-            <CheckCircle2 size={14} className="text-green-500" /> {good}
-        </div>
+const DiagnosisItem = ({ text }: { text: string }) => (
+    <div className="flex items-start gap-3 bg-red-50 p-3.5 rounded-xl border border-red-100/80">
+        <AlertTriangle size={18} className="text-[#DC2626] shrink-0 mt-0.5" />
+        <span className="text-slate-800 text-sm font-bold leading-tight">{text}</span>
     </div>
 );
 
-const InterimCTA = ({ text, subtext, onClick, color = "green" }: any) => {
-    const bgColors: any = { red: "bg-red-600 hover:bg-red-700 shadow-red-500/30", green: "bg-[#10B981] hover:bg-[#059669] shadow-green-500/30", blue: "bg-blue-600 hover:bg-blue-700 shadow-blue-500/30" };
-    return (
-        <button onClick={onClick} className={`w-full ${bgColors[color]} text-white py-4 rounded-xl shadow-lg transform transition-all active:scale-[0.98] group mt-6 relative overflow-hidden`}>
-            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="flex flex-col items-center justify-center relative z-10">
-                <span className="text-lg font-black flex items-center gap-2 uppercase tracking-tight">{text} <ArrowRight size={20} /></span>
-                <span className="text-xs font-medium text-white/90 opacity-90">{subtext}</span>
-            </div>
-        </button>
-    )
-}
-
-const TestimonialCard = ({ name, role, text }: any) => (
-   <div className="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/10 min-w-[280px] w-[280px] flex-shrink-0">
-      <div className="flex gap-1 mb-3">{[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-[#FFC107] fill-[#FFC107]" />)}</div>
-      <p className="text-xs text-slate-200 italic mb-4 leading-relaxed line-clamp-3">"{text}"</p>
-      <div className="border-t border-white/10 pt-3"><p className="text-[11px] font-bold text-white uppercase">{name}</p><p className="text-[10px] text-slate-400">{role}</p></div>
-   </div>
+const PressureCard = ({ icon, text }: { icon: React.ReactNode, text: string }) => (
+    <div className="flex items-center gap-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        {icon}
+        <span className="font-bold text-[#1A2A44] text-sm">{text}</span>
+    </div>
 );
+
+const SolutionCheck = ({ text }: { text: string }) => (
+    <div className="flex items-center gap-3">
+        <div className="w-6 h-6 rounded-full bg-[#10B981]/10 flex items-center justify-center shrink-0">
+            <Check size={14} className="text-[#10B981]" strokeWidth={3} />
+        </div>
+        <span className="text-slate-700 font-bold text-sm">{text}</span>
+    </div>
+);
+
+// MOCKUP CARD FOR CAROUSEL
+const MockupCard = ({ title, color }: { title: string, color: 'green' | 'red' | 'blue' | 'yellow' }) => {
+    
+    const colors = {
+        green: { border: 'border-green-500', bar: 'bg-green-500', icon: '✓' },
+        red: { border: 'border-red-500', bar: 'bg-red-500', icon: '!' },
+        blue: { border: 'border-blue-500', bar: 'bg-blue-500', icon: '+' },
+        yellow: { border: 'border-yellow-500', bar: 'bg-yellow-500', icon: '?' },
+    };
+
+    const c = colors[color];
+
+    return (
+        <div className="shrink-0 w-[200px] h-[340px] bg-white rounded-[2rem] border-8 border-slate-800 relative overflow-hidden flex flex-col shadow-xl">
+            <div className="h-6 bg-slate-100 border-b border-slate-200 flex justify-center items-center"><div className="w-16 h-2 bg-slate-300 rounded-full"></div></div>
+            <div className="p-3 bg-slate-50 flex-1 flex flex-col gap-2">
+                <div className="h-4 w-20 bg-slate-200 rounded mb-2"></div>
+                <div className={`p-2 bg-white rounded-lg border-l-4 ${c.border} shadow-sm`}>
+                    <div className="h-2 w-16 bg-slate-200 rounded mb-1"></div>
+                    <div className="h-2 w-8 bg-slate-100 rounded"></div>
+                </div>
+                <div className="p-2 bg-white rounded-lg border-l-4 border-slate-200 shadow-sm opacity-50">
+                    <div className="h-2 w-12 bg-slate-200 rounded mb-1"></div>
+                    <div className="h-2 w-10 bg-slate-100 rounded"></div>
+                </div>
+                 <div className="p-2 bg-white rounded-lg border-l-4 border-slate-200 shadow-sm opacity-30">
+                    <div className="h-2 w-14 bg-slate-200 rounded mb-1"></div>
+                </div>
+                <div className="mt-auto h-24 bg-slate-100 rounded-t-xl border-t border-slate-200"></div>
+            </div>
+            <div className="absolute bottom-5 left-0 right-0 text-center">
+                <span className="text-[10px] text-slate-500 font-bold bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-slate-100 uppercase tracking-wide">
+                    {title}
+                </span>
+            </div>
+        </div>
+    );
+}
