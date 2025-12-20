@@ -1,499 +1,996 @@
-import React from 'react';
-import { 
-  AlertTriangle, 
-  CheckCircle2, 
-  ArrowRight, 
-  ShieldCheck, 
-  Lock, 
-  Smartphone, 
-  Bot, 
-  Ban, 
-  Gift,
-  XCircle,
-  CreditCard,
-  HardHat,
-  Check,
-  AlertOctagon,
-  SearchX,
-  TrendingDown,
-  BarChart3,
-  Clock
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MÃOS DA OBRA - Gestão Descomplicada</title>
+    <meta name="description" content="Controle de obra para quem não entende de obra. Pare de perder dinheiro com erro e atraso.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                gold: '#d97706',       // Laranja Oficial (Basketball Orange)
+                goldDark: '#b45309',   // Tom mais escuro para profundidade
+                goldLight: '#f59e0b',  // Tom mais claro para iluminação
+                dark: '#020617',       // Slate 950 (Fundo Principal)
+                darkCard: '#0F172A',   // Slate 900 (Cards)
+                accent: '#10B981',     // Verde Sucesso
+                error: '#ef4444',      // Vermelho Vivo (Impacto Visual)
+              }
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'shine': 'shine 2s linear infinite',
+              'stamp-slow': 'stampSlow 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(30px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              shine: {
+                '0%': { backgroundPosition: '200% center' },
+                '100%': { backgroundPosition: '-200% center' },
+              },
+              stampSlow: {
+                '0%': { opacity: '0', transform: 'scale(3) rotate(10deg)' },
+                '100%': { opacity: '1', transform: 'scale(1) rotate(-2deg)' },
+              }
+            },
+            backgroundImage: {
+              'hero-glow': 'radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.15) 0%, rgba(2,6,23,0) 70%)',
+              'gold-gradient': 'linear-gradient(135deg, #d97706 0%, #b45309 100%)',
+              'glass': 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #020617;
+        color: #F8FAFC;
+        overflow-x: hidden;
+      }
 
-export const ResultsScreen: React.FC = () => {
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #020617; }
+      ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #d97706; }
 
-  const scrollToPricing = () => {
-    const element = document.getElementById('pricing');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  return (
-    <div className="flex flex-col h-full bg-[#F8FAFC] overflow-y-auto no-scrollbar scroll-smooth w-full relative">
+      /* Utilities */
+      .glass-panel {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
       
-      {/* ==========================================
-          1. HERO — O DIAGNÓSTICO (RISCO FINANCEIRO)
-      ========================================== */}
-      <div className="bg-[#DC2626] text-white pt-10 pb-28 px-6 rounded-b-[2.5rem] shadow-2xl relative z-10 w-full overflow-hidden shrink-0">
-        {/* Ambient Effects */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-black/20 rounded-full blur-[60px] pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-[40px] pointer-events-none"></div>
+      .text-glow {
+        text-shadow: 0 0 40px rgba(217, 119, 6, 0.5);
+      }
+
+      .btn-primary {
+        background: linear-gradient(90deg, #d97706 0%, #f59e0b 100%);
+        color: white;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(217, 119, 6, 0.5);
+      }
+
+      .btn-primary::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transition: 0.5s;
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        border: 2px solid #d97706;
+        color: #d97706;
+        font-weight: 700;
+        transition: all 0.3s ease;
+      }
+      
+      .btn-secondary:hover {
+        background: #d97706;
+        color: white;
+        box-shadow: 0 0 20px rgba(217, 119, 6, 0.4);
+      }
+      
+      /* Logo Rotation Fix */
+      .logo-tilt {
+        transform: rotate(6deg);
+      }
+
+      /* Carimbo Realista - Atualizado */
+      .stamp-real {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 900;
+        text-transform: uppercase;
+        color: #ef4444; /* Vermelho Vivo */
+        border: 4px solid #ef4444;
+        padding: 0.4rem 1.2rem;
+        border-radius: 4px;
+        font-size: 1.4rem;
+        line-height: 1;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
         
-        <div className="relative z-10 flex flex-col items-center text-center max-w-md mx-auto">
-            
-            <div className="inline-flex items-center gap-2 bg-black/30 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md mb-6 animate-pulse-slow shadow-lg">
-              <AlertOctagon size={18} className="text-white" />
-              <span className="text-xs font-black uppercase tracking-widest text-white">Risco Crítico Detectado</span>
+        /* Efeito de falha na tinta (Texture) */
+        -webkit-mask-image: url("data:image/svg+xml;utf8,<svg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23noise)' opacity='1'/></svg>");
+        mask-image: url("data:image/svg+xml;utf8,<svg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23noise)' opacity='1'/></svg>");
+        -webkit-mask-composite: destination-in;
+        mask-composite: intersect;
+        
+        opacity: 0; /* Starts hidden for animation */
+        transform-origin: center center;
+      }
+      
+      /* Leve sombra interna para dar profundidade ao "carimbo" no papel */
+      .stamp-real-wrapper {
+        position: relative;
+        display: inline-block;
+      }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-white">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300 glass-panel border-b-0">
+        <div class="container mx-auto px-4 h-20 flex items-center justify-between">
+            <!-- LOGO OFICIAL (Mantido) -->
+            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+                <div class="w-10 h-10 bg-brand-gold rounded-xl logo-tilt flex items-center justify-center shadow-lg shadow-brand-gold/20 transition-transform group-hover:scale-110">
+                    <i data-lucide="hard-hat" class="text-white w-5 h-5 fill-white/20"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-lg leading-none tracking-tight text-white">MÃOS DA<br>OBRA</span>
+                </div>
             </div>
 
-            <h1 className="text-3xl font-black leading-tight mb-4 tracking-tight text-white drop-shadow-md">
-              Você está correndo risco de perder <span className="bg-white text-[#DC2626] px-2 whitespace-nowrap">30% do valor</span> da sua obra.
-            </h1>
-
-            <p className="text-red-100 text-sm leading-relaxed font-medium mb-2 drop-shadow-sm max-w-xs mx-auto">
-              O diagnóstico apontou falhas graves de gestão que levam ao desperdício invisível.
-            </p>
+            <!-- CTA Desktop -->
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#como-funciona" class="text-gray-400 hover:text-white text-sm font-medium transition-colors">Como funciona</a>
+                <a href="#ze-da-obra" class="text-gray-400 hover:text-white text-sm font-medium transition-colors">Conhecer o Zé</a>
+                <button onclick="scrollToSection('precos')" class="btn-primary px-5 py-2 rounded-full text-xs uppercase tracking-wide">
+                    Ver Planos
+                </button>
+            </div>
         </div>
-      </div>
+    </header>
 
-      {/* ==========================================
-          2. O GRÁFICO DO PREJUÍZO (A REALIDADE)
-      ========================================== */}
-      <div className="px-6 relative z-20 -mt-20 max-w-md mx-auto w-full shrink-0">
-        <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-            <div className="bg-[#1E293B] p-4 border-b border-slate-700 flex justify-between items-center">
-                <span className="text-xs font-bold text-slate-300 uppercase tracking-widest">Simulação Real</span>
-                <BarChart3 size={16} className="text-red-500" />
+    <!-- 1) HERO SECTION - Otimizado e Equilibrado -->
+    <section class="relative pt-20 pb-12 md:pt-28 md:pb-16 overflow-hidden flex items-center">
+        <div class="absolute inset-0 bg-hero-glow pointer-events-none"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+                <!-- Text Content (Left) -->
+                <div class="text-center md:text-left z-20">
+                    
+                    <!-- Carimbo Realista com Animação Lenta -->
+                    <div class="mb-6 h-16 flex items-center justify-center md:justify-start">
+                        <div class="stamp-real-wrapper">
+                            <div class="stamp-real animate-stamp-slow">
+                                Xii… aí deu ruim.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 class="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.0] mb-4 tracking-tight animate-fade-in-up text-white" style="animation-delay: 0.1s">
+                        Calma. <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold via-brand-goldLight to-brand-gold">Não precisa ser assim.</span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-gray-400 mb-2 font-light leading-relaxed animate-fade-in-up" style="animation-delay: 0.2s">
+                        Tem solução pros problemas da sua obra. <br>
+                        <span class="text-white font-medium">Simples. Sem termo difícil. Sem enrolação.</span>
+                    </p>
+                    
+                    <!-- Reforço "Qualquer Fase" -->
+                    <p class="text-sm md:text-base text-brand-gold font-bold mb-8 animate-fade-in-up uppercase tracking-wide" style="animation-delay: 0.25s">
+                        Mesmo que sua obra já esteja atrasada ou no acabamento.
+                    </p>
+
+                    <!-- Micro-benefícios -->
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4 mb-8 animate-fade-in-up" style="animation-delay: 0.3s">
+                        <div class="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold"></i>
+                            <span class="text-sm text-gray-300">Etapas Claras</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold"></i>
+                            <span class="text-sm text-gray-300">Materiais Certos</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold"></i>
+                            <span class="text-sm text-gray-300">Gastos Organizados</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in-up" style="animation-delay: 0.35s">
+                        <a href="#como-funciona" class="btn-primary px-8 py-4 rounded-xl text-lg font-bold shadow-2xl flex items-center justify-center gap-2 group w-full md:w-auto">
+                            Quero parar de perder dinheiro
+                            <i data-lucide="arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                        </a>
+                        <a href="#ze-da-obra" class="btn-secondary px-8 py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-2 w-full md:w-auto">
+                            Ver o Zé da Obra
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Visual (Right) - Mockup de Celular Realista -->
+                <div class="w-full max-w-[300px] md:max-w-xs mx-auto relative animate-fade-in-up" style="animation-delay: 0.4s">
+                    <!-- Phone Frame -->
+                    <div class="relative z-10 mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-[2.5rem] h-[580px] w-full shadow-2xl flex flex-col overflow-hidden ring-1 ring-white/10">
+                        <div class="h-[32px] w-[3px] bg-gray-800 absolute -left-[10px] top-[72px] rounded-l-lg"></div>
+                        <div class="h-[46px] w-[3px] bg-gray-800 absolute -left-[10px] top-[124px] rounded-l-lg"></div>
+                        
+                        <!-- Conteúdo da Tela: Placeholder Realista de App (Wireframe Style) -->
+                        <div class="rounded-[2rem] overflow-hidden w-full h-full bg-white relative flex flex-col">
+                             <!-- Header do App -->
+                             <div class="bg-slate-900 p-6 pt-10 pb-4">
+                                 <div class="flex items-center gap-3 mb-4">
+                                     <div class="w-8 h-8 rounded-full bg-slate-700"></div>
+                                     <div class="h-4 w-24 bg-slate-700 rounded"></div>
+                                 </div>
+                                 <div class="h-8 w-32 bg-slate-700 rounded mb-2"></div>
+                                 <div class="h-4 w-full bg-slate-800 rounded"></div>
+                             </div>
+                             
+                             <!-- Lista de Itens (Simulando App Real) -->
+                             <div class="flex-1 bg-slate-50 p-4 space-y-3">
+                                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3">
+                                     <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center"><i data-lucide="calendar" class="w-5 h-5 text-blue-500"></i></div>
+                                     <div class="flex-1">
+                                         <div class="h-3 w-20 bg-slate-200 rounded mb-1"></div>
+                                         <div class="h-4 w-32 bg-slate-300 rounded"></div>
+                                     </div>
+                                 </div>
+                                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3">
+                                     <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center"><i data-lucide="package" class="w-5 h-5 text-orange-500"></i></div>
+                                     <div class="flex-1">
+                                         <div class="h-3 w-20 bg-slate-200 rounded mb-1"></div>
+                                         <div class="h-4 w-32 bg-slate-300 rounded"></div>
+                                     </div>
+                                 </div>
+                                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3">
+                                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center"><i data-lucide="dollar-sign" class="w-5 h-5 text-green-500"></i></div>
+                                     <div class="flex-1">
+                                         <div class="h-3 w-20 bg-slate-200 rounded mb-1"></div>
+                                         <div class="h-4 w-32 bg-slate-300 rounded"></div>
+                                     </div>
+                                 </div>
+                             </div>
+                             
+                             <!-- Bottom Nav -->
+                             <div class="bg-white border-t p-4 flex justify-around">
+                                 <div class="w-6 h-6 rounded bg-slate-200"></div>
+                                 <div class="w-6 h-6 rounded bg-slate-200"></div>
+                                 <div class="w-6 h-6 rounded bg-brand-gold"></div>
+                             </div>
+
+                             <!-- Overlay de brilho (vidro) -->
+                             <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Elementos flutuantes decorativos atrás do celular -->
+                    <div class="absolute top-10 -right-4 w-24 h-24 bg-brand-gold/20 rounded-full blur-2xl"></div>
+                    <div class="absolute bottom-10 -left-4 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2) VOCÊ RECONHECE ISSO? (Dores) -->
+    <section class="py-16 md:py-20 bg-brand-darkCard border-y border-white/5">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-display font-bold text-center mb-12 text-white">
+                Se sua obra tá assim… <span class="text-brand-error">você não tá sozinho.</span>
+            </h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto mb-12">
+                <!-- Pain 1 -->
+                <div class="bg-white/5 p-6 rounded-2xl text-center hover:bg-white/10 transition-colors">
+                    <div class="w-12 h-12 bg-brand-error/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="clock" class="w-6 h-6 text-brand-error"></i>
+                    </div>
+                    <p class="text-gray-300 font-medium text-sm md:text-base">Atraso que não acaba</p>
+                </div>
+
+                <!-- Pain 2 -->
+                <div class="bg-white/5 p-6 rounded-2xl text-center hover:bg-white/10 transition-colors">
+                    <div class="w-12 h-12 bg-brand-error/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="package-x" class="w-6 h-6 text-brand-error"></i>
+                    </div>
+                    <p class="text-gray-300 font-medium text-sm md:text-base">Material comprado errado</p>
+                </div>
+
+                <!-- Pain 3 -->
+                <div class="bg-white/5 p-6 rounded-2xl text-center hover:bg-white/10 transition-colors">
+                    <div class="w-12 h-12 bg-brand-error/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="help-circle" class="w-6 h-6 text-brand-error"></i>
+                    </div>
+                    <p class="text-gray-300 font-medium text-sm md:text-base">Dúvida e ninguém responde</p>
+                </div>
+
+                <!-- Pain 4 -->
+                <div class="bg-white/5 p-6 rounded-2xl text-center hover:bg-white/10 transition-colors">
+                    <div class="w-12 h-12 bg-brand-error/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="wallet" class="w-6 h-6 text-brand-error"></i>
+                    </div>
+                    <p class="text-gray-300 font-medium text-sm md:text-base">Gasto que ninguém explica</p>
+                </div>
             </div>
             
-            <div className="p-6">
-                <div className="flex justify-between items-end mb-2">
-                    <p className="text-xs text-slate-500 font-bold uppercase">Orçamento da Obra</p>
-                    <p className="text-lg font-black text-[#1E293B]">R$ 300.000</p>
-                </div>
-                
-                {/* Visual Graph Bar */}
-                <div className="w-full h-8 bg-slate-100 rounded-full overflow-hidden flex mb-6 relative border border-slate-200">
-                    <div className="h-full bg-slate-300 w-[70%] border-r border-white"></div>
-                    <div className="h-full bg-[#DC2626] w-[30%] relative pattern-diagonal-lines">
-                         <div className="absolute inset-0 flex items-center justify-center">
-                             <span className="text-[10px] font-black text-white drop-shadow-md tracking-tighter">-30%</span>
-                         </div>
-                    </div>
-                </div>
-
-                <div className="bg-red-50 border border-red-100 rounded-xl p-4 flex items-center justify-between">
-                    <div>
-                        <p className="text-xs text-red-600 font-bold uppercase mb-1 flex items-center gap-1">
-                           <TrendingDown size={14} /> Dinheiro no Lixo
-                        </p>
-                        <p className="text-[10px] text-red-400">Material estragado, roubo, retrabalho</p>
-                    </div>
-                    <div className="text-right">
-                        <p className="text-2xl font-black text-[#DC2626]">-90k</p>
-                    </div>
-                </div>
-
-                <p className="text-[10px] text-slate-400 text-center mt-4 italic">
-                    *Média de perda em obras sem gestão profissional (Sebrae/CAU).
+            <div class="text-center max-w-3xl mx-auto">
+                <p class="text-xl md:text-2xl text-white font-bold leading-relaxed">
+                    "O pedreiro vai embora. <span class="text-brand-error">A conta fica com você.</span>"
                 </p>
+                <p class="text-gray-400 mt-2">Pare de pagar caro por erros que poderiam ser evitados.</p>
             </div>
         </div>
-      </div>
-
-      {/* ==========================================
-          3. O QUE DEU ERRADO (DIAGNÓSTICO)
-      ========================================== */}
-      <div className="pt-12 pb-8 px-6 max-w-md mx-auto w-full shrink-0">
-         <div className="bg-white rounded-2xl shadow-sm border-l-4 border-red-500 p-6">
-            <h3 className="font-bold text-[#1A2A44] mb-4 text-sm uppercase tracking-wide flex items-center gap-2 border-b border-slate-100 pb-3">
-                <SearchX size={20} className="text-red-500" />
-                Pontos de Falha Identificados:
-            </h3>
-
-            <div className="space-y-4">
-                <DiagnosisItem text="Falta de registro de pequenos gastos" />
-                <DiagnosisItem text="Compras feitas sem cálculo exato" />
-                <DiagnosisItem text="Cronograma frouxo (data indefinida)" />
-                <DiagnosisItem text="Descontrole de estoque na obra" />
-            </div>
-        </div>
-      </div>
-
-      {/* ==========================================
-          4. PRESSÃO (CUSTA CARO)
-      ========================================== */}
-      <div className="py-8 px-6 max-w-md mx-auto w-full shrink-0 text-center">
-         <h2 className="text-2xl font-black text-[#1A2A44] leading-tight mb-4">
-             O dinheiro acaba <br/> <span className="bg-red-100 text-[#DC2626] px-1 rounded">antes da obra</span>.
-         </h2>
-         
-         <p className="text-slate-600 text-sm leading-relaxed mb-8">
-             É matemático. Se você perde 30% do orçamento no caminho, a casa fica sem piso, sem pintura ou você entra em dívida no final.
-         </p>
-
-         <div className="grid gap-3 text-left">
-             <PressureCard icon={<Ban size={20} className="text-slate-500"/>} text="O pedreiro para e vai embora." />
-             <PressureCard icon={<AlertTriangle size={20} className="text-orange-500"/>} text="Você compra material 2x (desperdício)." />
-             <PressureCard icon={<CreditCard size={20} className="text-[#DC2626]"/>} text="O sonho vira um pesadelo financeiro." />
-         </div>
-      </div>
-
-      {/* ==========================================
-          5. QUEBRA DE OBJEÇÃO DE TIMING
-      ========================================== */}
-      <div className="bg-[#1A2A44] py-14 px-6 text-white relative overflow-hidden shrink-0 mt-8">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-[40px] pointer-events-none"></div>
-
-          <div className="relative z-10 max-w-md mx-auto text-center">
-              <h2 className="text-2xl font-black mb-4 leading-tight">
-                  Não importa em que fase sua obra está.
-              </h2>
-              <p className="text-slate-300 text-sm leading-relaxed mb-8">
-                  Mesmo que já esteja no meio do caos ou no acabamento, <strong>estancar a sangria agora</strong> é a única forma de sobrar dinheiro.
-              </p>
-              
-              <div className="bg-[#FFC107] text-[#1A2A44] p-4 rounded-xl font-bold text-sm shadow-[0_10px_30px_rgba(255,193,7,0.3)] transform rotate-1 border border-yellow-400">
-                  "Organizar agora custa 10x menos do que remediar depois."
-              </div>
-          </div>
-      </div>
-
-      {/* ==========================================
-          6. A SOLUÇÃO AUTOMÁTICA (CARROSSEL)
-      ========================================== */}
-      <div className="py-16 bg-slate-50 overflow-hidden shrink-0 relative border-t border-slate-200">
-          
-          <div className="max-w-md mx-auto text-center mb-10 px-6">
-              <div className="w-16 h-16 bg-[#1A2A44] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl text-[#FFC107]">
-                  <Smartphone size={32} strokeWidth={2.5} />
-              </div>
-              <h2 className="text-2xl font-black text-[#1A2A44] leading-none mb-2">
-                  Mãos da Obra
-              </h2>
-              <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">
-                  O Gerente de Bolso Automático
-              </p>
-          </div>
-
-          {/* INFINITE SCROLL CAROUSEL */}
-          <div className="scroller-container relative w-full">
-             <div className="absolute top-0 bottom-0 left-0 w-12 bg-gradient-to-r from-slate-50 to-transparent z-10"></div>
-             <div className="absolute top-0 bottom-0 right-0 w-12 bg-gradient-to-l from-slate-50 to-transparent z-10"></div>
-             
-             <div className="scroller-inner flex gap-6 py-4">
-                 {/* Set 1 */}
-                 <MockupCard title="Cronograma" color="green" />
-                 <MockupCard title="Financeiro" color="red" />
-                 <MockupCard title="Lista de Compras" color="blue" />
-                 <MockupCard title="Zé da Obra (IA)" color="yellow" />
-                 {/* Set 2 (Duplicate for loop) */}
-                 <MockupCard title="Cronograma" color="green" />
-                 <MockupCard title="Financeiro" color="red" />
-                 <MockupCard title="Lista de Compras" color="blue" />
-                 <MockupCard title="Zé da Obra (IA)" color="yellow" />
+    </section>
+    
+    <!-- NOVA SEÇÃO: FASES DA OBRA (VERSATILIDADE) -->
+    <section class="py-20 bg-brand-dark relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5"></div>
+        <div class="container mx-auto px-4 relative z-10">
+             <div class="text-center mb-12">
+                 <h2 class="text-2xl md:text-4xl font-display font-bold text-white mb-4">
+                     Não importa a fase da sua obra.
+                 </h2>
+                 <p class="text-gray-400 max-w-2xl mx-auto">
+                     Mesmo no acabamento, uma decisão certa pode economizar 10 a 20 vezes mais do que o valor do aplicativo.
+                 </p>
              </div>
-          </div>
-          
-          <div className="px-6 max-w-md mx-auto mt-8">
-               <div className="flex flex-col gap-3">
-                  <SolutionCheck text="Você sabe o que comprar e quando" />
-                  <SolutionCheck text="O Zé (IA) calcula quantidades pra você" />
-                  <SolutionCheck text="Você vê o dinheiro antes dele sumir" />
-               </div>
-          </div>
-      </div>
-
-      {/* ==========================================
-          7. ZÉ DA OBRA (A SEGURANÇA)
-      ========================================== */}
-      <div className="bg-white py-14 px-6 border-t border-slate-200 shrink-0">
-          <div className="max-w-md mx-auto">
-              <h2 className="text-2xl font-black text-[#1A2A44] mb-4 text-center">
-                  Dúvida na hora de comprar?
-              </h2>
-              <p className="text-sm text-slate-600 text-center mb-8 leading-relaxed max-w-xs mx-auto">
-                  O <strong>Zé da Obra</strong> responde na hora. Ele calcula tijolo, cimento e piso para você não ser enganado por vendedor ou pedreiro.
-              </p>
-
-              {/* Chat Mockup */}
-              <div className="bg-slate-50 rounded-2xl shadow-inner border border-slate-200 p-5 mb-6 relative overflow-hidden">
-                  <div className="flex items-start gap-3 mb-5">
-                      <div className="w-8 h-8 rounded-full bg-[#1A2A44] flex items-center justify-center shrink-0 border border-slate-200 shadow-sm">
-                          <Bot size={16} className="text-[#FFC107]" />
-                      </div>
-                      <div className="bg-white p-3 rounded-r-xl rounded-bl-xl text-xs text-slate-700 shadow-sm border border-slate-100">
-                          <p>Zé, vou pintar um quarto de 4x4m. Quanta tinta eu compro?</p>
-                      </div>
-                  </div>
-                  <div className="flex items-start gap-3 flex-row-reverse">
-                      <div className="w-8 h-8 rounded-full bg-[#FFC107] flex items-center justify-center shrink-0 border border-orange-300 shadow-sm">
-                          <HardHat size={16} className="text-[#1A2A44]" />
-                      </div>
-                      <div className="bg-[#1A2A44] text-white p-3 rounded-l-xl rounded-br-xl text-xs shadow-md">
-                          <p>Para um quarto 4x4m (pé direito 2.8m), descontando porta/janela, você tem ~40m². Compre 1 galão de 3.6L. Rende bem! 🎨</p>
-                      </div>
-                  </div>
-              </div>
-
-              <div className="text-center">
-                  <p className="text-xs font-bold text-[#10B981] bg-[#10B981]/10 py-2 px-4 rounded-full inline-block">
-                     Economia média de R$ 2.000 só evitando sobras.
-                  </p>
-              </div>
-          </div>
-      </div>
-
-      {/* ==========================================
-          8. PREÇO COMO ALÍVIO (MATEMÁTICA)
-      ========================================== */}
-      <div className="py-16 px-6 bg-slate-50 pb-32 shrink-0 z-10 relative border-t border-slate-200" id="pricing">
-        <div className="text-center mb-10 max-w-md mx-auto">
-          <h2 className="text-2xl font-black text-[#1A2A44] mb-3 leading-tight">
-             Resolver isso custa menos do que um <span className="text-[#F59E0B] bg-[#FFFBEB] px-1 rounded border border-[#F59E0B]/20">saco de cimento</span>.
-          </h2>
-          <p className="text-slate-500 text-sm max-w-xs mx-auto">
-             Um único erro na obra custa 10x mais do que o acesso vitalício ao app.
-          </p>
+             
+             <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                 <!-- Card Começo -->
+                 <div class="bg-white/5 border border-white/10 p-6 rounded-2xl hover:border-brand-gold/50 transition-colors group">
+                     <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                         <i data-lucide="map" class="w-6 h-6 text-blue-400"></i>
+                     </div>
+                     <h3 class="text-white font-bold text-lg mb-2">Vai Começar?</h3>
+                     <p class="text-gray-400 text-sm">Evite o erro desde o dia 1. Comece com o cronograma certo e a lista exata do que comprar.</p>
+                 </div>
+                 
+                 <!-- Card Meio -->
+                 <div class="bg-white/5 border border-white/10 p-6 rounded-2xl hover:border-brand-gold/50 transition-colors group">
+                     <div class="w-10 h-10 bg-brand-gold/20 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                         <i data-lucide="alert-triangle" class="w-6 h-6 text-brand-gold"></i>
+                     </div>
+                     <h3 class="text-white font-bold text-lg mb-2">Tá no meio ou atrasado?</h3>
+                     <p class="text-gray-400 text-sm">Organize o caos. Descubra onde o dinheiro está vazando e coloque a obra de volta nos trilhos.</p>
+                 </div>
+                 
+                 <!-- Card Fim -->
+                 <div class="bg-white/5 border border-white/10 p-6 rounded-2xl hover:border-brand-gold/50 transition-colors group">
+                     <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                         <i data-lucide="paint-bucket" class="w-6 h-6 text-green-400"></i>
+                     </div>
+                     <h3 class="text-white font-bold text-lg mb-2">Acabamento ou Reforma?</h3>
+                     <p class="text-gray-400 text-sm">A fase mais cara. Um piso ou tinta comprado errado aqui custa 10x mais que o app.</p>
+                 </div>
+             </div>
         </div>
+    </section>
 
-        <div className="space-y-6 max-w-sm mx-auto">
-          
-          {/* 1. PLANO MENSAL (7 DIAS GRATIS) */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-[#FFC107] transition-all duration-300 group shadow-sm">
-            <div className="flex justify-between items-center mb-4">
-               <h3 className="font-bold text-slate-700 text-lg">Mensal</h3>
-               <span className="text-[10px] font-bold bg-[#10B981] text-white px-3 py-1.5 rounded-full uppercase tracking-wide flex items-center gap-1">
-                  <Clock size={12} /> 7 Dias Grátis
-               </span>
-            </div>
-            <div className="mb-6">
-               <p className="text-xs text-slate-400 font-bold uppercase mb-1">Hoje você paga:</p>
-               <div className="flex items-baseline gap-1">
-                 <span className="text-sm font-medium text-slate-400">R$</span>
-                 <span className="text-4xl font-black text-[#10B981]">0,00</span>
-               </div>
-               <p className="text-xs text-slate-500 mt-2 font-medium">Após 7 dias: R$ 29,90/mês</p>
-            </div>
-            
-            {/* Trial Logic Warning */}
-            <div className="bg-blue-50 border border-blue-100 p-3 rounded-lg mb-4 text-left">
-                <p className="text-[11px] text-blue-800 leading-tight">
-                    <strong>Como funciona:</strong> Use o app completo e o Zé da Obra (IA) por 7 dias. Se não cancelar, a assinatura mensal inicia automaticamente.
+    <!-- 3) SOLUÇÃO PARA LEIGO -->
+    <section id="como-funciona" class="py-20 md:py-24 bg-brand-darkCard">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">
+                    Controle de obra pra quem <br><span class="text-brand-gold">não entende de obra.</span>
+                </h2>
+                <p class="text-xl text-gray-400">
+                    Você vê o que fazer agora, o que vem depois e o que precisa comprar.
+                    <br><strong class="text-white">Simples, passo a passo. Do jeito que dá pra entender.</strong>
                 </p>
             </div>
 
-            <a 
-              href="https://www.maosdaobra.online/register?plan=MENSAL"
-              className="w-full block text-center py-3.5 rounded-xl border border-slate-300 text-slate-600 font-bold hover:bg-slate-50 transition-colors text-sm mb-4"
-            >
-              Começar Teste Grátis
-            </a>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-l-blue-500 hover:bg-white/5 transition-colors">
+                    <h3 class="text-xl font-bold text-white mb-2">Etapas Claras</h3>
+                    <p class="text-sm text-gray-400">O app te diz: "Agora é hora de levantar parede". Sem mistério.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-l-green-500 hover:bg-white/5 transition-colors">
+                    <h3 class="text-xl font-bold text-white mb-2">Materiais Certos</h3>
+                    <p class="text-sm text-gray-400">Lista pronta do que comprar para aquela etapa. Nem a mais, nem a menos.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-l-brand-gold hover:bg-white/5 transition-colors">
+                    <h3 class="text-xl font-bold text-white mb-2">Gastos Organizados</h3>
+                    <p class="text-sm text-gray-400">Saiba exatamente para onde foi cada centavo do seu bolso.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-             {/* Features List */}
-             <div className="space-y-3 border-t border-slate-100 pt-4">
-               <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <Check size={16} className="text-slate-400" /> <span>Controle de Gastos</span>
-               </div>
-               <div className="flex items-center gap-3 text-sm font-bold text-slate-600">
-                  <Bot size={16} className="text-blue-500" /> <span className="text-blue-600">Zé da Obra (IA) incluso no teste</span>
-               </div>
-            </div>
-          </div>
+    <!-- 4) PROVA REAL (TELAS DO APP - REALISTAS) -->
+    <section class="py-20 bg-gray-900 border-y border-white/5 overflow-hidden">
+        <div class="container mx-auto px-4 text-center">
+            <span class="text-brand-gold font-bold text-sm tracking-widest uppercase mb-2 block">Transparência Total</span>
+            <h2 class="text-3xl font-bold text-white mb-2">Por dentro do aplicativo</h2>
+            <p class="text-sm text-gray-500 mb-12">Essas telas são reais. É exatamente assim que o app funciona.</p>
 
-          {/* 2. PLANO SEMESTRAL (7 DIAS GRATIS) */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-[#FFC107] transition-all duration-300 group shadow-md relative overflow-hidden">
-             <div className="absolute top-0 right-0 bg-blue-50 text-blue-700 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
-                Popular
-            </div>
-            <div className="flex justify-between items-center mb-4">
-               <h3 className="font-bold text-[#1A2A44] text-lg">Semestral</h3>
-               <span className="text-[10px] font-bold bg-[#10B981] text-white px-3 py-1.5 rounded-full uppercase tracking-wide flex items-center gap-1">
-                  <Clock size={12} /> 7 Dias Grátis
-               </span>
-            </div>
-            <div className="mb-6">
-               <p className="text-xs text-slate-400 font-bold uppercase mb-1">Hoje você paga:</p>
-               <div className="flex items-baseline gap-1">
-                 <span className="text-sm font-medium text-slate-400">R$</span>
-                 <span className="text-4xl font-black text-[#10B981]">0,00</span>
-               </div>
-               <p className="text-xs text-slate-500 mt-2 font-medium">Após 7 dias: R$ 97,00/semestre</p>
-            </div>
-            
-            {/* Trial Logic Warning */}
-            <div className="bg-blue-50 border border-blue-100 p-3 rounded-lg mb-4 text-left">
-                <p className="text-[11px] text-blue-800 leading-tight">
-                    <strong>Como funciona:</strong> Use tudo (incluindo Zé da Obra) por 7 dias. Depois disso, o acesso bloqueia se não confirmar a assinatura.
-                </p>
-            </div>
-            
-            <a 
-              href="https://maosdaobra.online/register?plan=SEMESTRAL"
-              className="w-full block text-center py-3.5 rounded-xl border-2 border-[#1A2A44] text-[#1A2A44] font-bold hover:bg-blue-50 transition-colors text-sm mb-4"
-            >
-              Começar Teste Grátis
-            </a>
+            <!-- Grid de Mockups -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Screen 1: Visão Geral -->
+                <div class="flex flex-col items-center group">
+                    <div class="relative w-full max-w-[240px] aspect-[9/18] rounded-3xl overflow-hidden border-4 border-gray-800 shadow-xl bg-white">
+                         <img src="https://placehold.co/240x480/f8fafc/0f172a?text=Cronograma+Obra&font=roboto" alt="Tela Visão Geral" class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <p class="text-white text-sm font-bold mt-4">Cronograma Simples</p>
+                </div>
 
-             {/* Features List */}
-             <div className="space-y-3 border-t border-slate-100 pt-4">
-               <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <Check size={16} className="text-slate-400" /> <span>Controle de Gastos</span>
-               </div>
-               <div className="flex items-center gap-3 text-sm font-bold text-slate-600">
-                  <Bot size={16} className="text-blue-500" /> <span className="text-blue-600">Zé da Obra (IA) incluso no teste</span>
-               </div>
-            </div>
-          </div>
+                <!-- Screen 2: Materiais -->
+                <div class="flex flex-col items-center group">
+                    <div class="relative w-full max-w-[240px] aspect-[9/18] rounded-3xl overflow-hidden border-4 border-gray-800 shadow-xl bg-white">
+                         <img src="https://placehold.co/240x480/f8fafc/0f172a?text=Lista+Materiais&font=roboto" alt="Tela Lista de Compras" class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <p class="text-white text-sm font-bold mt-4">Lista de Compras</p>
+                </div>
 
-          {/* 3. PLANO VITALÍCIO (AGRESSIVO - ANCHOR) */}
-          <div className="relative transform z-20 mt-8 scale-105">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#FFC107] to-orange-500 rounded-3xl blur opacity-40 animate-pulse pointer-events-none"></div>
-            
-            <div className="bg-[#1A2A44] rounded-2xl p-1 relative shadow-2xl">
-                <div className="bg-[#0F172A] rounded-xl p-6 text-white relative overflow-hidden">
+                <!-- Screen 3: Zé -->
+                <div class="flex flex-col items-center group">
+                    <div class="relative w-full max-w-[240px] aspect-[9/18] rounded-3xl overflow-hidden border-4 border-gray-800 shadow-xl bg-white">
+                         <img src="https://placehold.co/240x480/f8fafc/0f172a?text=Chat+com+Z%C3%A9&font=roboto" alt="Tela Chat com Zé" class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <p class="text-white text-sm font-bold mt-4">Ajuda na Hora</p>
+                </div>
+
+                <!-- Screen 4: Financeiro -->
+                <div class="flex flex-col items-center group">
+                    <div class="relative w-full max-w-[240px] aspect-[9/18] rounded-3xl overflow-hidden border-4 border-gray-800 shadow-xl bg-white">
+                         <img src="https://placehold.co/240x480/f8fafc/0f172a?text=Gastos+Obra&font=roboto" alt="Tela Financeira" class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <p class="text-white text-sm font-bold mt-4">Controle de Gastos</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5) ZÉ DA OBRA (HUMANIZADO) -->
+    <section id="ze-da-obra" class="py-24 relative overflow-hidden bg-brand-darkCard">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12 max-w-5xl mx-auto">
+                
+                <!-- Visual (Avatar Grande) -->
+                <div class="w-full md:w-1/3 flex justify-center">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-brand-gold blur-[60px] opacity-30"></div>
+                        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Construction%20Worker.png" class="w-48 h-48 md:w-64 md:h-64 object-contain relative z-10 animate-float">
+                    </div>
+                </div>
+
+                <!-- Copy -->
+                <div class="flex-1 text-center md:text-left">
+                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-6 text-white">Antes de gastar, <br><span class="text-brand-gold">pergunta pro Zé.</span></h2>
+                    <p class="text-gray-400 text-lg mb-8">
+                        Nunca mais tome uma decisão sozinho. O Zé é seu consultor 24h.
+                        <br><strong>Fala simples. Responde na hora.</strong>
+                        <br>Te ajuda a evitar erro bobo que custa caro.
+                    </p>
                     
-                    <div className="absolute top-0 right-0 bg-[#FFC107] text-[#1A2A44] text-[10px] font-black px-4 py-1.5 rounded-bl-xl uppercase tracking-wider">
-                        OFERTA ESPECIAL
+                    <div class="space-y-4 mb-8">
+                        <div class="bg-white/5 p-4 rounded-xl rounded-bl-none text-left border border-white/10 inline-block max-w-md">
+                            <p class="text-brand-gold text-xs font-bold mb-1">VOCÊ PERGUNTA:</p>
+                            <p class="text-white text-sm">"Zé, o pedreiro pediu R$ 100 no metro do piso. Tá caro?"</p>
+                        </div>
+                        <br>
+                        <div class="bg-brand-gold/10 p-4 rounded-xl rounded-br-none text-left border border-brand-gold/30 inline-block max-w-md">
+                            <p class="text-brand-gold text-xs font-bold mb-1">O ZÉ RESPONDE:</p>
+                            <p class="text-gray-200 text-sm">"Tá bem acima da média da sua região, que é R$ 60. Tenta negociar ou busca outro orçamento. Você economizaria uns R$ 2.000 nessa área."</p>
+                        </div>
                     </div>
 
-                    <h3 className="font-bold text-2xl text-[#FFC107] mb-2 flex items-center gap-2">
-                        <Lock size={20} /> Vitalício
-                    </h3>
-                    <p className="text-xs text-slate-400 mb-6 font-medium">Pagamento único. Nunca expira.</p>
-                    
-                    <div className="flex items-baseline gap-3 mb-6">
-                        <span className="text-base text-slate-500 line-through decoration-slate-500">R$ 997</span>
-                        <div className="flex items-baseline">
-                            <span className="text-xl font-bold text-[#FFC107] mr-1">R$</span>
-                            <span className="text-5xl font-black text-white tracking-tighter">247</span>
-                        </div>
-                    </div>
-                    
-                    <div className="space-y-4 mb-8 border-t border-white/10 pt-6">
-                        <div className="flex items-center gap-3 text-sm font-bold text-white">
-                            <CheckCircle2 size={18} className="text-[#FFC107]"/> <span>App Liberado Pra Sempre</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-sm font-bold text-white">
-                            <Bot size={18} className="text-[#FFC107]"/> <span className="text-[#FFC107]">Zé da Obra (IA) Incluso</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-sm font-bold text-white">
-                            <Gift size={18} className="text-[#FFC107]"/> <span>Kit Contratos & Checklists</span>
-                        </div>
-                    </div>
-
-                    <a 
-                      href="https://maosdaobra.online/register?plan=VITALICIO"
-                      className="w-full block text-center py-4 rounded-xl bg-[#10B981] hover:bg-[#059669] text-white font-black text-lg shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] transform transition-transform active:scale-[0.98] flex items-center justify-center gap-2 group relative z-30"
-                    >
-                        EVITAR PREJUÍZO AGORA
-                        <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    <a href="#precos" class="text-brand-gold font-bold hover:underline flex items-center justify-center md:justify-start gap-2">
+                        Quero essa segurança na minha obra <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
                 </div>
             </div>
-             <p className="text-center text-[11px] text-slate-500 mt-4 flex items-center justify-center gap-1.5 font-medium">
-                 <ShieldCheck size={14} className="text-green-600"/> Garantia Incondicional de 30 dias
-             </p>
-          </div>
         </div>
-      </div>
+    </section>
 
-      {/* ==========================================
-          10. FECHAMENTO
-      ========================================== */}
-      <footer className="py-12 bg-white text-center border-t border-slate-100 pb-32 shrink-0">
-          <div className="max-w-xs mx-auto px-4">
-             <p className="text-[#1A2A44] font-black text-xl mb-3 leading-tight">
-                 O diagnóstico mostrou o problema. <br/> Agora a decisão é sua.
-             </p>
-             <p className="text-slate-500 text-sm font-medium">
-                 Continuar no escuro e perder dinheiro... ou controlar sua obra de verdade.
-             </p>
-          </div>
-          <div className="mt-8 opacity-50 text-[10px] text-slate-400 uppercase tracking-widest">
-              © 2025 Mãos da Obra
-          </div>
-      </footer>
-
-      {/* STICKY CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-50">
-         <div className="max-w-md mx-auto">
-            <button 
-                onClick={scrollToPricing}
-                className="w-full bg-[#10B981] hover:bg-[#059669] text-white text-lg font-black py-4 rounded-xl shadow-lg shadow-green-500/30 transform transition-all active:scale-[0.98] flex items-center justify-center gap-2 animate-pulse-slow"
-            >
-               QUERO ECONOMIZAR
-               <ArrowRight size={22} className="text-white" />
-            </button>
-         </div>
-      </div>
-
-    </div>
-  );
-};
-
-// --- HELPER COMPONENTS ---
-
-const DiagnosisItem = ({ text }: { text: string }) => (
-    <div className="flex items-start gap-3 bg-red-50 p-3.5 rounded-xl border border-red-100/80">
-        <AlertTriangle size={18} className="text-[#DC2626] shrink-0 mt-0.5" />
-        <span className="text-slate-800 text-sm font-bold leading-tight">{text}</span>
-    </div>
-);
-
-const PressureCard = ({ icon, text }: { icon: React.ReactNode, text: string }) => (
-    <div className="flex items-center gap-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-        {icon}
-        <span className="font-bold text-[#1A2A44] text-sm">{text}</span>
-    </div>
-);
-
-const SolutionCheck = ({ text }: { text: string }) => (
-    <div className="flex items-center gap-3">
-        <div className="w-6 h-6 rounded-full bg-[#10B981]/10 flex items-center justify-center shrink-0">
-            <Check size={14} className="text-[#10B981]" strokeWidth={3} />
-        </div>
-        <span className="text-slate-700 font-bold text-sm">{text}</span>
-    </div>
-);
-
-// MOCKUP CARD FOR CAROUSEL
-const MockupCard = ({ title, color }: { title: string, color: 'green' | 'red' | 'blue' | 'yellow' }) => {
-    
-    const colors = {
-        green: { border: 'border-green-500', bar: 'bg-green-500', icon: '✓' },
-        red: { border: 'border-red-500', bar: 'bg-red-500', icon: '!' },
-        blue: { border: 'border-blue-500', bar: 'bg-blue-500', icon: '+' },
-        yellow: { border: 'border-yellow-500', bar: 'bg-yellow-500', icon: '?' },
-    };
-
-    const c = colors[color];
-
-    return (
-        <div className="shrink-0 w-[200px] h-[340px] bg-white rounded-[2rem] border-8 border-slate-800 relative overflow-hidden flex flex-col shadow-xl">
-            <div className="h-6 bg-slate-100 border-b border-slate-200 flex justify-center items-center"><div className="w-16 h-2 bg-slate-300 rounded-full"></div></div>
-            <div className="p-3 bg-slate-50 flex-1 flex flex-col gap-2">
-                <div className="h-4 w-20 bg-slate-200 rounded mb-2"></div>
-                <div className={`p-2 bg-white rounded-lg border-l-4 ${c.border} shadow-sm`}>
-                    <div className="h-2 w-16 bg-slate-200 rounded mb-1"></div>
-                    <div className="h-2 w-8 bg-slate-100 rounded"></div>
+    <!-- 6) RESULTADOS LÓGICOS (MATEMÁTICA DE VALOR) -->
+    <section class="py-20 bg-brand-dark">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold text-white mb-12">Matemática simples: o app se paga rápido.</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="p-6">
+                    <h3 class="text-4xl font-bold text-white mb-2">1 Erro</h3>
+                    <p class="text-xl text-brand-error font-medium">De piso ou revestimento custa R$ 500+</p>
                 </div>
-                <div className="p-2 bg-white rounded-lg border-l-4 border-slate-200 shadow-sm opacity-50">
-                    <div className="h-2 w-12 bg-slate-200 rounded mb-1"></div>
-                    <div className="h-2 w-10 bg-slate-100 rounded"></div>
+                <div class="p-6 border-y md:border-y-0 md:border-x border-white/10">
+                    <h3 class="text-4xl font-bold text-white mb-2">1 Semana</h3>
+                    <p class="text-xl text-brand-error font-medium">De atraso custa R$ 1.000+</p>
                 </div>
-                 <div className="p-2 bg-white rounded-lg border-l-4 border-slate-200 shadow-sm opacity-30">
-                    <div className="h-2 w-14 bg-slate-200 rounded mb-1"></div>
+                <div class="p-6">
+                    <h3 class="text-4xl font-bold text-white mb-2">O App</h3>
+                    <p class="text-xl text-green-400 font-medium">Custa menos que uma lata de tinta.</p>
                 </div>
-                <div className="mt-auto h-24 bg-slate-100 rounded-t-xl border-t border-slate-200"></div>
             </div>
-            <div className="absolute bottom-5 left-0 right-0 text-center">
-                <span className="text-[10px] text-slate-500 font-bold bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-slate-100 uppercase tracking-wide">
-                    {title}
-                </span>
+
+            <div class="mt-12">
+                <p class="text-gray-500 font-display font-bold text-lg uppercase tracking-widest">ERRAR NA OBRA CUSTA CARO.</p>
+                <p class="text-gray-400 text-sm mt-1">Normalmente quem paga a conta é você.</p>
             </div>
         </div>
-    );
-}
+    </section>
 
+    <!-- 7) COMPARAÇÃO DE VALOR (ANCORAGEM) -->
+    <section class="py-24 bg-brand-gold text-brand-dark overflow-hidden relative">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] opacity-10"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h2 class="text-xl font-bold uppercase tracking-widest mb-4 opacity-80">Pense bem...</h2>
+            <p class="text-3xl md:text-5xl font-display font-bold max-w-4xl mx-auto leading-tight">
+                Resolver tudo isso custa menos do que <span class="bg-brand-dark text-brand-gold px-2">um saco de cimento.</span>
+            </p>
+            <p class="mt-6 text-lg font-medium opacity-80">Um erro bobo na obra custa muito mais do que isso.</p>
+        </div>
+    </section>
+
+    <!-- 8) AGORA SIM: OFERTA E PLANOS -->
+    <section id="precos" class="py-24 bg-brand-dark relative">
+        <div class="container mx-auto px-4 relative z-10">
+            
+            <!-- Branding Forte -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 justify-center mb-4">
+                    <div class="w-12 h-12 bg-brand-gold rounded-xl flex items-center justify-center">
+                        <i data-lucide="hard-hat" class="text-white w-6 h-6"></i>
+                    </div>
+                    <span class="font-display font-bold text-3xl text-white">MÃOS DA OBRA</span>
+                </div>
+                <h2 class="text-xl text-gray-400">A sua obra na palma da sua mão.</h2>
+            </div>
+
+            <!-- Pricing Grid -->
+            <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto items-start">
+                
+                <!-- PLANO MENSAL -->
+                <div class="bg-white/5 rounded-3xl p-8 border border-white/10 backdrop-blur-sm hover:border-white/20 transition-all flex flex-col h-full">
+                    <h3 class="text-lg font-medium text-gray-300">Mensal</h3>
+                    <div class="my-4">
+                        <span class="text-3xl font-bold text-white">R$ 29,90</span><span class="text-gray-500">/mês</span>
+                    </div>
+                    <!-- Justificativa -->
+                    <div class="mb-6 text-sm font-medium text-green-400">
+                        Mais barato que um saco de cimento.
+                    </div>
+                    
+                    <!-- Bullets (Movido para cima do botão) -->
+                    <div class="mt-2 space-y-3 flex-1 mb-8">
+                        <p class="text-sm text-gray-300 flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Saiba o que fazer agora e depois</p>
+                        <p class="text-sm text-gray-300 flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Lista de materiais certa</p>
+                        <p class="text-sm text-gray-300 flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Controle de gastos</p>
+                        <p class="text-sm text-gray-300 flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Gestão básica de equipe</p>
+                        <div class="pt-2 border-t border-white/10">
+                            <p class="text-sm text-white font-bold flex gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> 7 dias de Zé da Obra</p>
+                        </div>
+                    </div>
+
+                    <a href="https://www.maosdaobra.online/register?plan=MENSAL" class="block w-full text-center py-3 rounded-xl border border-white/20 text-white hover:bg-white/5 transition-colors font-semibold mt-auto">
+                        Quero parar de perder dinheiro
+                    </a>
+                </div>
+
+                <!-- PLANO SEMESTRAL -->
+                <div class="bg-white/5 rounded-3xl p-8 border border-white/10 backdrop-blur-sm hover:border-white/20 transition-all flex flex-col h-full relative overflow-hidden">
+                    
+                    <!-- Savings Flag -->
+                    <div class="absolute top-0 right-0">
+                        <div class="bg-green-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl shadow-lg tracking-wide">
+                            ECONOMIA DE 46%
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-medium text-gray-300">Semestral</h3>
+                    <div class="my-4">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-bold text-white">R$ 16,16</span>
+                            <span class="text-gray-500">/mês</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Cobrado R$ 97,00 a cada 6 meses</p>
+                    </div>
+                    <!-- Justificativa -->
+                    <div class="mb-6 text-sm font-medium text-green-400">
+                        Um erro que evita, já paga o plano.
+                    </div>
+
+                    <!-- Bullets (Movido para cima do botão) -->
+                    <div class="mt-2 space-y-3 flex-1 mb-8">
+                        <p class="text-sm text-gray-300 flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Tudo do plano mensal</p>
+                        <p class="text-sm text-gray-300 flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Mais controle da obra</p>
+                        <p class="text-sm text-gray-300 flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Relatórios organizados</p>
+                        <div class="pt-2 border-t border-white/10">
+                            <p class="text-sm text-white font-bold flex gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> 7 dias de Zé da Obra</p>
+                        </div>
+                    </div>
+
+                    <a href="https://maosdaobra.online/register?plan=SEMESTRAL" class="block w-full text-center py-3 rounded-xl border border-white/20 text-white hover:bg-white/5 transition-colors font-semibold mt-auto">
+                        Estancar prejuízo agora
+                    </a>
+                </div>
+
+                <!-- PLANO VITALÍCIO (Hero) -->
+                <div class="bg-gradient-to-b from-gray-900 to-black rounded-[2rem] p-8 border-2 border-brand-gold shadow-[0_0_50px_rgba(217,119,6,0.3)] relative transform md:scale-110 z-20 flex flex-col h-full">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-gold text-brand-dark px-6 py-2 rounded-full font-bold text-sm shadow-lg tracking-wider uppercase flex items-center gap-2 whitespace-nowrap">
+                        <i data-lucide="crown" class="w-4 h-4 fill-brand-dark"></i> Oferta Limitada
+                    </div>
+
+                    <h3 class="text-xl font-bold text-brand-gold text-center">ACESSO VITALÍCIO</h3>
+                    <div class="my-6 text-center">
+                        <span class="text-gray-500 line-through text-lg">R$ 997,00</span>
+                        <div class="text-6xl font-display font-bold text-white tracking-tighter">R$ 247</div>
+                        <span class="text-green-500 font-bold text-sm bg-green-500/10 px-2 py-1 rounded mt-2 inline-block">Pagamento Único (Sem mensalidade)</span>
+                        <p class="text-sm text-brand-gold font-bold mt-2 opacity-90">ou em até 12x no cartão</p>
+                    </div>
+
+                    <!-- Bullets & Bonus (Movido para cima do botão) -->
+                    <div class="space-y-4 flex-1 mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-brand-gold/20 p-1.5 rounded-full"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i></div>
+                            <span class="text-gray-200 font-medium">Acesso para SEMPRE</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-brand-gold/10 p-2 rounded-lg -mx-2">
+                            <div class="bg-brand-gold p-1.5 rounded-full"><i data-lucide="star" class="w-4 h-4 text-white"></i></div>
+                            <span class="text-white font-bold">Zé da Obra ILIMITADO</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="bg-brand-gold/20 p-1.5 rounded-full"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i></div>
+                            <span class="text-gray-200 font-medium">Gestão Financeira Completa</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="bg-brand-gold/20 p-1.5 rounded-full"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i></div>
+                            <span class="text-gray-200 font-medium">Relatórios Detalhados</span>
+                        </div>
+                        
+                        <!-- BÔNUS -->
+                        <div class="border-t border-white/10 pt-4 mt-4">
+                            <p class="text-xs text-brand-gold font-bold uppercase mb-3 tracking-widest">Bônus Inclusos (Grátis):</p>
+                            <div class="space-y-2">
+                                <div class="flex items-start gap-2">
+                                    <i data-lucide="gift" class="w-4 h-4 text-brand-gold mt-0.5"></i>
+                                    <span class="text-sm text-gray-400">Checklist Anti Dor de Cabeça Pós-Obra</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i data-lucide="gift" class="w-4 h-4 text-brand-gold mt-0.5"></i>
+                                    <span class="text-sm text-gray-400">Calculadora de Materiais</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i data-lucide="gift" class="w-4 h-4 text-brand-gold mt-0.5"></i>
+                                    <span class="text-sm text-gray-400">Pack de Contratos Prontos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://maosdaobra.online/register?plan=VITALICIO" class="btn-primary w-full py-4 rounded-xl text-lg shadow-xl flex items-center justify-center gap-2 animate-pulse-slow mt-auto">
+                        Quero destravar o controle
+                        <i data-lucide="lock" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Garantia -->
+            <div class="max-w-2xl mx-auto mt-20 bg-white/5 rounded-2xl p-6 border border-white/10 flex items-center gap-6">
+                <div class="w-16 h-16 bg-brand-gold/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-brand-gold"></i>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-1">Garantia Blindada de 30 Dias</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Se não economizar pelo menos o valor que pagou no app no primeiro mês, devolvemos 100% do seu dinheiro. Sem perguntas.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 9) DEPOIMENTOS (ANTES E DEPOIS - PROVA REAL) -->
+    <section id="depoimentos" class="py-24 bg-brand-darkCard border-y border-white/5">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-4xl font-display font-bold text-center mb-16 text-white">
+                Quem usa diz:
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-brand-dark p-8 rounded-3xl border border-white/10 relative">
+                    <p class="text-brand-error text-xs font-bold uppercase mb-2">ANTES:</p>
+                    <p class="text-gray-500 text-sm italic mb-4">"Eu tava perdida, comprava coisa errada e o pedreiro ficava parado..."</p>
+                    <div class="h-px bg-white/10 w-full mb-4"></div>
+                    <p class="text-green-400 text-xs font-bold uppercase mb-2">AGORA:</p>
+                    <p class="text-gray-300 italic mb-6">"O app me disse exatamente quanto piso comprar. Sobrou dinheiro pra pintar a sala e o corredor."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-white text-xs">RM</div>
+                        <p class="text-white font-bold text-sm">Ricardo M.</p>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-brand-dark p-8 rounded-3xl border border-brand-gold/30 relative shadow-lg">
+                    <p class="text-brand-error text-xs font-bold uppercase mb-2">ANTES:</p>
+                    <p class="text-gray-500 text-sm italic mb-4">"Achava que ia gastar X, gastei 2X. Fui enganada nos preços..."</p>
+                    <div class="h-px bg-white/10 w-full mb-4"></div>
+                    <p class="text-green-400 text-xs font-bold uppercase mb-2">AGORA:</p>
+                    <p class="text-gray-300 italic mb-6">"O Zé achou tijolo por R$ 0,85 quando eu ia pagar R$ 1,20. Pagou a assinatura no primeiro dia."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-white text-xs">AL</div>
+                        <p class="text-white font-bold text-sm">Ana Luiza</p>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-brand-dark p-8 rounded-3xl border border-white/10 relative">
+                    <p class="text-brand-error text-xs font-bold uppercase mb-2">ANTES:</p>
+                    <p class="text-gray-500 text-sm italic mb-4">"Papelada sumia, eu não sabia o que tinha pago pro eletricista..."</p>
+                    <div class="h-px bg-white/10 w-full mb-4"></div>
+                    <p class="text-green-400 text-xs font-bold uppercase mb-2">AGORA:</p>
+                    <p class="text-gray-300 italic mb-6">"Tenho o controle total financeiro. Não pago nada em duplicidade. Obra sem atraso existe!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-white text-xs">CJ</div>
+                        <p class="text-white font-bold text-sm">Carlos Jr.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10) FAQ (OBJEÇÕES) -->
+    <section class="py-20 bg-brand-dark">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-2xl font-bold text-white mb-8 text-center">Dúvidas Comuns</h2>
+            
+            <div class="space-y-4">
+                <!-- Nova Pergunta Trial -->
+                <details class="group bg-white/5 rounded-xl border border-white/10 open:bg-white/10 transition-colors">
+                    <summary class="flex cursor-pointer items-center justify-between p-4 text-white font-medium">
+                        Como funciona o teste de 7 dias do Zé da Obra?
+                        <i data-lucide="chevron-down" class="w-5 h-5 group-open:rotate-180 transition-transform text-brand-gold"></i>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-400 text-sm">
+                        Nos planos Mensal e Semestral, você tem 7 dias gratuitos para usar a IA do Zé e tirar dúvidas. Após esse período, o recurso é bloqueado, ficando exclusivo do plano Vitalício.
+                    </div>
+                </details>
+
+                <details class="group bg-white/5 rounded-xl border border-white/10 open:bg-white/10 transition-colors">
+                    <summary class="flex cursor-pointer items-center justify-between p-4 text-white font-medium">
+                        Eu preciso entender de obra pra usar?
+                        <i data-lucide="chevron-down" class="w-5 h-5 group-open:rotate-180 transition-transform text-brand-gold"></i>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-400 text-sm">
+                        Não! O app foi feito justamente para quem não entende. Ele te guia passo a passo e traduz os termos difíceis.
+                    </div>
+                </details>
+
+                <details class="group bg-white/5 rounded-xl border border-white/10 open:bg-white/10 transition-colors">
+                    <summary class="flex cursor-pointer items-center justify-between p-4 text-white font-medium">
+                        Isso serve pra casa grande e pequena?
+                        <i data-lucide="chevron-down" class="w-5 h-5 group-open:rotate-180 transition-transform text-brand-gold"></i>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-400 text-sm">
+                        Sim, serve para desde pequenas reformas de banheiro até a construção de uma casa inteira do zero.
+                    </div>
+                </details>
+
+                <details class="group bg-white/5 rounded-xl border border-white/10 open:bg-white/10 transition-colors">
+                    <summary class="flex cursor-pointer items-center justify-between p-4 text-white font-medium">
+                        O Zé da Obra responde que tipo de dúvida?
+                        <i data-lucide="chevron-down" class="w-5 h-5 group-open:rotate-180 transition-transform text-brand-gold"></i>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-400 text-sm">
+                        Qualquer dúvida sobre materiais, preços, procedimentos e orçamentos. É como ter um consultor experiente no bolso.
+                    </div>
+                </details>
+                
+                <details class="group bg-white/5 rounded-xl border border-white/10 open:bg-white/10 transition-colors">
+                    <summary class="flex cursor-pointer items-center justify-between p-4 text-white font-medium">
+                        Como acesso depois de comprar?
+                        <i data-lucide="chevron-down" class="w-5 h-5 group-open:rotate-180 transition-transform text-brand-gold"></i>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-400 text-sm">
+                        Você recebe um e-mail imediatamente com seu login e senha. Funciona no celular e no computador.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black pt-12 pb-8 border-t border-white/10 text-sm">
+        <div class="container mx-auto px-4 text-center">
+            
+            <!-- Pre-Footer CTA -->
+            <div class="mb-12">
+                <h3 class="text-white text-lg font-bold mb-4">Calma. Agora dá pra controlar.</h3>
+                <button onclick="scrollToSection('precos')" class="btn-primary px-8 py-3 rounded-full font-bold">Começar Agora</button>
+            </div>
+
+            <div class="flex items-center justify-center gap-3 mb-8 opacity-70">
+                <div class="w-8 h-8 bg-brand-gold rounded-lg logo-tilt flex items-center justify-center">
+                    <i data-lucide="hard-hat" class="w-4 h-4 text-white"></i>
+                </div>
+                <span class="font-bold text-white tracking-widest">MÃOS DA OBRA</span>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto text-gray-500 mb-8 text-left md:text-center">
+                <a href="#" class="hover:text-brand-gold transition-colors">Termos de Uso</a>
+                <a href="#" class="hover:text-brand-gold transition-colors">Política de Privacidade</a>
+                <a href="#" class="hover:text-brand-gold transition-colors">Central de Ajuda</a>
+                <a href="#" class="hover:text-brand-gold transition-colors">Contato</a>
+            </div>
+
+            <p class="text-gray-600">&copy; <span id="year"></span> Mãos da Obra Tecnologia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- MOBILE STICKY CTA -->
+    <div class="md:hidden fixed bottom-0 w-full bg-brand-darkCard border-t border-white/10 p-4 z-50 flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+        <div>
+            <p class="text-white font-bold text-lg">A partir de <span class="text-brand-gold">R$ 29,90</span></p>
+        </div>
+        <button onclick="scrollToSection('precos')" class="btn-primary px-6 py-3 rounded-lg text-sm shadow-lg font-bold">
+            Garantir Agora
+        </button>
+    </div>
+
+    <!-- CHAT WIDGET -->
+    <div id="chat-widget-container"></div>
+
+    <!-- SCRIPTS -->
+    <script>
+        const ZE_IMAGE_SRC = "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Construction%20Worker.png";
+        const ZE_FALLBACK_URL = "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Construction%20Worker.png";
+
+        function getZeImage() { return ZE_IMAGE_SRC; }
+
+        document.addEventListener('DOMContentLoaded', () => {
+             document.getElementById('year').textContent = new Date().getFullYear();
+             lucide.createIcons();
+             
+             document.querySelectorAll('.ze-avatar').forEach(img => {
+                 img.onerror = function() { this.src = ZE_FALLBACK_URL; };
+             });
+
+             // Header Glass Effect on Scroll
+             window.addEventListener('scroll', () => {
+                 const header = document.querySelector('header');
+                 if (window.scrollY > 50) {
+                     header.classList.add('bg-brand-dark/90', 'shadow-2xl');
+                     header.classList.remove('border-b-0');
+                     header.classList.add('border-b', 'border-white/5');
+                 } else {
+                     header.classList.remove('bg-brand-dark/90', 'shadow-2xl', 'border-b', 'border-white/5');
+                     header.classList.add('border-b-0');
+                 }
+             });
+        });
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Chat Widget Logic
+        const chatContainer = document.getElementById('chat-widget-container');
+        let isChatOpen = false;
+        let messages = [
+             { text: "Olá! 👷‍♂️ Sou o Zé. Posso analisar seu orçamento agora?", sender: 'bot' }
+        ];
+
+        function renderChat() {
+            const zeImage = getZeImage();
+            
+            if (!isChatOpen) {
+                chatContainer.innerHTML = `
+                    <button onclick="toggleChat()" class="fixed bottom-24 md:bottom-8 right-4 z-40 bg-brand-gold hover:bg-brand-goldDark text-white p-4 rounded-full shadow-[0_0_20px_rgba(217,119,6,0.5)] transition-all hover:scale-110 active:scale-95 group animate-fade-in-up border-4 border-white/10">
+                        <span class="absolute top-0 right-0 flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <i data-lucide="message-square" class="w-7 h-7 fill-current"></i>
+                    </button>
+                `;
+            } else {
+                let msgsHtml = messages.map(msg => {
+                    if(msg.sender === 'user') {
+                        return `<div class="flex justify-end animate-fade-in-up"><div class="bg-brand-gold text-white rounded-2xl rounded-tr-sm p-3 max-w-[85%] text-sm shadow-sm"><p>${msg.text}</p></div></div>`;
+                    } else {
+                        return `<div class="flex justify-start animate-fade-in-up"><div class="flex items-end gap-2 max-w-[90%]"><img src="${zeImage}" onerror="this.src='${ZE_FALLBACK_URL}'" class="w-8 h-8 rounded-full border border-gray-600 mb-1 ze-avatar bg-brand-dark/50 p-0.5 object-cover"><div class="bg-gray-800 text-gray-200 rounded-2xl rounded-tl-sm p-3 text-sm shadow-md border border-white/10"><p class="font-bold text-brand-gold mb-1 text-xs uppercase tracking-wide">Zé da Obra:</p><p>${msg.text}</p></div></div></div>`;
+                    }
+                }).join('');
+
+                chatContainer.innerHTML = `
+                <div class="fixed bottom-24 md:bottom-24 right-4 w-[90vw] md:w-[360px] bg-brand-darkCard rounded-3xl shadow-2xl border border-white/10 z-50 overflow-hidden flex flex-col h-[500px] animate-fade-in-up">
+                    <div class="bg-gradient-to-r from-brand-gold to-brand-goldDark p-4 flex justify-between items-center shadow-md z-10">
+                        <div class="flex items-center gap-3">
+                            <div class="relative">
+                                <img src="${zeImage}" onerror="this.src='${ZE_FALLBACK_URL}'" class="w-10 h-10 rounded-full border-2 border-white ze-avatar bg-brand-dark/50 p-1 object-cover">
+                                <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-brand-gold rounded-full"></div>
+                            </div>
+                            <div><h4 class="font-bold text-white text-sm">Zé da Obra</h4><p class="text-[10px] text-white/80 font-medium">Online agora</p></div>
+                        </div>
+                        <button onclick="toggleChat()" class="text-white/80 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+                    </div>
+                    <div id="chat-msgs" class="flex-1 bg-brand-dark p-5 space-y-4 overflow-y-auto">${msgsHtml}</div>
+                    <div class="p-3 bg-brand-darkCard border-t border-white/10 flex gap-2">
+                        <input type="text" id="chat-input" placeholder="Digite aqui..." class="flex-1 bg-brand-dark rounded-full h-10 px-4 text-sm text-white focus:outline-none focus:ring-1 focus:ring-brand-gold border border-white/10" onkeypress="if(event.key === 'Enter') sendUserMessage(this.value)" />
+                        <button onclick="sendUserMessage(document.getElementById('chat-input').value)" class="w-10 h-10 bg-brand-gold hover:bg-brand-goldDark rounded-full flex items-center justify-center text-white transition-colors"><i data-lucide="send" class="w-4 h-4 ml-0.5"></i></button>
+                    </div>
+                </div>`;
+                
+                const msgsDiv = document.getElementById('chat-msgs');
+                if(msgsDiv) msgsDiv.scrollTop = msgsDiv.scrollHeight;
+                
+                document.querySelectorAll('.ze-avatar').forEach(img => { img.onerror = function() { this.src = ZE_FALLBACK_URL; }; });
+            }
+            lucide.createIcons();
+        }
+
+        function toggleChat() {
+            isChatOpen = !isChatOpen;
+            renderChat();
+        }
+
+        function sendUserMessage(text) {
+            if(!text.trim()) return;
+            messages.push({ text: text, sender: 'user' });
+            renderChat();
+            setTimeout(() => {
+                const response = "Para te dar essa resposta com precisão técnica e economizar seu dinheiro, eu preciso que você ative o plano Vitalício. Está com um preço incrível hoje!";
+                messages.push({ text: response, sender: 'bot' });
+                renderChat();
+            }, 1000);
+        }
+        
+        renderChat();
+    </script>
+</body>
+</html>
