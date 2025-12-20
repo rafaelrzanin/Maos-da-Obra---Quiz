@@ -496,3 +496,4 @@ const MockupCard = ({ title, color }: { title: string, color: 'green' | 'red' | 
         </div>
     );
 }
+
